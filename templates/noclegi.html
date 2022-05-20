@@ -46,7 +46,37 @@
     <hr />
     <h5>LISTA NOCLEGÓW NA DZIEŃ ...</h5>
     <hr />
-
     tu też możliwość edycji danych
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>MIEJSCOWOŚĆ</th>
+                <th>NAZWISKO</th>
+                <th>IMIĘ</th>
+                <th>ULICA</th>
+                <th>NR DOMU</th>
+                <th>NR MIESZKANIA</th>
+                <th>NR TELEFONU</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for single_address in data_address %}
+            <tr>
+              <td>{{single_address[0] }}</td>
+              <td>{{ single_address[1][2] }}</td>
+              <td>{{ single_address[1][0] }}</td>
+              <td>{{ single_address[1][1] }}</td>
+              <td>{{ single_address[1][3] }}</td>
+              <td>{{ single_address[1][4] }}</td>
+              <td>{{ single_address[1][5] }}</td>
+              <td>{{ single_address[1][6] }}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
 </body>
 </html>
