@@ -33,8 +33,8 @@ def main():
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
 @app.route('/noclegi/', methods=['POST', 'GET'])
 def nocleg():
-    data = read_db()
-    data_address = list(data.items())
+    data_noclegi = read_db("noclegi.json")
+    data_address = list(data_noclegi.items())
     if request.method == "POST":
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
@@ -45,9 +45,9 @@ def nocleg():
         phone = request.form["phone"]
         # lista = (last_name, given_name, town, street, house, apartment, phone)
         # adresy.append(lista)
-        nocleg_id = int(max(list(data.keys()))) + 1
-        data[nocleg_id] = last_name, given_name, town, street, house, apartment, phone
-        write_db(data)
+        nocleg_id = int(max(list(data_noclegi.keys()))) + 1
+        data_noclegi[nocleg_id] = last_name, given_name, town, street, house, apartment, phone
+        write_db(data_noclegi, "noclegi.json")
     if request.path == '/noclegi/':
         # return redirect(url_for('/noclegi/', data_address=data_address))
         return render_template("noclegi.html", data_address=data_address)
@@ -57,12 +57,30 @@ def nocleg():
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
 def pielgrzym():
+    data_pielgrzymi = read_db("pielgrzymi.json")
+    data_pielgrzymi_lista = list(data_pielgrzymi.items())
+    lista_funkcji = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy", "przewodnik",
+                     "schola", "szef", "techniczny"]
+    lista_grupek = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
     if request.method == "POST":
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
         small_group = request.form["small_group"]
         function = request.form["function"]
-    return render_template("pielgrzymi.html")
+        if function == "":
+            print("yes")
+            function = "-"
+            print(f"funkcja: [{function}]")
+        accommodations = request.form["accommodation"]
+        sex = request.form["sex"]
+        if data_pielgrzymi.keys():
+            pielgrzym_id = int(max(list(data_pielgrzymi.keys()))) + 1
+        else:
+            pielgrzym_id = 1
+        data_pielgrzymi[pielgrzym_id] = last_name, given_name, small_group, function, accommodations, sex
+        write_db(data_pielgrzymi, "pielgrzymi.json")
+    return render_template("pielgrzymi.html", pielgrzymi=data_pielgrzymi_lista, lista_funkcji=lista_funkcji,
+                           lista_grupek=lista_grupek)
 
 
 

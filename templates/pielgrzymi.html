@@ -17,17 +17,35 @@
     <div class="container">
         <div class="columns">
             <div class="col-1"></div>
-            <div class="col-4">
+            <div class="col-3">
                 <div class="form-group">
                     <form action="" method="post">
                         <label class="form-label" for="last_name">NAZWISKO</label>
                         <input class="form-input" id="last_name" type="text" name="last_name" />
                         <label class="form-label" for="given_name">IMIĘ</label>
                         <input class="form-input" id="given_name" type="text" name="given_name" />
+                        <label class="form-label" for="sex">PŁEĆ</label>
+                        <select class="form-select" id="sex", name="sex">
+                            <option></option>
+                            <option>kobieta</option>
+                            <option>mężczyzna</option>
+                        </select>
                         <label class="form-label" for="small_group">GRUPKA</label>
-                        <input class="form-input" id="small_group" type="text" name="small_group" />
+                        <select class="form-select" id="small_group", name="small_group">
+                            <option></option>
+                            {% for grupka in lista_grupek %}
+                            <option>{{ grupka }}</option>
+                            {% endfor %}
+                        </select>
                         <label class="form-label" for="function">FUNKCJA</label>
-                        <input class="form-input" id="function" type="text" name="function" />
+                        <select class="form-select" id="function" name="function">
+                            <option></option>
+                            {% for funkcja in lista_funkcji %}
+                            <option>{{ funkcja }}</option>
+                            {% endfor %}
+                        </select>
+                        <label class="form-label" for="accommodation">OSTATNI NOCLEG</label>
+                        <input class="form-input" id="accommodation" type="text" name="accommodation" />
                         <br />
                         <button class="btn btn-primary">DODAJ</button>
                     </form>
@@ -42,5 +60,33 @@
     <hr />
 
     tu też możliwość edycji danych
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>PŁEĆ</th>
+                <th>GRUPKA</th>
+                <th>FUNKCJA</th>
+                <th>OSTATNI NOCLEG</th>
+                <th>NAZWISKO</th>
+                <th>IMIĘ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pielgrzym in pielgrzymi %}
+            <tr>
+              <td>{{ pielgrzym[0] }}</td>
+              <td>{{ pielgrzym[1][5] }}</td>
+              <td>{{ pielgrzym[1][2] }}</td>
+              <td>{{ pielgrzym[1][3] }}</td>
+              <td>{{ pielgrzym[1][4] }}</td>
+              <td>{{ pielgrzym[1][0] }}</td>
+              <td>{{ pielgrzym[1][1] }}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
 </body>
 </html>
