@@ -43,10 +43,11 @@ def nocleg():
         house = request.form["house"]
         apartment = request.form["apartment"]
         phone = request.form["phone"]
-        # lista = (last_name, given_name, town, street, house, apartment, phone)
-        # adresy.append(lista)
+        sleep = request.form["sleep"]
+        shower = request.form["shower"]
+        comment = request.form["comment"]
         nocleg_id = int(max(list(data_noclegi.keys()))) + 1
-        data_noclegi[nocleg_id] = last_name, given_name, town, street, house, apartment, phone
+        data_noclegi[nocleg_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower, comment
         write_db(data_noclegi, "noclegi.json")
     if request.path == '/noclegi/':
         # return redirect(url_for('/noclegi/', data_address=data_address))
