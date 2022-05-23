@@ -1,0 +1,31 @@
+----------------------------------
+PRZYZNAWANIE NOCLEGÓW KONKRETNYCH
+----------------------------------
+
+blisko = 500m
+„mały dom” = 4 os.
+priorytet: „mały dom” blisko
+
+
+spr ile mamy noclegów (ilość)
+
+zawsze szkoła
+
+if ilość < GRUPA A
+	zgłoś problem!!
+	przyznaj noclegi ręcznie z bazy własnej i bazy innej grupy
+	zawieź pozostałych z grupy A samochodem na nocleg
+if ilość < GRUPA A + GRUPA B
+	daj dom blisko do grupa A
+	daj „mały dom” do grupa A
+	resztę daj do grupa B
+	daj dom blisko do grupa B wg priorytetu płci
+else:			if ilość_małych_domów_blisko
+	grupa A  + grupa B
+	daj „mały dom”
+	daj dom blisko
+if pozostała ilość >= 3 dni + grupa C
+	medyczny – daj blisko
+	pozostała ilość do kolejnych priorytetów
+else:
+	pozostała ilość do kolejnych priorytetów
