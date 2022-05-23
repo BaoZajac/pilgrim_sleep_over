@@ -1,0 +1,28 @@
+-----------
+PRIORYTETY
+-----------
+
+PRZELICZNIK
+    nocleg_kobieta = 1.5 nocleg_mężczyzna
+
+PRIORYTETY:
+    • 0  	    (A) porządkowi (, chorąży?),
+    • 1 / 1.5 	(B) szefy, pilot, przewodnik, chorąży , lider kwatermistrzów na dzień następny,
+    • 2 / 3	    (C) pielgrzym bez noclegu od 3 dni,
+    • 4 / 6 	(D) kwatermistrzowie na następny dzień, schola, techniczni, bagażowi, ekologiczni, medyczni,
+    • 7 / 10.5  (E) pozostali pielgrzymi
+
+
+KTO BLISKO SZKOŁY:
+    • porządkowi,
+    • medyczni,
+    • chorąży,
+    • szefy
+
+KTO W „MAŁYCH DOMACH”:
+    • grupa A,
+    • grupa B
+
+ZAWSZE SZKOŁA
+    • kwatermistrzowie z danego dnia
+
