@@ -60,8 +60,8 @@ def nocleg():
 def pielgrzym():
     data_pielgrzymi = read_db("pielgrzymi.json")
     data_pielgrzymi_lista = list(data_pielgrzymi.items())
-    lista_funkcji = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy", "przewodnik",
-                     "schola", "szef", "techniczny"]
+    lista_funkcji = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
+                     "przewodnik", "schola", "szef", "techniczny"]
     lista_grupek = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
     if request.method == "POST":
         last_name = request.form["last_name"]
@@ -69,9 +69,7 @@ def pielgrzym():
         small_group = request.form["small_group"]
         function = request.form["function"]
         if function == "":
-            print("yes")
             function = "-"
-            print(f"funkcja: [{function}]")
         accommodations = request.form["accommodation"]
         sex = request.form["sex"]
         if data_pielgrzymi.keys():
