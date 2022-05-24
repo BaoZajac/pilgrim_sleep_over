@@ -59,7 +59,6 @@ def nocleg():
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
 def pielgrzym():
     data_pielgrzymi = read_db("pielgrzymi.json")
-    data_pielgrzymi_lista = list(data_pielgrzymi.items())
     lista_funkcji = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
                      "przewodnik", "schola", "szef", "techniczny"]
     lista_grupek = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
@@ -78,8 +77,18 @@ def pielgrzym():
             pielgrzym_id = 1
         data_pielgrzymi[pielgrzym_id] = last_name, given_name, small_group, function, accommodations, sex
         write_db(data_pielgrzymi, "pielgrzymi.json")
+    data_pielgrzymi_lista = list(data_pielgrzymi.items())
     return render_template("pielgrzymi.html", pielgrzymi=data_pielgrzymi_lista, lista_funkcji=lista_funkcji,
                            lista_grupek=lista_grupek)
+
+
+@app.route('/edytuj-pielgrzyma/', methods=['GET', 'POST'])
+def edycja_pielgrzyma():
+    if request.method == "POST":
+        return str(request.form)
+    pielgrzym_id = request.args["pielgrzym-id"]
+    data_pielgrzym = read_db("pielgrzymi.json")[pielgrzym_id]
+    return render_template("edycja-pielgrzyma.html", pielgrzym=data_pielgrzym, pielgrzym_id=pielgrzym_id)
 
 
 
