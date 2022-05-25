@@ -71,6 +71,7 @@
                 <th>OSTATNI NOCLEG</th>
                 <th>NAZWISKO</th>
                 <th>IMIĘ</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -83,6 +84,12 @@
               <td>{{ pielgrzym[1][4] }}</td>
               <td>{{ pielgrzym[1][0] }}</td>
               <td>{{ pielgrzym[1][1] }}</td>
+              <td>
+                  <form action="/edytuj-pielgrzyma/" type="GET">
+                      <input type="hidden" value="{{ pielgrzym[0] }}" name="pielgrzym-id">
+                    <button type="submit">edytuj</button>
+                  </form>
+              </td>
             </tr>
             {% endfor %}
 
