@@ -15,15 +15,37 @@ def write_db(data, file_path):
 class Pielgrzymi:
     def __init__(self, file_path_pielgrzymi):
         self.data_pielgrzymi = read_db(file_path_pielgrzymi)
+        self.lista_funkcji = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz_dzis", "kwatermistrz_jutro",
+                              "lider_kwaterm_jutro", "medyczny", "pilot", "porządkowy", "przewodnik", "schola", "szef",
+                              "techniczny"]
+        self.dane_o_pielgrzymie = self.data_pielgrzymi.values()
 
-    def funkcyjni(self):
-        if ...:
-            ...
+    def priorytet_funkcyjni(self):
+        for funkcja in self.lista_funkcji:
+            if funkcja == "porządkowy":
+                priorytet = 0
+            elif funkcja == "szef" or funkcja == "pilot" or funkcja == "przewodnik" or funkcja == "chorąży" \
+                    or funkcja == "lider_kwaterm_jutro":
+                priorytet = 1
+            elif funkcja == "kwatermistrz_dzis":
+                priorytet = 20
+            else:
+                priorytet = 4
+
+    def priorytet_pielgrzym(self):
+        if self.ostatni_nocleg >= 3:
+            priorytet = 2
+        else:
+            priorytet = 7
+
+    def wypisz_date_noclegu(self):
+        for el in self.dane_o_pielgrzymie:
+            print(el[4])
 
 
 class Noclegi(Pielgrzymi):
     def __init__(self, file_path_noclegi):
-        super().__init__("pielgrzymi.json")      # TODO: czy to tak ma być?
+        super().__init__("pielgrzymi.json")
         self.data_noclegi = read_db(file_path_noclegi)
         self.il_domow_z_noclegiem = 0
         self.il_domow_z_prysznicem = 0
@@ -43,12 +65,14 @@ class Noclegi(Pielgrzymi):
             self.il_domow_z_prysznicem += 1
         return self.il_prysznicow, self.il_domow_z_prysznicem
 
-
     def przyznawanie_noclegow(self):
 
         if self.il_noclegow < self.grupaA:
             ...
 
 
-a = Noclegi("noclegi.json").il_noclegow_na_dany_dzien(1)
-print(a)
+# a = Noclegi("noclegi.json").il_noclegow_na_dany_dzien(1)
+# print(a)
+
+b = Pielgrzymi("pielgrzymi.json").wypisz_date_noclegu()
+
