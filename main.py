@@ -1,4 +1,6 @@
 import json
+import datetime
+from datetime import datetime
 
 
 def read_db(file_path):
@@ -38,9 +40,16 @@ class Pielgrzymi:
         else:
             priorytet = 7
 
-    def wypisz_date_noclegu(self):
+    def ostatni_nocleg(self):
+        today = datetime.now().date()
         for el in self.dane_o_pielgrzymie:
-            print(el[4])
+            last_accommodation = datetime.strptime(el[4], "%d-%m-%Y").date()
+            self.nocleg_jak_dawno = today - last_accommodation
+            print(self.nocleg_jak_dawno)
+            # d1 = date(2022, 8, 3)
+            # roznica = d1 - self.last_accommodation
+            # print(roznica)
+        return self.nocleg_jak_dawno
 
 
 class Noclegi(Pielgrzymi):
@@ -74,5 +83,7 @@ class Noclegi(Pielgrzymi):
 # a = Noclegi("noclegi.json").il_noclegow_na_dany_dzien(1)
 # print(a)
 
-b = Pielgrzymi("pielgrzymi.json").wypisz_date_noclegu()
+# Pielgrzymi("pielgrzymi.json").ostatni_nocleg()
+
+
 
