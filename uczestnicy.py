@@ -10,10 +10,15 @@ class Pielgrzymi:
         self.funkcyjni_1 = []
         self.funkcyjni_2 = []
         self.funkcyjni_szkola = []
-        self.znajdz_funkcje()
+        self.pielgrzymi_bez_noclegu = []
+        self.pielgrzymi_pozostali = []
+        self.funkcyjny()
+        self.zwykly_pielgrzym()
         self.funkcja_priorytet()
+        self.zwykly_pielg_priorytet()
 
-    def znajdz_funkcje(self):
+    def funkcyjny(self):
+        # dane funkcyjnego: id, funkcja, płeć, priorytet
         for id_p, dane_p in self.dane.items():
             if dane_p[2] == "funkcyjni":
                 self.id_pielgrzyma = id_p
@@ -36,11 +41,22 @@ class Pielgrzymi:
         print(f"funkcyjni z grupy 2: {self.funkcyjni_2}")
         print(f"funkcyjni z grupy do szkoły: {self.funkcyjni_szkola}")
 
-    def funkcja_priorytet(self):
-        self.priorytet_plec(self.funkcyjni_0, 0)
-        self.priorytet_plec(self.funkcyjni_1, 1)
-        self.priorytet_plec(self.funkcyjni_2, 4)
-        self.priorytet_plec(self.funkcyjni_szkola, 20)
+    def zwykly_pielgrzym(self):
+        # dane pielgrzyma: id, nr grupki, płeć, priorytet
+        for id_p, dane_p in self.dane.items():
+            if dane_p[2] != "funkcyjni":
+                self.id_pielgrzyma = id_p
+                self.grupka_pielgrzyma = dane_p[2]
+                self.plec = dane_p[5]
+                dane_zwyk_pielgrzyma = [self.id_pielgrzyma, self.grupka_pielgrzyma, self.plec]
+                if 0 > 2:                       # TODO: napisać warunek dla: sa_bez_noclegu >= 3 dni
+                    self.pielgrzymi_bez_noclegu.append(dane_zwyk_pielgrzyma)
+                else:
+                    self.pielgrzymi_pozostali.append(dane_zwyk_pielgrzyma)
+
+    def podaj_zwyk_pielg(self):
+        print(f"Pielgrzymi, bez noclegu od 3 dni: {self.pielgrzymi_bez_noclegu}")
+        print(f"Pozostali pielgrzymi: {self.pielgrzymi_pozostali}")
 
     def priorytet_plec(self, grupa, priorytet):
         for el in grupa:
@@ -49,11 +65,24 @@ class Pielgrzymi:
                 self.priorytet *= 1.5
             el.append(self.priorytet)
 
+    def funkcja_priorytet(self):
+        self.priorytet_plec(self.funkcyjni_0, 0)
+        self.priorytet_plec(self.funkcyjni_1, 1)
+        self.priorytet_plec(self.funkcyjni_2, 4)
+        self.priorytet_plec(self.funkcyjni_szkola, 20)
 
-# Pielgrzymi("pielgrzymi.json").znajdz_funkcje()
+    def zwykly_pielg_priorytet(self):
+        # if self.nocleg_jak_dawno >= 3:
+        #     self.priorytet_plec(self.pielgrzymi_bez_noclegu, 2)
+        #     # self.priorytet = 2
+        # else:
+            self.priorytet_plec(self.pielgrzymi_pozostali, 7)
+            # self.priorytet = 7
+
+
+# Pielgrzymi("pielgrzymi.json").funkcyjny()
 # Pielgrzymi("pielgrzymi.json").funkcja_priorytet()
 
 # Pielgrzymi("pielgrzymi.json")
-# Pielgrzymi("pielgrzymi.json").podaj_func()
-# Pielgrzymi("pielgrzymi.json").funkcja_priorytet()
 Pielgrzymi("pielgrzymi.json").podaj_func()
+Pielgrzymi("pielgrzymi.json").podaj_zwyk_pielg()
