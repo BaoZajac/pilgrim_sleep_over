@@ -79,6 +79,26 @@ class Pielgrzymi:
             self.priorytet_plec(self.pielgrzymi_pozostali, 7)
             # self.priorytet = 7
 
+    def suma_osob_w_grupie(self, grupa, nazwa):
+        il_kobiet = 0
+        il_mezczyzn = 0
+        for el in grupa:
+            if el[2] == "kobieta":
+                il_kobiet += 1
+            else:
+                il_mezczyzn += 1
+        print(f"Ilość kobiet w grupie <{nazwa}> to: {il_kobiet} | priorytet: {self.priorytet}")
+        print(f"Ilość mężczyzn w grupie <{nazwa}> to: {il_mezczyzn} | priorytet: {self.priorytet}")
+
+    def podsum_il_w_grupach(self):
+        self.suma_osob_w_grupie(self.funkcyjni_0, "funkcyjni_0")
+        self.suma_osob_w_grupie(self.funkcyjni_1, "funkcyjni_1")
+        self.suma_osob_w_grupie(self.funkcyjni_2, "funkcyjni_2")
+        self.suma_osob_w_grupie(self.funkcyjni_szkola, "funkcyjni_szkola")
+        self.suma_osob_w_grupie(self.pielgrzymi_bez_noclegu, "pielgrzymi_bez_noclegu")
+        self.suma_osob_w_grupie(self.pielgrzymi_pozostali, "pielgrzymi_pozostali")
+
+
 
 # Pielgrzymi("pielgrzymi.json").funkcyjny()
 # Pielgrzymi("pielgrzymi.json").funkcja_priorytet()
@@ -86,3 +106,5 @@ class Pielgrzymi:
 # Pielgrzymi("pielgrzymi.json")
 Pielgrzymi("pielgrzymi.json").podaj_func()
 Pielgrzymi("pielgrzymi.json").podaj_zwyk_pielg()
+print()
+Pielgrzymi("pielgrzymi.json").podsum_il_w_grupach()
