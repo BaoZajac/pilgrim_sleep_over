@@ -118,15 +118,13 @@ class Pielgrzymi:
         # print(self.funkcyjni_0)
 
     def podsum_il_wg_prioryt(self):
+        # zestawienie priorytetów [priorytet: ilość]
         for el in self.wszyscy_pielgrzymi:
-            # print(el[3])
             if not self.suma_priorytetow.get(el[3]):
                 self.suma_priorytetow[el[3]] = 0
             self.suma_priorytetow[el[3]] += 1
         print(self.suma_priorytetow)
         print(sorted(self.suma_priorytetow.items()))
-
-        # jaki_priorytet = self.funkcyjni_1
 
     def borderer(func):             # TODO: jak zrobić dekorator wewnątrz klasy?
         print("------------------")
@@ -134,15 +132,18 @@ class Pielgrzymi:
 
 
 pielg = Pielgrzymi("pielgrzymi.json")
-# print("----------------------------------------")
-# pielg.podaj_func()
-# print("----------------------------------------")
-# pielg.podaj_zwyk_pielg()
-# print("----------------------------------------")
-# # print()
-# print("PODSUMOWANIE LICZEBNOŚCI GRUP")
-# pielg.podsum_wszyst_plcie()
-# pielg.podsum_il_w_grupach()
+print("----------------------------------------")
+pielg.podaj_func()
+print("----------------------------------------")
+pielg.podaj_zwyk_pielg()
+print("----------------------------------------")
+# print()
+print("PODSUMOWANIE LICZEBNOŚCI GRUP")
+pielg.podsum_wszyst_plcie()
+print()
+pielg.podsum_il_w_grupach()
+print()
+print("zestawienie priorytetów [priorytet: ilość]")
 pielg.podsum_il_wg_prioryt()
 
 
