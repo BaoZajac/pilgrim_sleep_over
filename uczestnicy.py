@@ -12,10 +12,15 @@ class Pielgrzymi:
         self.funkcyjni_szkola = []
         self.pielgrzymi_bez_noclegu = []
         self.pielgrzymi_pozostali = []
+        self.suma_priorytetow = {}
+
         self.funkcyjny()
         self.zwykly_pielgrzym()
         self.funkcja_priorytet()
         self.zwykly_pielg_priorytet()
+
+        self.wszyscy_pielgrzymi = self.funkcyjni_0 + self.funkcyjni_1 + self.funkcyjni_2 + self.funkcyjni_szkola \
+                                  + self.pielgrzymi_bez_noclegu + self.pielgrzymi_pozostali
 
     def funkcyjny(self):
         # dane funkcyjnego: id, funkcja, płeć, priorytet
@@ -36,6 +41,7 @@ class Pielgrzymi:
                     self.funkcyjni_2.append(dane_funkcyjnego)
 
     def podaj_func(self):
+        print("DANE FUNKCYJNEGO: id, funkcja, płeć, priorytet\n")
         print(f"funkcyjni z grupy 0: {self.funkcyjni_0}")
         print(f"funkcyjni z grupy 1: {self.funkcyjni_1}")
         print(f"funkcyjni z grupy 2: {self.funkcyjni_2}")
@@ -55,6 +61,7 @@ class Pielgrzymi:
                     self.pielgrzymi_pozostali.append(dane_zwyk_pielgrzyma)
 
     def podaj_zwyk_pielg(self):
+        print("DANE PIELGRZYMA: id, nr grupki, płeć, priorytet\n")
         print(f"Pielgrzymi, bez noclegu od 3 dni: {self.pielgrzymi_bez_noclegu}")
         print(f"Pozostali pielgrzymi: {self.pielgrzymi_pozostali}")
 
@@ -87,8 +94,14 @@ class Pielgrzymi:
                 il_kobiet += 1
             else:
                 il_mezczyzn += 1
-        print(f"Ilość kobiet w grupie <{nazwa}> to: {il_kobiet} | priorytet: {self.priorytet}")
-        print(f"Ilość mężczyzn w grupie <{nazwa}> to: {il_mezczyzn} | priorytet: {self.priorytet}")
+        # if grupa[2] == "kobieta":
+        #     il_kobiet += 1
+        # else:
+        #     il_mezczyzn += 1
+        print(f" Grupa '{nazwa}' >>  k: {il_kobiet}, m: {il_mezczyzn}")
+
+    def podsum_wszyst_plcie(self):
+        self.suma_osob_w_grupie(self.wszyscy_pielgrzymi, "wszyscy_razem")
 
     def podsum_il_w_grupach(self):
         self.suma_osob_w_grupie(self.funkcyjni_0, "funkcyjni_0")
@@ -97,14 +110,39 @@ class Pielgrzymi:
         self.suma_osob_w_grupie(self.funkcyjni_szkola, "funkcyjni_szkola")
         self.suma_osob_w_grupie(self.pielgrzymi_bez_noclegu, "pielgrzymi_bez_noclegu")
         self.suma_osob_w_grupie(self.pielgrzymi_pozostali, "pielgrzymi_pozostali")
+        # for grupa_os in self.wszyscy_pielgrzymi:
+        #     self.suma_osob_w_grupie(grupa_os, f'{grupa_os=}'.split('=')[0])
+        #   print(f'{grupa_os=}'.split('=')[0])
+        #     print(grupa_os)
+        # print(self.wszyscy_pielgrzymi)
+        # print(self.funkcyjni_0)
+
+    def podsum_il_wg_prioryt(self):
+        for el in self.wszyscy_pielgrzymi:
+            # print(el[3])
+            if not self.suma_priorytetow.get(el[3]):
+                self.suma_priorytetow[el[3]] = 0
+            self.suma_priorytetow[el[3]] += 1
+        print(self.suma_priorytetow)
+        print(sorted(self.suma_priorytetow.items()))
+
+        # jaki_priorytet = self.funkcyjni_1
+
+    def borderer(func):             # TODO: jak zrobić dekorator wewnątrz klasy?
+        print("------------------")
+        func()
 
 
+pielg = Pielgrzymi("pielgrzymi.json")
+# print("----------------------------------------")
+# pielg.podaj_func()
+# print("----------------------------------------")
+# pielg.podaj_zwyk_pielg()
+# print("----------------------------------------")
+# # print()
+# print("PODSUMOWANIE LICZEBNOŚCI GRUP")
+# pielg.podsum_wszyst_plcie()
+# pielg.podsum_il_w_grupach()
+pielg.podsum_il_wg_prioryt()
 
-# Pielgrzymi("pielgrzymi.json").funkcyjny()
-# Pielgrzymi("pielgrzymi.json").funkcja_priorytet()
 
-# Pielgrzymi("pielgrzymi.json")
-Pielgrzymi("pielgrzymi.json").podaj_func()
-Pielgrzymi("pielgrzymi.json").podaj_zwyk_pielg()
-print()
-Pielgrzymi("pielgrzymi.json").podsum_il_w_grupach()
