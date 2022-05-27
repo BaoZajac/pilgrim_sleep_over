@@ -96,11 +96,8 @@ class Pielgrzymi:
                 il_kobiet += 1
             else:
                 il_mezczyzn += 1
-        # if grupa[2] == "kobieta":
-        #     il_kobiet += 1
-        # else:
-        #     il_mezczyzn += 1
-        print(f" Grupa '{nazwa}' >>  k: {il_kobiet}, m: {il_mezczyzn}")
+        wszyscy = il_kobiet + il_mezczyzn
+        print(f" Grupa '{nazwa}' >>  razem: {wszyscy}, k: {il_kobiet}, m: {il_mezczyzn}")
 
     def podsum_il_w_grupach(self):
         self.suma_osob_w_grupie(self.funkcyjni_0, "funkcyjni_0")
@@ -109,12 +106,6 @@ class Pielgrzymi:
         self.suma_osob_w_grupie(self.funkcyjni_szkola, "funkcyjni_szkola")
         self.suma_osob_w_grupie(self.pielgrzymi_bez_noclegu, "pielgrzymi_bez_noclegu")
         self.suma_osob_w_grupie(self.pielgrzymi_pozostali, "pielgrzymi_pozostali")
-        # for grupa_os in self.wszyscy_pielgrzymi:
-        #     self.suma_osob_w_grupie(grupa_os, f'{grupa_os=}'.split('=')[0])
-        #   print(f'{grupa_os=}'.split('=')[0])
-        #     print(grupa_os)
-        # print(self.wszyscy_pielgrzymi)
-        # print(self.funkcyjni_0)
 
     def podsum_il_wg_plci(self):
         self.suma_osob_w_grupie(self.wszyscy_pielgrzymi, "wszyscy_razem")
@@ -144,16 +135,16 @@ pielg = Pielgrzymi("pielgrzymi.json")
 # print("----------------------------------------")
 # pielg.podaj_funkc()
 # print("----------------------------------------")
-# pielg.podaj_zwyk_pielg()
+pielg.podaj_zwyk_pielg()
 # print("----------------------------------------")
 # # print()
-print("PODSUMOWANIE LICZEBNOŚCI GRUP")
-pielg.podsum_il_wg_plci()
-print()
+# print("PODSUMOWANIE LICZEBNOŚCI GRUP")
+# pielg.podsum_il_wg_plci()
+# print()
 pielg.podsum_il_w_grupach()
-print()
-print("zestawienie priorytetów [priorytet: ilość]")
-pielg.podsum_il_wg_prioryt()
+# print()
+# print("zestawienie priorytetów [priorytet: ilość]")
+# pielg.podsum_il_wg_prioryt()
 
 # pielg.delta_ostatni_nocleg()
 
