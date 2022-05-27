@@ -25,7 +25,6 @@ class Pielgrzymi:
                                   + self.pielgrzymi_bez_noclegu + self.pielgrzymi_pozostali
         self.wszyscy_pielg_zwykli = self.pielgrzymi_bez_noclegu + self.pielgrzymi_pozostali
 
-
     def funkcyjny(self):
         # dane funkcyjnego: id, funkcja, płeć, ostatni nocleg, priorytet
         for id_p, dane_p in self.dane.items():
@@ -45,7 +44,7 @@ class Pielgrzymi:
                 else:
                     self.funkcyjni_2.append(dane_funkcyjnego)
 
-    def podaj_func(self):
+    def podaj_funkc(self):
         print("DANE FUNKCYJNEGO: id, funkcja, płeć, ostatni nocleg, priorytet\n")
         print(f"funkcyjni z grupy 0: {self.funkcyjni_0}")
         print(f"funkcyjni z grupy 1: {self.funkcyjni_1}")
@@ -61,7 +60,8 @@ class Pielgrzymi:
                 self.plec = dane_p[5]
                 self.data_nocl = dane_p[4]
                 dane_zwyk_pielgrzyma = [self.id_pielgrzyma, self.grupka_pielgrzyma, self.plec, self.data_nocl]
-                if 0 > 2:                       # TODO: napisać warunek dla: sa_bez_noclegu >= 3 dni
+                self.delta_ostatni_nocleg(self.data_nocl)
+                if self.delta_nocleg >= 3:
                     self.pielgrzymi_bez_noclegu.append(dane_zwyk_pielgrzyma)
                 else:
                     self.pielgrzymi_pozostali.append(dane_zwyk_pielgrzyma)
@@ -85,12 +85,8 @@ class Pielgrzymi:
         self.priorytet_plec(self.funkcyjni_szkola, 20)
 
     def zwykly_pielg_priorytet(self):
-        # if self.nocleg_jak_dawno >= 3:
-        #     self.priorytet_plec(self.pielgrzymi_bez_noclegu, 2)
-        #     # self.priorytet = 2
-        # else:
-            self.priorytet_plec(self.pielgrzymi_pozostali, 7)
-            # self.priorytet = 7
+        self.priorytet_plec(self.pielgrzymi_bez_noclegu, 2)
+        self.priorytet_plec(self.pielgrzymi_pozostali, 7)
 
     def suma_osob_w_grupie(self, grupa, nazwa):
         il_kobiet = 0
@@ -106,9 +102,6 @@ class Pielgrzymi:
         #     il_mezczyzn += 1
         print(f" Grupa '{nazwa}' >>  k: {il_kobiet}, m: {il_mezczyzn}")
 
-    def podsum_wszyst_plcie(self):
-        self.suma_osob_w_grupie(self.wszyscy_pielgrzymi, "wszyscy_razem")
-
     def podsum_il_w_grupach(self):
         self.suma_osob_w_grupie(self.funkcyjni_0, "funkcyjni_0")
         self.suma_osob_w_grupie(self.funkcyjni_1, "funkcyjni_1")
@@ -123,6 +116,9 @@ class Pielgrzymi:
         # print(self.wszyscy_pielgrzymi)
         # print(self.funkcyjni_0)
 
+    def podsum_il_wg_plci(self):
+        self.suma_osob_w_grupie(self.wszyscy_pielgrzymi, "wszyscy_razem")
+
     def podsum_il_wg_prioryt(self):
         # zestawienie priorytetów /priorytet: ilość/
         for el in self.wszyscy_pielgrzymi:
@@ -132,15 +128,12 @@ class Pielgrzymi:
         print(self.suma_priorytetow)
         print(sorted(self.suma_priorytetow.items()))
 
-    # obliczanie ilości dni od ostatniego noclegu dla wszystkich z danej grupy na raz
-    def delta_ostatni_nocleg(self):
-        today = datetime.now().date()
-        for el in self.wszyscy_pielg_zwykli:
-            last_accommodation = datetime.strptime(el[3], "%d-%m-%Y").date()
-            delta_nocleg_obl = today - last_accommodation
-            self.delta_nocleg = delta_nocleg_obl.days
-            print(self.delta_nocleg)
-
+    # obliczanie ilości dni od ostatniego noclegu
+    def delta_ostatni_nocleg(self, data):
+        dzis = datetime.now().date()
+        ostatni_nocleg = datetime.strptime(data, "%d-%m-%Y").date()
+        delta_nocleg_obl = dzis - ostatni_nocleg
+        self.delta_nocleg = delta_nocleg_obl.days
 
     def borderer(func):             # TODO: jak zrobić dekorator wewnątrz klasy?
         print("------------------")
@@ -149,19 +142,19 @@ class Pielgrzymi:
 
 pielg = Pielgrzymi("pielgrzymi.json")
 # print("----------------------------------------")
-# pielg.podaj_func()
+# pielg.podaj_funkc()
 # print("----------------------------------------")
 # pielg.podaj_zwyk_pielg()
 # print("----------------------------------------")
 # # print()
-# print("PODSUMOWANIE LICZEBNOŚCI GRUP")
-# pielg.podsum_wszyst_plcie()
-# print()
-# pielg.podsum_il_w_grupach()
-# print()
-# print("zestawienie priorytetów [priorytet: ilość]")
-# pielg.podsum_il_wg_prioryt()
+print("PODSUMOWANIE LICZEBNOŚCI GRUP")
+pielg.podsum_il_wg_plci()
+print()
+pielg.podsum_il_w_grupach()
+print()
+print("zestawienie priorytetów [priorytet: ilość]")
+pielg.podsum_il_wg_prioryt()
 
-pielg.delta_ostatni_nocleg()
+# pielg.delta_ostatni_nocleg()
 
 
