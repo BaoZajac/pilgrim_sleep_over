@@ -1,11 +1,11 @@
-from main import read_db
+from main import read_file
 import datetime
 from datetime import datetime
 
 
 class Pielgrzymi:
     def __init__(self, file_path_pielgrzymi):
-        self.dane = read_db(file_path_pielgrzymi)
+        self.dane = read_file(file_path_pielgrzymi)
         # self.id_pielgrzyma = None             # TODO: czy to jest potrzebne?
         # self.funkcja_pielgrzyma = None
         self.funkcyjni_0 = []
@@ -135,13 +135,13 @@ pielg = Pielgrzymi("pielgrzymi.json")
 # print("----------------------------------------")
 # pielg.podaj_funkc()
 # print("----------------------------------------")
-pielg.podaj_zwyk_pielg()
+# pielg.podaj_zwyk_pielg()
 # print("----------------------------------------")
 # # print()
 # print("PODSUMOWANIE LICZEBNOŚCI GRUP")
 # pielg.podsum_il_wg_plci()
 # print()
-pielg.podsum_il_w_grupach()
+# pielg.podsum_il_w_grupach()
 # print()
 # print("zestawienie priorytetów [priorytet: ilość]")
 # pielg.podsum_il_wg_prioryt()
