@@ -1,6 +1,7 @@
 from main import read_file
 from uczestnicy import Pielgrzymi
 import datetime
+# from datetime import datetime
 
 
 class Noclegi(Pielgrzymi):
@@ -8,8 +9,8 @@ class Noclegi(Pielgrzymi):
         super().__init__("pielgrzymi.json")         # TODO: zrobić możliwość wyboru pliku z klasy Pielgrzymi
         self.dane_noclegi = read_file(file_path_noclegi)
         self.noclegi_wszystkie = {}
+        self.lista_data = []
         self.wczytaj_dane()
-        # self.lista_miejscowosci
 
         self.noclegi_rudawa = []
         self.noclegi_olkusz = []
@@ -39,18 +40,16 @@ class Noclegi(Pielgrzymi):
             il_pryszn = dane_n[8]
             komentarz = dane_n[9]
             data = self.miejscowosc_na_data(miejscowosc)
-            # print(data, type(data))
             if not self.noclegi_wszystkie.get(miejscowosc):
                 self.noclegi_wszystkie[(miejscowosc, data)] = []
             self.noclegi_wszystkie[(miejscowosc, data)] += [[id_n, miejscowosc, ulica, dom, mieszkanie, nazwisko, imie,
                                                              tel, il_noclegow, il_pryszn, komentarz]]
-        print(self.noclegi_wszystkie)
+        # print(self.noclegi_wszystkie)
 
     # odkodowanie daty noclegu z nazwy miejscowości
     def miejscowosc_na_data(self, miejscowosc):
-        if miejscowosc == "Rudawa":
+        if miejscowosc == "Rudawa" or miejscowosc == "Radwanowice":
             self.data_noclegu = datetime.datetime(2022, 8, 3).date()
-            # self.noclegi_rudawa.append(self.data_noclegu)
         elif miejscowosc == "Olkusz":
             self.data_noclegu = datetime.datetime(2022, 8, 4).date()
         elif miejscowosc == "Niegowonice":
@@ -61,7 +60,20 @@ class Noclegi(Pielgrzymi):
             self.data_noclegu = datetime.datetime(2022, 8, 7).date()
         elif miejscowosc == "Nierada":
             self.data_noclegu = datetime.datetime(2022, 8, 8).date()
+        # self.data_noclegu = datetime.strptime(self.data_noclegu, "%d-%m-%Y").date()
+        else:
+            self.data_noclegu = "x"
         return self.data_noclegu
+
+    # tworzy listę noclegów dla danej daty
+    def lista_nocl_data(self, data):
+        for k, v in self.noclegi_wszystkie.items():
+            if data == str(k[1]):
+                self.lista_data += v
+        print(self.lista_data)
+
+
+
 
     # tworzy listę noclegów dla danej miejscowości
     def lista_nocl_miejscow(self):
@@ -131,3 +143,4 @@ noclegi = Noclegi("noclegi.json")
 # noclegi.lista_wszystk_nocl()
 # noclegi.wczytaj_dane()
 # noclegi.miejscowosc_na_data()
+noclegi.lista_nocl_data("2022-08-03")

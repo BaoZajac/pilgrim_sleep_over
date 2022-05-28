@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_alembic import Alembic
-from main import read_db, write_db
+from main import read_file, write_file
 
 
 app = Flask(__name__)
@@ -33,7 +33,7 @@ def main():
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
 @app.route('/noclegi/', methods=['POST', 'GET'])
 def nocleg():
-    data_noclegi = read_db("noclegi.json")
+    data_noclegi = read_file("noclegi.json")
     data_address = list(data_noclegi.items())
     if request.method == "POST":
         last_name = request.form["last_name"]
@@ -48,7 +48,7 @@ def nocleg():
         comment = request.form["comment"]
         nocleg_id = int(max(list(data_noclegi.keys()))) + 1
         data_noclegi[nocleg_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower, comment
-        write_db(data_noclegi, "noclegi.json")
+        write_file(data_noclegi, "noclegi.json")
     if request.path == '/noclegi/':
         # return redirect(url_for('/noclegi/', data_address=data_address))
         return render_template("noclegi.html", data_address=data_address)
@@ -58,7 +58,7 @@ def nocleg():
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
 def pielgrzym():
-    data_pielgrzymi = read_db("pielgrzymi.json")
+    data_pielgrzymi = read_file("pielgrzymi.json")
     lista_funkcji = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
                      "przewodnik", "schola", "szef", "techniczny"]
     lista_grupek = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
@@ -76,7 +76,7 @@ def pielgrzym():
         else:
             pielgrzym_id = 1
         data_pielgrzymi[pielgrzym_id] = last_name, given_name, small_group, function, accommodations, sex
-        write_db(data_pielgrzymi, "pielgrzymi.json")
+        write_file(data_pielgrzymi, "pielgrzymi.json")
     data_pielgrzymi_lista = list(data_pielgrzymi.items())
     return render_template("pielgrzymi.html", pielgrzymi=data_pielgrzymi_lista, lista_funkcji=lista_funkcji,
                            lista_grupek=lista_grupek)
@@ -87,7 +87,7 @@ def edycja_pielgrzyma():
     if request.method == "POST":
         return str(request.form)
     pielgrzym_id = request.args["pielgrzym-id"]
-    data_pielgrzym = read_db("pielgrzymi.json")[pielgrzym_id]
+    data_pielgrzym = read_file("pielgrzymi.json")[pielgrzym_id]
     return render_template("edycja-pielgrzyma.html", pielgrzym=data_pielgrzym, pielgrzym_id=pielgrzym_id)
 
 
