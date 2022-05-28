@@ -9,7 +9,9 @@ class Noclegi(Pielgrzymi):
         super().__init__("pielgrzymi.json")         # TODO: zrobić możliwość wyboru pliku z klasy Pielgrzymi
         self.dane_noclegi = read_file(file_path_noclegi)
         self.noclegi_wszystkie = {}
+        self.lista_data = []
         self.wczytaj_dane()
+
 
         self.noclegi_rudawa = []
         self.noclegi_olkusz = []
@@ -70,11 +72,20 @@ class Noclegi(Pielgrzymi):
         for k, v in self.noclegi_wszystkie.items():
             if data == str(k[2]):
                 self.lista_data += v
-        print(self.lista_data)
-
-    # def suma_nocl_data(self):
         # print(self.lista_data)
-        # print(1)
+        return self.lista_data
+
+    # podaje il. domów z noclegiem i il. noclegów
+    def suma_nocl_data(self, data):
+        self.suma_dom_nocleg = 0
+        self.suma_nocleg = 0
+        for el in self.lista_nocl_data(data):
+            il_noclegow = el[7]
+            self.suma_dom_nocleg += 1
+            self.suma_nocleg += int(il_noclegow)
+        print(self.lista_nocl_data(data))
+        print(self.suma_dom_nocleg)
+        print(self.suma_nocleg)
 
 
 
@@ -147,6 +158,6 @@ noclegi = Noclegi("noclegi.json")
 # noclegi.lista_wszystk_nocl()
 # noclegi.wczytaj_dane()
 # noclegi.miejscowosc_na_data()
-noclegi.lista_nocl_data("2022-08-03")
-noclegi.lista_nocl_data("2022-08-04")
-# noclegi.suma_nocl_data()
+# noclegi.lista_nocl_data("2022-08-03")
+# noclegi.lista_nocl_data("2022-08-04")
+noclegi.suma_nocl_data("2022-08-04")
