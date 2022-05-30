@@ -9,14 +9,7 @@ class Noclegi(Pielgrzymi):
         super().__init__("pielgrzymi.json")         # TODO: zrobić możliwość wyboru pliku z klasy Pielgrzymi
         self.dane_noclegi = read_file(file_path_noclegi)
         self.noclegi_wszystkie = {}
-        # self.lista_data = []
         self.wczytaj_dane()
-
-        self.il_domow_z_noclegiem = 0
-        self.il_domow_z_prysznicem = 0
-        self.il_noclegow = 0
-        self.il_prysznicow = 0
-        # self.dane_o_noclegach = self.dane_noclegi.values()
 
     # wczytaj dane z pliku do słownika
     def wczytaj_dane(self):
@@ -73,8 +66,10 @@ class Noclegi(Pielgrzymi):
         for el in self.lista_n_p_data(data):
             il_noclegow = el[7]
             if il_noclegow:
-                self.suma_dom_nocleg += 1
-                self.suma_nocleg += int(il_noclegow)
+                il_noclegow = int(il_noclegow)
+                if il_noclegow > 0:
+                    self.suma_dom_nocleg += 1
+                    self.suma_nocleg += il_noclegow
         print(f"Lista na {data}: {self.lista_n_p_data(data)}")
         print(f"{self.suma_dom_nocleg} - suma domów z noclegiem ({data})")
         print(f"{self.suma_nocleg} - suma noclegów jednostkowych ({data})")
@@ -91,8 +86,10 @@ class Noclegi(Pielgrzymi):
         for el in self.lista_n_p_data(data):
             il_prysznicow = el[8]
             if il_prysznicow:
-                self.suma_dom_prysznic += 1
-                self.suma_prysznic += int(il_prysznicow)
+                il_prysznicow = int(il_prysznicow)
+                if il_prysznicow > 0:
+                    self.suma_dom_prysznic += 1
+                    self.suma_prysznic += int(il_prysznicow)
         print(f"Lista na {data}: {self.lista_n_p_data(data)}")
         print(f"{self.suma_dom_prysznic} - suma domów z myciem się ({data})")
         print(f"{self.suma_prysznic} - suma myć jednostkowych ({data})")
@@ -109,10 +106,7 @@ class Noclegi(Pielgrzymi):
 
 noclegi = Noclegi("noclegi.json")
 # noclegi.miejscowosc_na_data()
-# noclegi.lista_nocl_miejscow()
 # noclegi.lista_wszystk_nocl()
-# noclegi.wczytaj_dane()
-# noclegi.miejscowosc_na_data()
 # noclegi.lista_n_p_data("2022-08-03")
 # noclegi.lista_n_p_data("2022-08-04")
 noclegi.suma_nocl_data("2022-08-03")
