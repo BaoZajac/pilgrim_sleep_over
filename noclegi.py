@@ -9,17 +9,8 @@ class Noclegi(Pielgrzymi):
         super().__init__("pielgrzymi.json")         # TODO: zrobić możliwość wyboru pliku z klasy Pielgrzymi
         self.dane_noclegi = read_file(file_path_noclegi)
         self.noclegi_wszystkie = {}
-        self.lista_data = []
+        # self.lista_data = []
         self.wczytaj_dane()
-
-
-        self.noclegi_rudawa = []
-        self.noclegi_olkusz = []
-        self.noclegi_niegowonice = []
-        self.noclegi_myszkow = []
-        self.noclegi_poraj = []
-        self.noclegi_nierada = []
-        # self.miejscowosc_na_data()
 
         self.il_domow_z_noclegiem = 0
         self.il_domow_z_prysznicem = 0
@@ -66,8 +57,8 @@ class Noclegi(Pielgrzymi):
             self.data_noclegu = "x"
         return self.data_noclegu
 
-    # tworzy listę noclegów dla danej daty
-    def lista_nocl_data(self, data):
+    # tworzy listę danych dla noclegów i pryszniców dla danej daty
+    def lista_n_p_data(self, data):
         self.lista_data = []
         for k, v in self.noclegi_wszystkie.items():
             if data == str(k[2]):
@@ -79,71 +70,35 @@ class Noclegi(Pielgrzymi):
     def suma_nocl_data(self, data):
         self.suma_dom_nocleg = 0
         self.suma_nocleg = 0
-        for el in self.lista_nocl_data(data):
+        for el in self.lista_n_p_data(data):
             il_noclegow = el[7]
-            self.suma_dom_nocleg += 1
-            self.suma_nocleg += int(il_noclegow)
-        print(self.lista_nocl_data(data))
-        print(self.suma_dom_nocleg)
-        print(self.suma_nocleg)
+            if il_noclegow:
+                self.suma_dom_nocleg += 1
+                self.suma_nocleg += int(il_noclegow)
+        print(f"Lista na {data}: {self.lista_n_p_data(data)}")
+        print(f"{self.suma_dom_nocleg} - suma domów z noclegiem ({data})")
+        print(f"{self.suma_nocleg} - suma noclegów jednostkowych ({data})")
 
-
-
-
-    # tworzy listę noclegów dla danej miejscowości
-    def lista_nocl_miejscow(self):
-        for id_n, dane_n in self.dane_noclegi.items():
-            # print(dane_n)
-            miejscowosc = dane_n[2]
-            id_nocleg = id_n
-            # TODO: czy da się zrobić uniwersalne jak poniżej, tylko jak przekazać to town w nazwie zmiennej
-            """ [town przekazane w atrybucie(?) metody]    albo ta sama idea co poniżej, ale wykorzystana w for
-                if miejscowosc == town:
-                self.noclegi_{{town}}.append("tekst")
-                print(self.noclegi_rudawa)"""
-            if miejscowosc == "Rudawa":
-                self.noclegi_rudawa.append(list(id_nocleg) + dane_n)
-            elif miejscowosc == "Olkusz":
-                self.noclegi_olkusz.append(list(id_nocleg) + dane_n)
-            elif miejscowosc == "Niegowonice":
-                self.noclegi_niegowonice.append(list(id_nocleg) + dane_n)
-            elif miejscowosc == "Myszków":
-                self.noclegi_myszkow.append(list(id_nocleg) + dane_n)
-            elif miejscowosc == "Poraj":
-                self.noclegi_poraj.append(list(id_nocleg) + dane_n)
-            elif miejscowosc == "Nierada":
-                self.noclegi_nierada.append(list(id_nocleg) + dane_n)
-        print("Rudawa", self.noclegi_rudawa)
-        # print("Olkusz", self.noclegi_olkusz)
-        # print("Niegowonice", self.noclegi_niegowonice)
-        # print("Myszków", self.noclegi_myszkow)
-        # print("Poraj", self.noclegi_poraj)
-        # print("Nierada", self.noclegi_nierada)
-
+    # zwraca listę wszystkich wszystkich noclegów
     def lista_wszystk_nocl(self):
-        print(self.dane_noclegi)
+        # print(self.dane_noclegi)
+        return self.dane_noclegi
 
-    # def suma_noclegow_miejscowosc(self, town):
-    #     for el in self.noclegi_rudawa
+    # podaje il. domów z myciem się i il. myć jednostkowych
+    def suma_pryszn_data(self, data):
+        self.suma_dom_prysznic = 0
+        self.suma_prysznic = 0
+        for el in self.lista_n_p_data(data):
+            il_prysznicow = el[8]
+            if il_prysznicow:
+                self.suma_dom_prysznic += 1
+                self.suma_prysznic += int(il_prysznicow)
+        print(f"Lista na {data}: {self.lista_n_p_data(data)}")
+        print(f"{self.suma_dom_prysznic} - suma domów z myciem się ({data})")
+        print(f"{self.suma_prysznic} - suma myć jednostkowych ({data})")
 
 
 
-
-
-
-    # def il_noclegow_na_dany_dzien(self, date):
-    #     for el in self.dane_o_noclegach:
-    #         self.il_noclegow += int(el[7])
-    #         self.il_domow_z_noclegiem += 1
-    #     return self.il_noclegow, self.il_domow_z_noclegiem
-
-
-    # def il_prysznicow_na_dany_dzien(self, date):
-    #     for el in self.dane_o_noclegach:
-    #         self.il_prysznicow += int(el[8])
-    #         self.il_domow_z_prysznicem += 1
-    #     return self.il_prysznicow, self.il_domow_z_prysznicem
-    #
     # def przyznawanie_noclegow(self):
     #     if self.il_noclegow < self.grupaA:
     #         ...
@@ -158,6 +113,8 @@ noclegi = Noclegi("noclegi.json")
 # noclegi.lista_wszystk_nocl()
 # noclegi.wczytaj_dane()
 # noclegi.miejscowosc_na_data()
-# noclegi.lista_nocl_data("2022-08-03")
-# noclegi.lista_nocl_data("2022-08-04")
-noclegi.suma_nocl_data("2022-08-04")
+# noclegi.lista_n_p_data("2022-08-03")
+# noclegi.lista_n_p_data("2022-08-04")
+noclegi.suma_nocl_data("2022-08-03")
+# noclegi.suma_nocl_data("2022-08-04")
+noclegi.suma_pryszn_data("2022-08-03")
