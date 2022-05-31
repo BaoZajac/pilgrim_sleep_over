@@ -34,7 +34,7 @@ def main():
 @app.route('/noclegi/', methods=['POST', 'GET'])
 def nocleg():
     data_noclegi = read_file("noclegi.json")
-    data_address = list(data_noclegi.items())
+    # data_address = list(data_noclegi.items())
     if request.method == "POST":
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
@@ -46,9 +46,12 @@ def nocleg():
         sleep = request.form["sleep"]
         shower = request.form["shower"]
         comment = request.form["comment"]
-        nocleg_id = int(max(list(data_noclegi.keys()))) + 1
+        nocleg_lista = list(data_noclegi.keys())
+        nocleg_lista = [int(el) for el in nocleg_lista]
+        nocleg_id = max(nocleg_lista) + 1
         data_noclegi[nocleg_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower, comment
         write_file(data_noclegi, "noclegi.json")
+    data_address = list(data_noclegi.items())
     if request.path == '/noclegi/':
         # return redirect(url_for('/noclegi/', data_address=data_address))
         return render_template("noclegi.html", data_address=data_address)
@@ -72,7 +75,9 @@ def pielgrzym():
         accommodations = request.form["accommodation"]
         sex = request.form["sex"]
         if data_pielgrzymi.keys():
-            pielgrzym_id = int(max(list(data_pielgrzymi.keys()))) + 1
+            pielg_lista = list(data_pielgrzymi.keys())
+            pielg_lista = [int(el) for el in pielg_lista]
+            pielgrzym_id = max(pielg_lista) + 1
         else:
             pielgrzym_id = 1
         data_pielgrzymi[pielgrzym_id] = last_name, given_name, small_group, function, accommodations, sex

@@ -97,7 +97,8 @@ class Pielgrzymi:
             else:
                 il_mezczyzn += 1
         wszyscy = il_kobiet + il_mezczyzn
-        print(f" Grupa '{nazwa}' >>  razem: {wszyscy}, k: {il_kobiet}, m: {il_mezczyzn}")
+        # print(f" Grupa '{nazwa}' >>  razem: {wszyscy}, k: {il_kobiet}, m: {il_mezczyzn}")
+        return nazwa, wszyscy, il_kobiet, il_mezczyzn
 
     def podsum_il_w_grupach(self):
         self.suma_osob_w_grupie(self.funkcyjni_0, "funkcyjni_0")
@@ -108,7 +109,8 @@ class Pielgrzymi:
         self.suma_osob_w_grupie(self.pielgrzymi_pozostali, "pielgrzymi_pozostali")
 
     def podsum_il_wg_plci(self):
-        self.suma_osob_w_grupie(self.wszyscy_pielgrzymi, "wszyscy_razem")
+        # self.suma_osob_w_grupie(self.wszyscy_pielgrzymi, "wszyscy_razem")
+        return self.suma_osob_w_grupie(self.wszyscy_pielgrzymi, "wszyscy_razem")
 
     def podsum_il_wg_prioryt(self):
         # zestawienie priorytetów /priorytet: ilość/
@@ -116,8 +118,9 @@ class Pielgrzymi:
             if not self.suma_priorytetow.get(el[4]):
                 self.suma_priorytetow[el[4]] = 0
             self.suma_priorytetow[el[4]] += 1
-        print(self.suma_priorytetow)
-        print(sorted(self.suma_priorytetow.items()))
+        # print(self.suma_priorytetow)
+        # print(sorted(self.suma_priorytetow.items()))
+        return self.suma_priorytetow
 
     # obliczanie ilości dni od ostatniego noclegu
     def delta_ostatni_nocleg(self, data):

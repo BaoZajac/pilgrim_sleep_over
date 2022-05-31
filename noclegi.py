@@ -1,12 +1,11 @@
 from main import read_file
-from uczestnicy import Pielgrzymi
+# from uczestnicy import Pielgrzymi
 import datetime
-# from datetime import datetime
 
 
-class Noclegi(Pielgrzymi):
+class Noclegi:   # (Pielgrzymi):
     def __init__(self, file_path_noclegi):
-        super().__init__("pielgrzymi.json")         # TODO: zrobić możliwość wyboru pliku z klasy Pielgrzymi
+        # super().__init__("pielgrzymi.json")         # TODO: zrobić możliwość wyboru pliku z klasy Pielgrzymi
         self.dane_noclegi = read_file(file_path_noclegi)
         self.noclegi_wszystkie = {}
         self.wczytaj_dane()
@@ -59,7 +58,7 @@ class Noclegi(Pielgrzymi):
         # print(self.lista_data)
         return self.lista_data
 
-    # podaje il. domów z noclegiem i il. noclegów
+    # podaje il. domów z noclegiem i il. noclegów dla danej daty
     def suma_nocl_data(self, data):
         self.suma_dom_nocleg = 0
         self.suma_nocleg = 0
@@ -70,16 +69,17 @@ class Noclegi(Pielgrzymi):
                 if il_noclegow > 0:
                     self.suma_dom_nocleg += 1
                     self.suma_nocleg += il_noclegow
-        print(f"Lista na {data}: {self.lista_n_p_data(data)}")
-        print(f"{self.suma_dom_nocleg} - suma domów z noclegiem ({data})")
-        print(f"{self.suma_nocleg} - suma noclegów jednostkowych ({data})")
+        # print(f"Lista na {data}: {self.lista_n_p_data(data)}")
+        # print(f"{self.suma_dom_nocleg} - suma domów z noclegiem ({data})")
+        # print(f"{self.suma_nocleg} - suma noclegów jednostkowych ({data})")
+        return self.suma_dom_nocleg, self.suma_nocleg
 
     # zwraca listę wszystkich wszystkich noclegów
     def lista_wszystk_nocl(self):
         # print(self.dane_noclegi)
         return self.dane_noclegi
 
-    # podaje il. domów z myciem się i il. myć jednostkowych
+    # podaje il. domów z myciem się i il. myć jednostkowych dla danej daty
     def suma_pryszn_data(self, data):
         self.suma_dom_prysznic = 0
         self.suma_prysznic = 0
@@ -90,9 +90,10 @@ class Noclegi(Pielgrzymi):
                 if il_prysznicow > 0:
                     self.suma_dom_prysznic += 1
                     self.suma_prysznic += int(il_prysznicow)
-        print(f"Lista na {data}: {self.lista_n_p_data(data)}")
-        print(f"{self.suma_dom_prysznic} - suma domów z myciem się ({data})")
-        print(f"{self.suma_prysznic} - suma myć jednostkowych ({data})")
+        # print(f"Lista na {data}: {self.lista_n_p_data(data)}")
+        # print(f"{self.suma_dom_prysznic} - suma domów z myciem się ({data})")
+        # print(f"{self.suma_prysznic} - suma myć jednostkowych ({data})")
+        return self.suma_dom_prysznic, self.suma_prysznic
 
 
 
@@ -109,6 +110,6 @@ noclegi = Noclegi("noclegi.json")
 # noclegi.lista_wszystk_nocl()
 # noclegi.lista_n_p_data("2022-08-03")
 # noclegi.lista_n_p_data("2022-08-04")
-noclegi.suma_nocl_data("2022-08-03")
+# noclegi.suma_nocl_data("2022-08-03")
 # noclegi.suma_nocl_data("2022-08-04")
-noclegi.suma_pryszn_data("2022-08-03")
+# noclegi.suma_pryszn_data("2022-08-03")
