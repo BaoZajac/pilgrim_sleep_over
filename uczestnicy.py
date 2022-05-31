@@ -25,6 +25,8 @@ class Pielgrzymi:
                                   + self.pielgrzymi_bez_noclegu + self.pielgrzymi_pozostali
         self.wszyscy_pielg_zwykli = self.pielgrzymi_bez_noclegu + self.pielgrzymi_pozostali
 
+        # print(self.wszyscy_pielgrzymi)
+
     def funkcyjny(self):
         # dane funkcyjnego: id, funkcja, płeć, ostatni nocleg, priorytet
         for id_p, dane_p in self.dane.items():

@@ -57,8 +57,17 @@ class Noclegi:   # (Pielgrzymi):
         for k, v in self.noclegi_wszystkie.items():
             if data == str(k[2]):
                 self.lista_data += v
-        # print(self.lista_data)
+        # print(44, self.lista_data)
         return self.lista_data
+
+    def lista_nocleg_data(self, data):
+        self.lista_nocl_data = []
+        for el in self.lista_n_p_data(data):
+            il_noclegow = el[7]
+            if il_noclegow > 0:
+                self.lista_nocl_data.append(el)
+        # print(222, self.lista_nocl_data)
+        return self.lista_nocl_data
 
     # podaje il. domów z noclegiem i il. noclegów dla danej daty
     def suma_nocl_data(self, data):
@@ -105,7 +114,7 @@ class Noclegi:   # (Pielgrzymi):
                 male_domy[(tuple(el))] = []
                 il_nocl_mal_dom += il_noclegow
         # print(1, male_domy)
-        print(7, il_nocl_mal_dom)
+        # print(7, il_nocl_mal_dom)
         return male_domy, il_nocl_mal_dom
 
 
