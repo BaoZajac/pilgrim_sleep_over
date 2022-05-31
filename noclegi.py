@@ -21,7 +21,9 @@ class Noclegi:   # (Pielgrzymi):
             imie = dane_n[1]
             tel = dane_n[6]
             il_noclegow = dane_n[7]
+            il_noclegow = 0 if not il_noclegow else int(il_noclegow)
             il_pryszn = dane_n[8]
+            il_pryszn = 0 if not il_pryszn else int(il_pryszn)
             komentarz = dane_n[9]
             data = self.miejscowosc_na_data(miejscowosc)
             if not self.noclegi_wszystkie.get(miejscowosc):
@@ -64,14 +66,12 @@ class Noclegi:   # (Pielgrzymi):
         self.suma_nocleg = 0
         for el in self.lista_n_p_data(data):
             il_noclegow = el[7]
-            if il_noclegow:
-                il_noclegow = int(il_noclegow)
-                if il_noclegow > 0:
-                    self.suma_dom_nocleg += 1
-                    self.suma_nocleg += il_noclegow
-        # print(f"Lista na {data}: {self.lista_n_p_data(data)}")
-        # print(f"{self.suma_dom_nocleg} - suma domów z noclegiem ({data})")
-        # print(f"{self.suma_nocleg} - suma noclegów jednostkowych ({data})")
+            if il_noclegow > 0:
+                self.suma_dom_nocleg += 1
+                self.suma_nocleg += il_noclegow
+        print(f"Lista na {data}: {self.lista_n_p_data(data)}")
+        print(f"{self.suma_dom_nocleg} - suma domów z noclegiem ({data})")
+        print(f"{self.suma_nocleg} - suma noclegów jednostkowych ({data})")
         return self.suma_dom_nocleg, self.suma_nocleg
 
     # zwraca listę wszystkich wszystkich noclegów
@@ -85,16 +85,26 @@ class Noclegi:   # (Pielgrzymi):
         self.suma_prysznic = 0
         for el in self.lista_n_p_data(data):
             il_prysznicow = el[8]
-            if il_prysznicow:
-                il_prysznicow = int(il_prysznicow)
-                if il_prysznicow > 0:
-                    self.suma_dom_prysznic += 1
-                    self.suma_prysznic += int(il_prysznicow)
-        # print(f"Lista na {data}: {self.lista_n_p_data(data)}")
-        # print(f"{self.suma_dom_prysznic} - suma domów z myciem się ({data})")
-        # print(f"{self.suma_prysznic} - suma myć jednostkowych ({data})")
+            if il_prysznicow > 0:
+                self.suma_dom_prysznic += 1
+                self.suma_prysznic += il_prysznicow
+        print(f"Lista na {data}: {self.lista_n_p_data(data)}")
+        print(f"{self.suma_dom_prysznic} - suma domów z myciem się ({data})")
+        print(f"{self.suma_prysznic} - suma myć jednostkowych ({data})")
         return self.suma_dom_prysznic, self.suma_prysznic
 
+    # zwraca listę "małych domów", czyli domów, w których jest maks 4 miejsca do noclegu i mycia się łącznie
+    def lista_malych_domow(self, data):
+        male_domy = []
+        for el in self.lista_n_p_data(data):
+            il_noclegow = el[7]
+            il_pryszn = el[8]
+            if il_noclegow:
+                il_noclegow = int(il_noclegow)
+                if 0 < il_noclegow <= 4 and il_noclegow + il_pryszn <= 4:
+                    male_domy.append(el)
+        print(male_domy)
+        return male_domy
 
 
     # def przyznawanie_noclegow(self):
@@ -113,3 +123,4 @@ noclegi = Noclegi("noclegi.json")
 # noclegi.suma_nocl_data("2022-08-03")
 # noclegi.suma_nocl_data("2022-08-04")
 # noclegi.suma_pryszn_data("2022-08-03")
+noclegi.lista_malych_domow("2022-08-03")
