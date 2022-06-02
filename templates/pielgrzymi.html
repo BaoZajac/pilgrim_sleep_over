@@ -25,13 +25,13 @@
                         <label class="form-label" for="given_name">IMIĘ</label>
                         <input class="form-input" id="given_name" type="text" name="given_name" />
                         <label class="form-label" for="sex">PŁEĆ</label>
-                        <select class="form-select" id="sex", name="sex">
+                        <select class="form-select" id="sex" name="sex">
                             <option></option>
                             <option>kobieta</option>
                             <option>mężczyzna</option>
                         </select>
                         <label class="form-label" for="small_group">GRUPKA</label>
-                        <select class="form-select" id="small_group", name="small_group">
+                        <select class="form-select" id="small_group" name="small_group">
                             <option></option>
                             {% for grupka in lista_grupek %}
                             <option>{{ grupka }}</option>

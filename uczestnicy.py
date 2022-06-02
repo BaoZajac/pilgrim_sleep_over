@@ -55,14 +55,14 @@ class Pielgrzymi:
 
     def zwykly_pielgrzym(self):
         # dane pielgrzyma: id, nr grupki, płeć, ostatni nocleg, priorytet
-        for id_p, dane_p in self.dane.items():
+        for id_p, dane_p in self.dane.items():  # TODO: wykasować self
             if dane_p[2] != "funkcyjni":
-                self.id_pielgrzyma = id_p
-                self.grupka_pielgrzyma = dane_p[2]
-                self.plec = dane_p[5]
-                self.data_nocl = dane_p[4]
-                dane_zwyk_pielgrzyma = [self.id_pielgrzyma, self.grupka_pielgrzyma, self.plec, self.data_nocl]
-                self.delta_ostatni_nocleg(self.data_nocl)
+                id_pielgrzyma = id_p
+                grupka_pielgrzyma = dane_p[2]
+                plec = dane_p[5]
+                data_nocl = dane_p[4]
+                dane_zwyk_pielgrzyma = [id_pielgrzyma, grupka_pielgrzyma, plec, data_nocl]
+                self.delta_ostatni_nocleg(data_nocl)
                 if self.delta_nocleg >= 3:
                     self.pielgrzymi_bez_noclegu.append(dane_zwyk_pielgrzyma)
                 else:
@@ -124,6 +124,7 @@ class Pielgrzymi:
         # print(sorted(self.suma_priorytetow.items()))
         return self.suma_priorytetow
 
+
     # obliczanie ilości dni od ostatniego noclegu
     def delta_ostatni_nocleg(self, data):
         dzis = datetime.now().date()
@@ -131,16 +132,16 @@ class Pielgrzymi:
         delta_nocleg_obl = dzis - ostatni_nocleg
         self.delta_nocleg = delta_nocleg_obl.days
 
-    def borderer(func):             # TODO: jak zrobić dekorator wewnątrz klasy?
-        print("------------------")
-        func()
+    # def borderer(func):             # TODO: jak zrobić dekorator wewnątrz klasy?
+    #     print("------------------")
+    #     func()
 
 
 pielg = Pielgrzymi("pielgrzymi.json")
 # print("----------------------------------------")
-# pielg.podaj_funkc()
+pielg.podaj_funkc()
 # print("----------------------------------------")
-# pielg.podaj_zwyk_pielg()
+pielg.podaj_zwyk_pielg()
 # print("----------------------------------------")
 # # print()
 # print("PODSUMOWANIE LICZEBNOŚCI GRUP")
