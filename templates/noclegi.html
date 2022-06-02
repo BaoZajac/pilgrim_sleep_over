@@ -84,6 +84,12 @@
               <td>{{ single_address[1][7] }}</td>
               <td>{{ single_address[1][8] }}</td>
               <td>{{ single_address[1][9] }}</td>
+              <td>
+                  <form action="/edytuj-nocleg/" type="GET">
+                      <input type="hidden" value="{{ single_address[0] }}" name="nocleg-id">
+                    <button type="submit">edytuj</button>
+                  </form>
+              </td>
             </tr>
             {% endfor %}
 

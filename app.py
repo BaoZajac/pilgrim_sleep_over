@@ -106,3 +106,12 @@ def edycja_pielgrzyma():
     return render_template("edycja-pielgrzyma.html", pielgrzym=data_pielgrzym, pielgrzym_id=pielgrzym_id,
                            lista_funkcji=lista_funkcji, lista_grupek=lista_grupek)
 
+
+@app.route('/edytuj-nocleg/', methods=['GET', 'POST'])
+def edycja_noclegu():
+    if request.method == "POST":        # TODO: zrobić zapisywanie edytowanych danych
+        return redirect('/noclegi/')
+    nocleg_id = request.args["nocleg-id"]
+    data_nocleg = read_file("noclegi.json")[nocleg_id]
+    return render_template("edycja-noclegu.html", nocleg=data_nocleg, nocleg_id=nocleg_id)
+
