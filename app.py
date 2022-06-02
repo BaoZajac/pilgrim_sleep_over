@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_alembic import Alembic
 from main import read_file, write_file
+from noclegi import noclegi
 
 
 app = Flask(__name__)
@@ -9,8 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database_accountant.db"
 
 # db = SQLAlchemy(app)
-
-adresy = []
+dzien = "2022-08-03"        # TODO: zrobić uniwersalne dla każdej daty
 
 
 # # stworzenie tabeli z adresami
@@ -27,7 +27,9 @@ adresy = []
 
 @app.route('/')
 def main():
-    return render_template('main.html')
+    noclegi_podsum = noclegi.suma_nocl_data(dzien)
+    mycie_podsum = noclegi.suma_pryszn_data(dzien)
+    return render_template('main.html', noclegi_podsum=noclegi_podsum, dzien=dzien, mycie_podsum=mycie_podsum)
 
 
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
