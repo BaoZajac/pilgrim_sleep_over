@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
-from flask_alembic import Alembic
+# from flask_sqlalchemy import SQLAlchemy
+# from flask_alembic import Alembic
 from main import read_file, write_file
 
 
@@ -8,21 +8,21 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database_accountant.db"
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 adresy = []
 
 
-# stworzenie tabeli z adresami
-class Address(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    last_name = db.Column(db.String(120), nullable=False)
-    given_name = db.Column(db.String(120), nullable=True)       #TODO: wypełnione musi być ALBO nazwisko ALBO imię
-    town = db.Column(db.String(120), nullable=False)
-    street = db.Column(db.String(120), nullable=True)
-    house = db.Column(db.String(120), nullable=False)
-    apartment = db.Column(db.String(120), nullable=True)
-    phone = db.Column(db.Integer, nullable=False)
+# # stworzenie tabeli z adresami
+# class Address(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     last_name = db.Column(db.String(120), nullable=False)
+#     given_name = db.Column(db.String(120), nullable=True)       #TODO: wypełnione musi być ALBO nazwisko ALBO imię
+#     town = db.Column(db.String(120), nullable=False)
+#     street = db.Column(db.String(120), nullable=True)
+#     house = db.Column(db.String(120), nullable=False)
+#     apartment = db.Column(db.String(120), nullable=True)
+#     phone = db.Column(db.Integer, nullable=False)
 
 
 @app.route('/')
@@ -90,11 +90,19 @@ def pielgrzym():
 @app.route('/edytuj-pielgrzyma/', methods=['GET', 'POST'])
 def edycja_pielgrzyma():
     if request.method == "POST":
-        return str(request.form)
+        # write_file(data_pielgrzymi, "pielgrzymi.json")    # TODO: zrobić zapisywanie edytowanych danych
+        return redirect('/pielgrzymi/')
+    lista_funkcji = ["-", "bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
+                     "przewodnik", "schola", "szef", "techniczny"]
+    lista_grupek = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
     pielgrzym_id = request.args["pielgrzym-id"]
     data_pielgrzym = read_file("pielgrzymi.json")[pielgrzym_id]
-    return render_template("edycja-pielgrzyma.html", pielgrzym=data_pielgrzym, pielgrzym_id=pielgrzym_id)
-
-
-
+    grupka = data_pielgrzym[2]
+    if grupka != "funkcyjni":
+        grupka = int(grupka)
+    lista_grupek.remove(grupka)
+    funkcja = data_pielgrzym[3]
+    lista_funkcji.remove(funkcja)
+    return render_template("edycja-pielgrzyma.html", pielgrzym=data_pielgrzym, pielgrzym_id=pielgrzym_id,
+                           lista_funkcji=lista_funkcji, lista_grupek=lista_grupek)
 

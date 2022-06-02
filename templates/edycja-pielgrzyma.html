@@ -19,26 +19,29 @@
                         <input class="form-input" id="given_name" type="text" name="given_name" value="{{ pielgrzym[1] }}"/>
                         <label class="form-label" for="sex">PŁEĆ</label>
                         <select class="form-select" id="sex" name="sex">
-                            <option></option>
-                            <option>kobieta</option>
-                            <option>mężczyzna</option>
+                            <option>{{ pielgrzym[5] }}</option>
+                            {% if pielgrzym[5] == 'kobieta' %}
+                                <option>mężczyzna</option>
+                            {% else %}
+                                <option>kobieta</option>
+                            {% endif %}
                         </select>
                         <label class="form-label" for="small_group">GRUPKA</label>
                         <select class="form-select" id="small_group" name="small_group">
-                            <option></option>
+                            <option>{{ pielgrzym[2] }}</option>
                             {% for grupka in lista_grupek %}
                             <option>{{ grupka }}</option>
                             {% endfor %}
                         </select>
                         <label class="form-label" for="function">FUNKCJA</label>
                         <select class="form-select" id="function" name="function">
-                            <option></option>
+                            <option>{{ pielgrzym[3] }}</option>
                             {% for funkcja in lista_funkcji %}
                             <option>{{ funkcja }}</option>
                             {% endfor %}
                         </select>
                         <label class="form-label" for="accommodation">OSTATNI NOCLEG</label>
-                        <input class="form-input" id="accommodation" type="text" name="accommodation" />
+                        <input class="form-input" id="accommodation" type="text" name="accommodation" value="{{ pielgrzym[4] }}"/>
                         <br />
                         <button class="btn btn-primary">ZAPISZ</button>
                     </form>
