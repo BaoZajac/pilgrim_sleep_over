@@ -11,7 +11,7 @@
     <br />
     <h6>----------    OBSŁUGA PIELGRZYMKI    ----------</h6>
     <hr />
-    <h4><b>PODSUMOWANIE NOCLEGÓW I PRYSZNICÓW NA DZIEŃ - {{ dzien[-1] }} sierpnia 2022</b></h4>
+    <h4><b>PODSUMOWANIE NOCLEGÓW I PRYSZNICÓW NA DZIEŃ - {{ dzien }} sierpnia 2022</b></h4>
     <hr />
     <br />
         <form action="/noclegi/" type="GET">
@@ -71,13 +71,15 @@
     <br />
     <br />
     <hr />
-    <h5>ZESTAWIENIE NOCLEGÓW NA DZIEŃ - {{ dzien[-1] }} sierpnia 2022</h5>
+    <h5>ZESTAWIENIE NOCLEGÓW NA DZIEŃ - {{ dzien }} sierpnia 2022</h5>
     <hr />
         <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>IL. NOCLEG</th>
+                    <th>DOSTĘPNE NOCLEGI</th>
+                    <th>WYKORZYST NOCLEGI</th>
+                    <th>KTO TU ŚPI</th>
                     <th>KOMENTARZ</th>
                     <th>MIEJSCOWOŚĆ</th>
                     <th>ULICA</th>
@@ -91,8 +93,12 @@
              <tbody>
             {% for el in lista_nocl %}
             <tr>
-              <td></td>
+              <td>...</td>
               <td>{{ el[7] }}</td>
+              <td>...</td>
+              <td>
+                  <button type="submit">lista pielgrzymów</button>
+              </td>
               <td>{{ el[9] }}</td>
               <td>{{ el[0] }}</td>
               <td>{{ el[1] }}</td>
@@ -107,13 +113,15 @@
     </table>
     <br />
     <hr />
-    <h5>ZESTAWIENIE PRZYSZNICÓW NA DZIEŃ - {{ dzien[-1] }} sierpnia 2022</h5>
+    <h5>ZESTAWIENIE PRZYSZNICÓW NA DZIEŃ - {{ dzien }} sierpnia 2022</h5>
     <hr />
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>IL. MYCIE SIĘ</th>
+                <th>DOSTĘPNE PRYSZNICE</th>
+                <th>WYKORZYST PRYSZNICE</th>
+                <th>KTO TU SIĘ MYJE</th>
                 <th>KOMENTARZ</th>
                 <th>MIEJSCOWOŚĆ</th>
                 <th>ULICA</th>
@@ -127,8 +135,12 @@
         <tbody>
             {% for el in lista_mycie %}
             <tr>
-              <td></td>
+              <td>...</td>
               <td>{{ el[8] }}</td>
+              <td>...</td>
+              <td>
+                  <button type="submit">lista pielgrzymów</button>
+              </td>
               <td>{{ el[9] }}</td>
               <td>{{ el[0] }}</td>
               <td>{{ el[1] }}</td>

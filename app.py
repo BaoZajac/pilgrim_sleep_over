@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database_accountant.db"
 
 # db = SQLAlchemy(app)
-dzien = "2022-08-03"        # TODO: zrobić uniwersalne dla każdej daty
+dzien = "2022-08-04"        # TODO: zrobić uniwersalne dla każdej daty
 
 
 # # stworzenie tabeli z adresami
@@ -32,7 +32,7 @@ def main():
     lista_nocl = noclegi.lista_nocleg_data(dzien)
     lista_mycie = noclegi.lista_prysznic_data(dzien)
     # print(lista_nocl)
-    return render_template('main.html', noclegi_podsum=noclegi_podsum, dzien=dzien, mycie_podsum=mycie_podsum,
+    return render_template('main.html', noclegi_podsum=noclegi_podsum, dzien=dzien[-1], mycie_podsum=mycie_podsum,
                            lista_nocl=lista_nocl, lista_mycie=lista_mycie)
 
 
@@ -60,7 +60,7 @@ def nocleg():
     data_address = list(data_noclegi.items())
     if request.path == '/noclegi/':
         # return redirect(url_for('/noclegi/', data_address=data_address))
-        return render_template("noclegi.html", data_address=data_address)
+        return render_template("noclegi.html", data_address=data_address, dzien=dzien[-1])
     elif request.path == '/dodaj-nocleg/':
         return render_template("dodaj-nocleg.html")
 
@@ -90,7 +90,7 @@ def pielgrzym():
         write_file(data_pielgrzymi, "pielgrzymi.json")
     data_pielgrzymi_lista = list(data_pielgrzymi.items())
     return render_template("pielgrzymi.html", pielgrzymi=data_pielgrzymi_lista, lista_funkcji=lista_funkcji,
-                           lista_grupek=lista_grupek)
+                           lista_grupek=lista_grupek, dzien=dzien[-1])
 
 
 @app.route('/edytuj-pielgrzyma/', methods=['GET', 'POST'])
