@@ -60,6 +60,7 @@ class Noclegi:   # (Pielgrzymi):
         # print(44, self.lista_data)
         return self.lista_data
 
+    # zwraca listę noclegów na dany dzień
     def lista_nocleg_data(self, data):
         self.lista_nocl_data = []
         for el in self.lista_n_p_data(data):
@@ -102,6 +103,15 @@ class Noclegi:   # (Pielgrzymi):
         # print(f"{self.suma_prysznic} - suma myć jednostkowych ({data})")
         return self.suma_dom_prysznic, self.suma_prysznic
 
+    # zwraca listę pryszniców na dany dzień
+    def lista_prysznic_data(self, data):
+        self.lista_pryszn_data = []
+        for el in self.lista_n_p_data(data):
+            il_pryszn = el[8]
+            if il_pryszn > 0:
+                self.lista_pryszn_data.append(el)
+        return self.lista_pryszn_data
+
     """zwraca listę "małych domów" (domów, w których jest maks 4 miejsca do noclegu i mycia się łącznie) 
     oraz il noclegów w małych domach"""
     def zestawienie_malych_domow(self, data):
@@ -127,3 +137,4 @@ noclegi = Noclegi("noclegi.json")
 # noclegi.suma_nocl_data("2022-08-04")
 # noclegi.suma_pryszn_data("2022-08-03")
 # noclegi.zestawienie_malych_domow("2022-08-03")
+# noclegi.lista_prysznic_data("2022-08-03")

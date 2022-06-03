@@ -73,12 +73,16 @@
     <hr />
     <h5>ZESTAWIENIE NOCLEGÓW NA DZIEŃ - {{ dzien[-1] }} sierpnia 2022</h5>
     <hr />
-    <p>zestawienie</p>
+        {% for el in lista_nocl %}
+        <li>{{ el }}</li>
+        {% endfor %}
     <br />
     <br />
     <hr />
     <h5>ZESTAWIENIE PRZYSZNICÓW NA DZIEŃ - {{ dzien[-1] }} sierpnia 2022</h5>
     <hr />
-    <p>zestawienie</p>
+        {% for el in lista_mycie %}
+        <li>{{ el }}</li>
+        {% endfor %}
 </body>
 </html>

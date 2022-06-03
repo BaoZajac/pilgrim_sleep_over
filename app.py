@@ -29,7 +29,11 @@ dzien = "2022-08-03"        # TODO: zrobić uniwersalne dla każdej daty
 def main():
     noclegi_podsum = noclegi.suma_nocl_data(dzien)
     mycie_podsum = noclegi.suma_pryszn_data(dzien)
-    return render_template('main.html', noclegi_podsum=noclegi_podsum, dzien=dzien, mycie_podsum=mycie_podsum)
+    lista_nocl = noclegi.lista_nocleg_data(dzien)
+    lista_mycie = noclegi.lista_prysznic_data(dzien)
+    # print(lista_nocl)
+    return render_template('main.html', noclegi_podsum=noclegi_podsum, dzien=dzien, mycie_podsum=mycie_podsum,
+                           lista_nocl=lista_nocl, lista_mycie=lista_mycie)
 
 
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
