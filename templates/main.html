@@ -73,16 +73,73 @@
     <hr />
     <h5>ZESTAWIENIE NOCLEGÓW NA DZIEŃ - {{ dzien[-1] }} sierpnia 2022</h5>
     <hr />
-        {% for el in lista_nocl %}
-        <li>{{ el }}</li>
-        {% endfor %}
-    <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>IL. NOCLEG</th>
+                    <th>KOMENTARZ</th>
+                    <th>MIEJSCOWOŚĆ</th>
+                    <th>ULICA</th>
+                    <th>NR DOMU</th>
+                    <th>NR MIESZKANIA</th>
+                    <th>NAZWISKO</th>
+                    <th>IMIĘ</th>
+                    <th>NR TELEFONU</th>
+                </tr>
+            </thead>
+             <tbody>
+            {% for el in lista_nocl %}
+            <tr>
+              <td></td>
+              <td>{{ el[7] }}</td>
+              <td>{{ el[9] }}</td>
+              <td>{{ el[0] }}</td>
+              <td>{{ el[1] }}</td>
+              <td>{{ el[2] }}</td>
+              <td>{{ el[3] }}</td>
+              <td>{{ el[4] }}</td>
+              <td>{{ el[5] }}</td>
+              <td>{{ el[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     <br />
     <hr />
     <h5>ZESTAWIENIE PRZYSZNICÓW NA DZIEŃ - {{ dzien[-1] }} sierpnia 2022</h5>
     <hr />
-        {% for el in lista_mycie %}
-        <li>{{ el }}</li>
-        {% endfor %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>IL. MYCIE SIĘ</th>
+                <th>KOMENTARZ</th>
+                <th>MIEJSCOWOŚĆ</th>
+                <th>ULICA</th>
+                <th>NR DOMU</th>
+                <th>NR MIESZKANIA</th>
+                <th>NAZWISKO</th>
+                <th>IMIĘ</th>
+                <th>NR TELEFONU</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for el in lista_mycie %}
+            <tr>
+              <td></td>
+              <td>{{ el[8] }}</td>
+              <td>{{ el[9] }}</td>
+              <td>{{ el[0] }}</td>
+              <td>{{ el[1] }}</td>
+              <td>{{ el[2] }}</td>
+              <td>{{ el[3] }}</td>
+              <td>{{ el[4] }}</td>
+              <td>{{ el[5] }}</td>
+              <td>{{ el[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
