@@ -66,6 +66,7 @@
             <tr>
                 <th>ID</th>
                 <th>MIEJSCOWOŚĆ</th>
+                <th>DATA</th>
                 <th>NAZWISKO</th>
                 <th>IMIĘ</th>
                 <th>ULICA</th>
@@ -75,6 +76,8 @@
                 <th>IL. NOCLEG</th>
                 <th>IL. MYCIE SIĘ</th>
                 <th>KOMENTARZ</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -82,6 +85,7 @@
             <tr>
               <td>{{ single_address[0] }}</td>
               <td>{{ single_address[1][2] }}</td>
+              <td></td>
               <td>{{ single_address[1][0] }}</td>
               <td>{{ single_address[1][1] }}</td>
               <td>{{ single_address[1][3] }}</td>
@@ -93,9 +97,12 @@
               <td>{{ single_address[1][9] }}</td>
               <td>
                   <form action="/edytuj-nocleg/" type="GET">
-                      <input type="hidden" value="{{ single_address[0] }}" name="nocleg-id">
+                    <input type="hidden" value="{{ single_address[0] }}" name="nocleg-id">
                     <button type="submit">edytuj</button>
                   </form>
+              </td>
+              <td>
+                  <button type="button">usuń</button>
               </td>
             </tr>
             {% endfor %}

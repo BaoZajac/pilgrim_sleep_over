@@ -49,6 +49,8 @@ class Noclegi:   # (Pielgrzymi):
         # self.data_noclegu = datetime.strptime(self.data_noclegu, "%d-%m-%Y").date()
         else:
             self.data_noclegu = "x"
+        # print(self.data_noclegu)
+        # print(type(self.data_noclegu))
         return self.data_noclegu
 
     # tworzy listę danych dla noclegów i pryszniców dla danej daty

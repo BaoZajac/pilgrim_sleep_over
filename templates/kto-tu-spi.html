@@ -17,5 +17,72 @@
     <form action="/" type="GET">
         <button class="btn">PODSUMOWANIE DANIA - {{ dzien }} sierpnia 2022</button>
     </form>
+    <br />
+    <h5>DANE NOCLEGU</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>cos</th>
+                <th>MIEJSCOWOŚĆ</th>
+                <th>ULICA</th>
+                <th>NR DOMU</th>
+                <th>NR MIESZKANIA</th>
+                <th>NAZWISKO</th>
+                <th>IMIĘ</th>
+                <th>NR TELEFONU</th>
+                <th>KOMENTARZ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <input type="hidden" value="{{ nocleg_id }}" name="id"/>
+              <td>
+
+              </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>KTO TU ŚPI</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>...</td>
+                <td>
+                    <button type="submit">edytuj</button>
+                </td>
+                <td>
+                    <button type="button">usuń</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>KTO TU SIĘ MYJE</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>...</td>
+                <td>
+                    <button type="submit">edytuj</button>
+                </td>
+                <td>
+                    <button type="submit">usuń</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

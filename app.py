@@ -39,7 +39,10 @@ def main():
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
 @app.route('/noclegi/', methods=['POST', 'GET'])
 def nocleg():
-    data_noclegi = read_file("noclegi.json")
+    # data_noclegi = read_file("noclegi.json")
+    data_noclegi = noclegi.dane_noclegi
+    # data_noclegi = noclegi.noclegi_wszystkie
+    # print(data_noclegi)
     # data_address = list(data_noclegi.items())
     if request.method == "POST":
         last_name = request.form["last_name"]
@@ -55,9 +58,13 @@ def nocleg():
         nocleg_lista = list(data_noclegi.keys())
         nocleg_lista = [int(el) for el in nocleg_lista]
         nocleg_id = max(nocleg_lista) + 1
+        # date = noclegi.miejscowosc_na_data(town)
         data_noclegi[nocleg_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower, comment
         write_file(data_noclegi, "noclegi.json")
+    # print(data_noclegi.items())
     data_address = list(data_noclegi.items())
+    # print(data_noclegi)
+    # print(data_address)
     if request.path == '/noclegi/':
         # return redirect(url_for('/noclegi/', data_address=data_address))
         return render_template("noclegi.html", data_address=data_address, dzien=dzien[-1])
@@ -124,5 +131,7 @@ def edycja_noclegu():
 
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
 def kto_tu_spi():
-    return render_template("kto-tu-spi.html", dzien=dzien[-1])
+    # nocleg_id = request.args["nocleg-id"]   #.get("nocleg-id")
+    # print(nocleg_id)
+    return render_template("kto-tu-spi.html", dzien=dzien[-1])  #, nocleg_id=nocleg_id)
 

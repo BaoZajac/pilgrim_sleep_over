@@ -98,7 +98,6 @@
               <td>...</td>
               <td>
                   <form action="/kto-tu-spi/" type="GET">
-
                     <button type="submit">lista pielgrzymów</button>
                   </form>
               </td>
@@ -142,7 +141,10 @@
               <td>{{ el[8] }}</td>
               <td>...</td>
               <td>
-                  <button type="submit">lista pielgrzymów</button>
+                  <form action="/kto-tu-spi/" type="GET">
+                    <input type="hidden" value="{{ el[10] }}" name="nocleg-id">
+                    <button type="submit">lista pielgrzymów</button>
+                  </form>
               </td>
               <td>{{ el[9] }}</td>
               <td>{{ el[0] }}</td>
