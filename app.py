@@ -121,3 +121,8 @@ def edycja_noclegu():
     data_nocleg = read_file("noclegi.json")[nocleg_id]
     return render_template("edycja-noclegu.html", nocleg=data_nocleg, nocleg_id=nocleg_id)
 
+
+@ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
+def kto_tu_spi():
+    return render_template("kto-tu-spi.html", dzien=dzien[-1])
+

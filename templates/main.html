@@ -93,11 +93,14 @@
              <tbody>
             {% for el in lista_nocl %}
             <tr>
-              <td>...</td>
+              <td>{{ el[10] }}</td>
               <td>{{ el[7] }}</td>
               <td>...</td>
               <td>
-                  <button type="submit">lista pielgrzymów</button>
+                  <form action="/kto-tu-spi/" type="GET">
+
+                    <button type="submit">lista pielgrzymów</button>
+                  </form>
               </td>
               <td>{{ el[9] }}</td>
               <td>{{ el[0] }}</td>
@@ -135,7 +138,7 @@
         <tbody>
             {% for el in lista_mycie %}
             <tr>
-              <td>...</td>
+              <td>{{ el[10] }}</td>
               <td>{{ el[8] }}</td>
               <td>...</td>
               <td>

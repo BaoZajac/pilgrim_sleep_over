@@ -29,7 +29,7 @@ class Noclegi:   # (Pielgrzymi):
             if not self.noclegi_wszystkie.get(miejscowosc):
                 self.noclegi_wszystkie[(id_n, miejscowosc, data)] = []
             self.noclegi_wszystkie[(id_n, miejscowosc, data)] += [[miejscowosc, ulica, dom, mieszkanie, nazwisko, imie,
-                                                                   tel, il_noclegow, il_pryszn, komentarz]]
+                                                                   tel, il_noclegow, il_pryszn, komentarz, id_n]]
         # print(self.noclegi_wszystkie)
 
     # odkodowanie daty noclegu z nazwy miejscowości
@@ -53,12 +53,12 @@ class Noclegi:   # (Pielgrzymi):
 
     # tworzy listę danych dla noclegów i pryszniców dla danej daty
     def lista_n_p_data(self, data):
-        self.lista_data = []
+        lista_data = []
         for k, v in self.noclegi_wszystkie.items():
             if data == str(k[2]):
-                self.lista_data += v
-        # print(44, self.lista_data)
-        return self.lista_data
+                lista_data += v
+        # print(44, lista_data)
+        return lista_data
 
     # zwraca listę noclegów na dany dzień
     def lista_nocleg_data(self, data):
