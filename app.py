@@ -72,6 +72,35 @@ def nocleg():
         return render_template("dodaj-nocleg.html")
 
 
+@app.route('/edytuj-nocleg/', methods=['GET', 'POST'])
+def edycja_noclegu():
+    if request.method == "POST":
+        data_noclegi = noclegi.dane_noclegi
+        _id = request.form["id"]
+        dane = dict(request.form)
+        del dane["id"]
+        dane = list(dane.values())
+        data_noclegi[_id] = dane
+        write_file(data_noclegi, "noclegi.json")
+        return redirect('/noclegi/')
+    nocleg_id = request.args["nocleg-id"]
+    data_nocleg = read_file("noclegi.json")[nocleg_id]
+    return render_template("edycja-noclegu.html", nocleg=data_nocleg, nocleg_id=nocleg_id)
+
+
+@app.route('/usun-nocleg/', methods=['GET', 'POST'])
+def usun_nocleg():
+    if request.method == "POST":
+        data_noclegi = noclegi.dane_noclegi
+        _id = request.form["id"]
+        del data_noclegi[_id]
+        write_file(data_noclegi, "noclegi.json")
+        return redirect('/noclegi/')
+    nocleg_id = request.args["nocleg-id"]
+    data_nocleg = read_file("noclegi.json")[nocleg_id]
+    return render_template("usun-nocleg.html", nocleg=data_nocleg, nocleg_id=nocleg_id)
+
+
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
 def pielgrzym():
     data_pielgrzymi = read_file("pielgrzymi.json")
@@ -120,13 +149,6 @@ def edycja_pielgrzyma():
                            lista_funkcji=lista_funkcji, lista_grupek=lista_grupek)
 
 
-@app.route('/edytuj-nocleg/', methods=['GET', 'POST'])
-def edycja_noclegu():
-    if request.method == "POST":        # TODO: zrobić zapisywanie edytowanych danych
-        return redirect('/noclegi/')
-    nocleg_id = request.args["nocleg-id"]
-    data_nocleg = read_file("noclegi.json")[nocleg_id]
-    return render_template("edycja-noclegu.html", nocleg=data_nocleg, nocleg_id=nocleg_id)
 
 
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])

@@ -102,12 +102,17 @@
                   </form>
               </td>
               <td>
-                  <button type="button">usuń</button>
+                  <form action="/usun-nocleg/" type="GET">
+                      <input type="hidden" value="{{ single_address[0] }}" name="nocleg-id">
+                      <button type="submit">usuń</button>
+                  </form>
               </td>
             </tr>
             {% endfor %}
 
         </tbody>
     </table>
+    <br />
+    <br />
 </body>
 </html>
