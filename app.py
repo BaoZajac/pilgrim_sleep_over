@@ -159,10 +159,23 @@ def kto_tu_spi():
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def daj_nocleg():
+    lista_przyporz_nocl = {}
     lista_funkcyjn = pielg.lista_funkcyjnych
-    lista_funkcyjn.sort(key=lambda lista_funkcyjn: lista_funkcyjn[1])
+    lista_funkcyjn.sort(key=lambda lista_funkcyjn: lista_funkcyjn[4])
+    # print(lista_funkcyjn)
+    # print(type(lista_funkcyjn))
     lista_noclegow = noclegi.lista_nocleg_data(dzien)
-    print(lista_noclegow)
+    grupki = pielg.podsum_il_w_grupkach()
+    print(111,grupki)
+    if request.method == "POST":
+        dana_osoba = request.form["person"]
+        print(dana_osoba)
+        przyporz_nocleg = request.form["accommodation"]
+        print(przyporz_nocleg)
+        lista_przyporz_nocl[przyporz_nocleg] = dana_osoba
+        # print(lista_przyporz_nocl)
+        print(1, lista_przyporz_nocl)
+        return redirect('/przyporzadkuj-nocleg/')
     return render_template("przyporzadkuj-nocleg.html", dzien=dzien[-1], funkcyjni=lista_funkcyjn,
-                           lista_noclegow=lista_noclegow)
+                           lista_noclegow=lista_noclegow, lista_przyporz_nocl=lista_przyporz_nocl, grupki=grupki)
 

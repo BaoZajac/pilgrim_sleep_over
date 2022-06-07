@@ -59,6 +59,8 @@ class Pielgrzymi:
 
     def zwykly_pielgrzym(self):
         # dane pielgrzyma: id, nr grupki, płeć, ostatni nocleg, priorytet
+        self.podzial_grupki = {}
+        grupka_zestaw = []
         for id_p, dane_p in self.dane.items():  # TODO: wykasować self
             if dane_p[2] != "funkcyjni":
                 id_pielgrzyma = id_p
@@ -66,11 +68,16 @@ class Pielgrzymi:
                 plec = dane_p[5]
                 data_nocl = dane_p[4]
                 dane_zwyk_pielgrzyma = [id_pielgrzyma, grupka_pielgrzyma, plec, data_nocl]
+                if not grupka_pielgrzyma in self.podzial_grupki.keys():
+                    self.podzial_grupki[grupka_pielgrzyma] = [dane_zwyk_pielgrzyma]
+                else:
+                    self.podzial_grupki[grupka_pielgrzyma].append(dane_zwyk_pielgrzyma)
                 self.delta_ostatni_nocleg(data_nocl)
                 if self.delta_nocleg >= 3:
                     self.pielgrzymi_bez_noclegu.append(dane_zwyk_pielgrzyma)
                 else:
                     self.pielgrzymi_pozostali.append(dane_zwyk_pielgrzyma)
+        print("PODZIAŁ: ", self.podzial_grupki)
 
     def podaj_zwyk_pielg(self):
         print("DANE PIELGRZYMA: id, nr grupki, płeć, ostatni nocleg, priorytet\n")
@@ -81,18 +88,19 @@ class Pielgrzymi:
         for el in grupa:
             self.priorytet = priorytet
             if el[2] == "mężczyzna":
-                self.priorytet *= 1.5
+                # self.priorytet *= 1.5
+                self.priorytet += 1
             el.append(self.priorytet)
 
     def funkcja_priorytet(self):
         self.priorytet_plec(self.funkcyjni_0, 0)
-        self.priorytet_plec(self.funkcyjni_1, 1)
-        self.priorytet_plec(self.funkcyjni_2, 4)
+        self.priorytet_plec(self.funkcyjni_1, 2)
+        self.priorytet_plec(self.funkcyjni_2, 6)
         self.priorytet_plec(self.funkcyjni_szkola, 20)
 
     def zwykly_pielg_priorytet(self):
-        self.priorytet_plec(self.pielgrzymi_bez_noclegu, 2)
-        self.priorytet_plec(self.pielgrzymi_pozostali, 7)
+        self.priorytet_plec(self.pielgrzymi_bez_noclegu, 4)
+        self.priorytet_plec(self.pielgrzymi_pozostali, 8)
 
     def suma_osob_w_grupie(self, grupa, nazwa):
         il_kobiet = 0
@@ -103,7 +111,7 @@ class Pielgrzymi:
             else:
                 il_mezczyzn += 1
         wszyscy = il_kobiet + il_mezczyzn
-        # print(f" Grupa '{nazwa}' >>  razem: {wszyscy}, k: {il_kobiet}, m: {il_mezczyzn}")
+        print(f" Grupa '{nazwa}' >>  razem: {wszyscy}, k: {il_kobiet}, m: {il_mezczyzn}")
         return nazwa, wszyscy, il_kobiet, il_mezczyzn
 
     def podsum_il_w_grupach(self):
@@ -113,6 +121,13 @@ class Pielgrzymi:
         self.suma_osob_w_grupie(self.funkcyjni_szkola, "funkcyjni_szkola")
         self.suma_osob_w_grupie(self.pielgrzymi_bez_noclegu, "pielgrzymi_bez_noclegu")
         self.suma_osob_w_grupie(self.pielgrzymi_pozostali, "pielgrzymi_pozostali")
+
+    def podsum_il_w_grupkach(self):
+        for k, v in self.podzial_grupki.items():
+            a = self.suma_osob_w_grupie(v, k)
+        #     print(1, a)
+        # print(2, a)
+        # return a
 
     def podsum_il_wg_plci(self):
         # self.suma_osob_w_grupie(self.wszyscy_pielgrzymi, "wszyscy_razem")
@@ -157,5 +172,6 @@ pielg = Pielgrzymi("pielgrzymi.json")
 # pielg.podsum_il_wg_prioryt()
 
 # pielg.delta_ostatni_nocleg()
+pielg.podsum_il_w_grupkach()
 
 

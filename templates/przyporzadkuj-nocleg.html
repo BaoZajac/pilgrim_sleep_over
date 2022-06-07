@@ -21,27 +21,54 @@
     <br />
     <h5>FUNKCYJNI</h5>
     <br />
+    <form action="" method="post">
+        {% for funkcyjny in funkcyjni %}
+            <label class="form-label" for="person">{{ funkcyjny[1].upper() }} {{ funkcyjny[2] }}:</label>
+            <input class="form-input" id="person" name="person" type="hidden" value="{{ funkcyjny }}">
+            <select class="form-select" id="accommodation" name="accommodation">
+                <option></option>
+                {% for nocleg in lista_noclegow %}
+                <option>DOM {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
+                {% endfor %}
+            </select>
+        <button type="submit">ZATWIERDŹ</button>
+        {% endfor %}
+    </form>
+    <br />
+    <br />
     {% for funkcyjny in funkcyjni %}
     <label>{{ funkcyjny[1].upper() }} {{ funkcyjny[2] }}:</label>
     <select>
         <option></option>
         {% for nocleg in lista_noclegow %}
-        <option>Dom {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
+        <option>DOM {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
         {% endfor %}
     </select>
     <br />
     {% endfor %}
     <br />
     <br />
+    <br />
     <h5>ZWYKLI PIELGRZYMI</h5>
     <br />
-    <label for="pielgrzym-id">Pielgrzym {{ funkcja }} {{grupa}}:</label>
+    {% for grupka in grupki %}
+    <label for="pielgrzym-id">Pielgrzym {{grupka[0]}}:</label>
         <select>
-            <option value="1">Dom {{ nocleg_id }} (dostępna ilość)</option>
-            <option value="2">Dom {{ nocleg_id }} (dostępna ilość)</option>
+            <option></option>
+            {% for nocleg in lista_noclegow %}
+            <option>Dom {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
+            {% endfor %}
         </select>
+    {% endfor %}
+
 
     <br />
+    <br />
+    <br />
+    {% for funkcyjny in funkcyjni %}
+    FUNKCYJNY: {{ funkcyjny }}
+    <br />
+    {% endfor %}
     <br />
 </body>
 </html>
