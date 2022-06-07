@@ -29,6 +29,7 @@ class Pielgrzymi:
 
     def funkcyjny(self):
         # dane funkcyjnego: id, funkcja, płeć, ostatni nocleg, priorytet
+        self.lista_funkcyjnych = []
         for id_p, dane_p in self.dane.items():
             if dane_p[2] == "funkcyjni":
                 self.id_pielgrzyma = id_p
@@ -36,6 +37,7 @@ class Pielgrzymi:
                 self.plec = dane_p[5]
                 self.data_nocl = dane_p[4]
                 dane_funkcyjnego = [self.id_pielgrzyma, self.funkcja_pielgrzyma, self.plec, self.data_nocl]
+                self.lista_funkcyjnych.append(dane_funkcyjnego)
                 if self.funkcja_pielgrzyma == "porządkowy" or self.funkcja_pielgrzyma == "chorąży":
                     self.funkcyjni_0.append(dane_funkcyjnego)
                 elif self.funkcja_pielgrzyma == "szef" or self.funkcja_pielgrzyma == "pilot" \
@@ -45,6 +47,8 @@ class Pielgrzymi:
                     self.funkcyjni_szkola.append(dane_funkcyjnego)
                 else:
                     self.funkcyjni_2.append(dane_funkcyjnego)
+        # print("FUNKCYJNI: ", self.lista_funkcyjnych)
+        # return self.lista_funkcyjnych
 
     def podaj_funkc(self):
         print("DANE FUNKCYJNEGO: id, funkcja, płeć, ostatni nocleg, priorytet\n")
@@ -139,9 +143,9 @@ class Pielgrzymi:
 
 pielg = Pielgrzymi("pielgrzymi.json")
 # print("----------------------------------------")
-pielg.podaj_funkc()
+# pielg.podaj_funkc()
 # print("----------------------------------------")
-pielg.podaj_zwyk_pielg()
+# pielg.podaj_zwyk_pielg()
 # print("----------------------------------------")
 # # print()
 # print("PODSUMOWANIE LICZEBNOŚCI GRUP")

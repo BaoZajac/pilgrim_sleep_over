@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>obsługa - PRZYPORZĄDKUJ NOCLEG</title>
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+</head>
+<body>
+    <br />
+    <h6>----------    OBSŁUGA PIELGRZYMKI    ----------</h6>
+    <hr />
+    <h5>FORMULARZ DO PRZYPORZĄDKOWYWANIA NOCLEGÓW</h5>
+    <hr />
+    <br />
+        <form action="/" type="GET">
+            <button class="btn">PODSUMOWANIE DNIA - {{ dzien }} sierpnia 2022</button>
+        </form>
+    <br />
+    <br />
+    <h5>FUNKCYJNI</h5>
+    <br />
+    {% for funkcyjny in funkcyjni %}
+    <label>{{ funkcyjny[1].upper() }} {{ funkcyjny[2] }}:</label>
+    <select>
+        <option></option>
+        {% for nocleg in lista_noclegow %}
+        <option>Dom {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
+        {% endfor %}
+    </select>
+    <br />
+    {% endfor %}
+    <br />
+    <br />
+    <h5>ZWYKLI PIELGRZYMI</h5>
+    <br />
+    <label for="pielgrzym-id">Pielgrzym {{ funkcja }} {{grupa}}:</label>
+        <select>
+            <option value="1">Dom {{ nocleg_id }} (dostępna ilość)</option>
+            <option value="2">Dom {{ nocleg_id }} (dostępna ilość)</option>
+        </select>
+
+    <br />
+    <br />
+</body>
+</html>

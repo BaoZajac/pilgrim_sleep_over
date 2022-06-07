@@ -3,6 +3,7 @@ from flask import Flask, request, render_template, redirect, url_for
 # from flask_alembic import Alembic
 from main import read_file, write_file
 from noclegi import noclegi
+from uczestnicy import pielg
 
 
 app = Flask(__name__)
@@ -149,11 +150,19 @@ def edycja_pielgrzyma():
                            lista_funkcji=lista_funkcji, lista_grupek=lista_grupek)
 
 
-
-
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
 def kto_tu_spi():
     # nocleg_id = request.args["nocleg-id"]   #.get("nocleg-id")
     # print(nocleg_id)
     return render_template("kto-tu-spi.html", dzien=dzien[-1])  #, nocleg_id=nocleg_id)
+
+
+@ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
+def daj_nocleg():
+    lista_funkcyjn = pielg.lista_funkcyjnych
+    lista_funkcyjn.sort(key=lambda lista_funkcyjn: lista_funkcyjn[1])
+    lista_noclegow = noclegi.lista_nocleg_data(dzien)
+    print(lista_noclegow)
+    return render_template("przyporzadkuj-nocleg.html", dzien=dzien[-1], funkcyjni=lista_funkcyjn,
+                           lista_noclegow=lista_noclegow)
 
