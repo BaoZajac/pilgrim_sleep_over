@@ -76,6 +76,7 @@
                 <th>NAZWISKO</th>
                 <th>IMIĘ</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -92,6 +93,12 @@
                   <form action="/edytuj-pielgrzyma/" type="GET">
                       <input type="hidden" value="{{ pielgrzym[0] }}" name="pielgrzym-id">
                     <button type="submit">edytuj</button>
+                  </form>
+              </td>
+              <td>
+                  <form action="/usun-pielgrzyma/" type="GET">
+                      <input type="hidden" value="{{ pielgrzym[0] }}" name="pielgrzym-id">
+                      <button type="submit">usuń</button>
                   </form>
               </td>
             </tr>

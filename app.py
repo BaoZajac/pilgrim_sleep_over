@@ -35,7 +35,6 @@ def main():
     mycie_podsum = noclegi.suma_pryszn_data(dzien)
     lista_nocl = noclegi.lista_nocleg_data(dzien)
     lista_mycie = noclegi.lista_prysznic_data(dzien)
-    # print(lista_nocl)
     return render_template('main.html', noclegi_podsum=noclegi_podsum, dzien=dzien[-1], mycie_podsum=mycie_podsum,
                            lista_nocl=lista_nocl, lista_mycie=lista_mycie)
 
@@ -127,10 +126,11 @@ def pielgrzym():
         else:
             pielgrzym_id = 1
         data_pielgrzymi[pielgrzym_id] = last_name, given_name, sex, small_group, function, accommodations
-        print(888, data_pielgrzymi)
+        # print(888, data_pielgrzymi)
+        print(request.form)
         write_file(data_pielgrzymi, "pielgrzymi.json")
     data_pielgrzymi_lista = list(data_pielgrzymi.items())
-    print(9, data_pielgrzymi_lista)
+    # print(9, data_pielgrzymi_lista)
     return render_template("pielgrzymi.html", pielgrzymi=data_pielgrzymi_lista, lista_funkcji=lista_funkcji,
                            lista_grupek=lista_grupek, dzien=dzien[-1])
 
@@ -167,6 +167,19 @@ def edycja_pielgrzyma():
                            lista_funkcji=lista_funkcji, lista_grupek=lista_grupek)
 
 
+@app.route('/usun-pielgrzyma/', methods=['GET', 'POST'])
+def usun_pielgrzyma():
+    if request.method == "POST":
+        data_pielgrzymi = pielg.dane_pielgrzymi
+        _id = request.form["id"]
+        del data_pielgrzymi[_id]
+        write_file(data_pielgrzymi, "pielgrzymi.json")
+        return redirect('/pielgrzymi/')
+    pielgrzym_id = request.args["pielgrzym-id"]
+    data_pielg = read_file("pielgrzymi.json")[pielgrzym_id]
+    return render_template("usun-pielgrzyma.html", pielgrzym=data_pielg, pielgrzym_id=pielgrzym_id)
+
+
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
 def kto_tu_spi():
     # nocleg_id = request.args["nocleg-id"]   #.get("nocleg-id")
@@ -193,12 +206,19 @@ def daj_nocleg():
         # lista_przyporz_nocl[przyporz_nocleg] = dana_osoba
         # # print(lista_przyporz_nocl)
         # print(1, lista_przyporz_nocl)
+        print(request.form)
+        # print(request.form.items)
+        # print(list(request.form.items))
+        # for a, b in request.form.items():
+        #     print(a)
+        #     print(b)
+        print(request.form.getlist(id))
         df = pd.DataFrame(list(request.form.items()), columns=['id', 'nocleg'])
         # resp = make_response(df.to_excel(index=False))
         # resp.headers["Content-Disposition"] = "attachment; filename=export.excel"
         # resp.headers["Content-Type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         # return resp
-        print(request.form)
+        # print(request.form)
         buffer = io.BytesIO()
         df.to_excel(buffer, index=False)
         headers = {
