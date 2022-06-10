@@ -1,9 +1,12 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, Response
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_alembic import Alembic
 from main import read_file, write_file
 from noclegi import noclegi
 from uczestnicy import pielg
+import pandas as pd
+from flask import make_response
+import io
 
 
 app = Flask(__name__)
@@ -123,9 +126,11 @@ def pielgrzym():
             pielgrzym_id = max(pielg_lista) + 1
         else:
             pielgrzym_id = 1
-        data_pielgrzymi[pielgrzym_id] = last_name, given_name, small_group, function, accommodations, sex
+        data_pielgrzymi[pielgrzym_id] = last_name, given_name, sex, small_group, function, accommodations
+        print(888, data_pielgrzymi)
         write_file(data_pielgrzymi, "pielgrzymi.json")
     data_pielgrzymi_lista = list(data_pielgrzymi.items())
+    print(9, data_pielgrzymi_lista)
     return render_template("pielgrzymi.html", pielgrzymi=data_pielgrzymi_lista, lista_funkcji=lista_funkcji,
                            lista_grupek=lista_grupek, dzien=dzien[-1])
 
@@ -133,7 +138,19 @@ def pielgrzym():
 @app.route('/edytuj-pielgrzyma/', methods=['GET', 'POST'])
 def edycja_pielgrzyma():
     if request.method == "POST":
-        # write_file(data_pielgrzymi, "pielgrzymi.json")    # TODO: zrobić zapisywanie edytowanych danych
+        # data_pielgrzym = pielg.dane_pielgrzymi
+        # # print(data_pielgrzym)
+        # _id = request.form["id"]
+        # # print(_id)
+        # dane = dict(request.form)
+        # # print(dane)
+        # del dane["id"]
+        # dane = list(dane.values())
+        # # print(dane)
+        # data_pielgrzym[_id] = dane
+        # print(77, data_pielgrzym)
+        # write_file(data_pielgrzym, "pielgrzymi.json")
+        # # write_file(data_pielgrzymi, "pielgrzymi.json")    # TODO: zrobić zapisywanie edytowanych danych
         return redirect('/pielgrzymi/')
     lista_funkcji = ["-", "bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
                      "przewodnik", "schola", "szef", "techniczny"]
@@ -159,23 +176,37 @@ def kto_tu_spi():
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def daj_nocleg():
-    lista_przyporz_nocl = {}
+    # lista_przyporz_nocl = {}
     lista_funkcyjn = pielg.lista_funkcyjnych
     lista_funkcyjn.sort(key=lambda lista_funkcyjn: lista_funkcyjn[4])
-    # print(lista_funkcyjn)
-    # print(type(lista_funkcyjn))
+    # print("FUNKCYJNI: ", lista_funkcyjn)
+    # lista_zwyk_pielg = pielg.podzial_grupki.values()
+    # print("GRUPKI: ", lista_zwyk_pielg)
+    lista_zwyk_pielg = pielg.lista_pozost_pielg
+    # print("POZOSTALI: ", lista_zwyk_pielg)
     lista_noclegow = noclegi.lista_nocleg_data(dzien)
-    grupki = pielg.podsum_il_w_grupkach()
-    print(111,grupki)
     if request.method == "POST":
-        dana_osoba = request.form["person"]
-        print(dana_osoba)
-        przyporz_nocleg = request.form["accommodation"]
-        print(przyporz_nocleg)
-        lista_przyporz_nocl[przyporz_nocleg] = dana_osoba
-        # print(lista_przyporz_nocl)
-        print(1, lista_przyporz_nocl)
-        return redirect('/przyporzadkuj-nocleg/')
+        # dana_osoba = request.form["person"]
+        # print(dana_osoba)
+        # przyporz_nocleg = request.form["accommodation"]
+        # print(przyporz_nocleg)
+        # lista_przyporz_nocl[przyporz_nocleg] = dana_osoba
+        # # print(lista_przyporz_nocl)
+        # print(1, lista_przyporz_nocl)
+        df = pd.DataFrame(list(request.form.items()), columns=['id', 'nocleg'])
+        # resp = make_response(df.to_excel(index=False))
+        # resp.headers["Content-Disposition"] = "attachment; filename=export.excel"
+        # resp.headers["Content-Type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        # return resp
+        print(request.form)
+        buffer = io.BytesIO()
+        df.to_excel(buffer, index=False)
+        headers = {
+            'Content-Disposition': 'attachment; filename=output.xlsx',
+            'Content-type': 'application/vnd.ms-excel'
+        }
+        return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)  #, redirect('/przyporzadkuj-nocleg/')
+
     return render_template("przyporzadkuj-nocleg.html", dzien=dzien[-1], funkcyjni=lista_funkcyjn,
-                           lista_noclegow=lista_noclegow, lista_przyporz_nocl=lista_przyporz_nocl, grupki=grupki)
+                           pozostali_pielgrzymi=lista_zwyk_pielg, lista_noclegow=lista_noclegow)   #, lista_przyporz_nocl=lista_przyporz_nocl)   #, grupki=grupki)
 

@@ -5,7 +5,7 @@ from datetime import datetime
 
 class Pielgrzymi:
     def __init__(self, file_path_pielgrzymi):
-        self.dane = read_file(file_path_pielgrzymi)
+        self.dane_pielgrzymi = read_file(file_path_pielgrzymi)
         # self.id_pielgrzyma = None             # TODO: czy to jest potrzebne?
         # self.funkcja_pielgrzyma = None
         self.funkcyjni_0 = []
@@ -30,20 +30,22 @@ class Pielgrzymi:
     def funkcyjny(self):
         # dane funkcyjnego: id, funkcja, płeć, ostatni nocleg, priorytet
         self.lista_funkcyjnych = []
-        for id_p, dane_p in self.dane.items():
-            if dane_p[2] == "funkcyjni":
-                self.id_pielgrzyma = id_p
-                self.funkcja_pielgrzyma = dane_p[3]
-                self.plec = dane_p[5]
-                self.data_nocl = dane_p[4]
-                dane_funkcyjnego = [self.id_pielgrzyma, self.funkcja_pielgrzyma, self.plec, self.data_nocl]
+        for id_p, dane_p in self.dane_pielgrzymi.items():
+            if dane_p[2] == "funkcyjni":    # TODO: wykasować self?
+                id_pielgrzyma = id_p
+                funkcja_pielgrzyma = dane_p[3]
+                plec = dane_p[5]
+                data_nocl = dane_p[4]
+                nazwisko = dane_p[0]
+                imie = dane_p[1]
+                dane_funkcyjnego = [id_pielgrzyma, funkcja_pielgrzyma, plec, data_nocl, nazwisko, imie]
                 self.lista_funkcyjnych.append(dane_funkcyjnego)
-                if self.funkcja_pielgrzyma == "porządkowy" or self.funkcja_pielgrzyma == "chorąży":
+                if funkcja_pielgrzyma == "porządkowy" or funkcja_pielgrzyma == "chorąży":
                     self.funkcyjni_0.append(dane_funkcyjnego)
-                elif self.funkcja_pielgrzyma == "szef" or self.funkcja_pielgrzyma == "pilot" \
-                        or self.funkcja_pielgrzyma == "przewodnik" or self.funkcja_pielgrzyma == "lider_kwaterm_jutro":
+                elif funkcja_pielgrzyma == "szef" or funkcja_pielgrzyma == "pilot" \
+                        or funkcja_pielgrzyma == "przewodnik" or funkcja_pielgrzyma == "lider_kwaterm_jutro":
                     self.funkcyjni_1.append(dane_funkcyjnego)
-                elif self.funkcja_pielgrzyma == "kwatermistrz_dzis":
+                elif funkcja_pielgrzyma == "kwatermistrz_dzis":
                     self.funkcyjni_szkola.append(dane_funkcyjnego)
                 else:
                     self.funkcyjni_2.append(dane_funkcyjnego)
@@ -60,14 +62,17 @@ class Pielgrzymi:
     def zwykly_pielgrzym(self):
         # dane pielgrzyma: id, nr grupki, płeć, ostatni nocleg, priorytet
         self.podzial_grupki = {}
-        grupka_zestaw = []
-        for id_p, dane_p in self.dane.items():  # TODO: wykasować self
+        self.lista_pozost_pielg = []
+        for id_p, dane_p in self.dane_pielgrzymi.items():
             if dane_p[2] != "funkcyjni":
                 id_pielgrzyma = id_p
                 grupka_pielgrzyma = dane_p[2]
                 plec = dane_p[5]
                 data_nocl = dane_p[4]
-                dane_zwyk_pielgrzyma = [id_pielgrzyma, grupka_pielgrzyma, plec, data_nocl]
+                nazwisko = dane_p[0]
+                imie = dane_p[1]
+                dane_zwyk_pielgrzyma = [id_pielgrzyma, grupka_pielgrzyma, plec, data_nocl, nazwisko, imie]
+                self.lista_pozost_pielg.append(dane_zwyk_pielgrzyma)
                 if not grupka_pielgrzyma in self.podzial_grupki.keys():
                     self.podzial_grupki[grupka_pielgrzyma] = [dane_zwyk_pielgrzyma]
                 else:
@@ -77,7 +82,8 @@ class Pielgrzymi:
                     self.pielgrzymi_bez_noclegu.append(dane_zwyk_pielgrzyma)
                 else:
                     self.pielgrzymi_pozostali.append(dane_zwyk_pielgrzyma)
-        print("PODZIAŁ: ", self.podzial_grupki)
+        # print("LISTAPIELG: ", self.lista_pozost_pielg)
+        # print("PODZIAŁ GRUPKI: ", self.podzial_grupki)
 
     def podaj_zwyk_pielg(self):
         print("DANE PIELGRZYMA: id, nr grupki, płeć, ostatni nocleg, priorytet\n")
@@ -111,7 +117,7 @@ class Pielgrzymi:
             else:
                 il_mezczyzn += 1
         wszyscy = il_kobiet + il_mezczyzn
-        print(f" Grupa '{nazwa}' >>  razem: {wszyscy}, k: {il_kobiet}, m: {il_mezczyzn}")
+        # print(f" Grupa '{nazwa}' >>  razem: {wszyscy}, k: {il_kobiet}, m: {il_mezczyzn}")
         return nazwa, wszyscy, il_kobiet, il_mezczyzn
 
     def podsum_il_w_grupach(self):
@@ -123,11 +129,13 @@ class Pielgrzymi:
         self.suma_osob_w_grupie(self.pielgrzymi_pozostali, "pielgrzymi_pozostali")
 
     def podsum_il_w_grupkach(self):
+        print(self.podzial_grupki.items())
         for k, v in self.podzial_grupki.items():
             a = self.suma_osob_w_grupie(v, k)
+            # print(a)
         #     print(1, a)
         # print(2, a)
-        # return a
+        return a
 
     def podsum_il_wg_plci(self):
         # self.suma_osob_w_grupie(self.wszyscy_pielgrzymi, "wszyscy_razem")
@@ -172,6 +180,6 @@ pielg = Pielgrzymi("pielgrzymi.json")
 # pielg.podsum_il_wg_prioryt()
 
 # pielg.delta_ostatni_nocleg()
-pielg.podsum_il_w_grupkach()
+# pielg.podsum_il_w_grupkach()
 
 
