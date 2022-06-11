@@ -31,11 +31,11 @@ class Pielgrzymi:
         # dane funkcyjnego: id, funkcja, płeć, ostatni nocleg, priorytet
         self.lista_funkcyjnych = []
         for id_p, dane_p in self.dane_pielgrzymi.items():
-            if dane_p[2] == "funkcyjni":    # TODO: wykasować self?
+            if dane_p[3] == "funkcyjni":    # * dane_p[2]  # TODO: wykasować self?
                 id_pielgrzyma = id_p
-                funkcja_pielgrzyma = dane_p[3]
-                plec = dane_p[5]
-                data_nocl = dane_p[4]
+                funkcja_pielgrzyma = dane_p[4]   # * dane_p[3]
+                plec = dane_p[2]  # * dane_p[5]
+                data_nocl = dane_p[5]  # * dane_p[4]
                 nazwisko = dane_p[0]
                 imie = dane_p[1]
                 dane_funkcyjnego = [id_pielgrzyma, funkcja_pielgrzyma, plec, data_nocl, nazwisko, imie]
@@ -97,6 +97,7 @@ class Pielgrzymi:
                 # self.priorytet *= 1.5
                 self.priorytet += 1
             el.append(self.priorytet)
+        return grupa
 
     def funkcja_priorytet(self):
         self.priorytet_plec(self.funkcyjni_0, 0)

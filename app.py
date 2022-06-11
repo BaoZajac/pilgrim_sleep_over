@@ -202,15 +202,10 @@ def kto_tu_spi():
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def daj_nocleg():
-    # lista_przyporz_nocl = {}
     lista_funkcyjn = pielg.lista_funkcyjnych
     lista_funkcyjn.sort(key=lambda lista_funkcyjn: lista_funkcyjn[6])
-    # print("FUNKCYJNI: ", lista_funkcyjn)
-    # lista_zwyk_pielg = pielg.podzial_grupki.values()
-    # print("GRUPKI: ", lista_zwyk_pielg)
     lista_zwyk_pielg = pielg.lista_pozost_pielg
     lista_zwyk_pielg.sort(key=lambda lista_zwyk_pielg: lista_zwyk_pielg[6])
-    # print("POZOSTALI: ", lista_zwyk_pielg)
     lista_noclegow = noclegi.lista_nocleg_data(dzien)
     if request.method == "POST":
         # dana_osoba = request.form["person"]
@@ -220,17 +215,19 @@ def daj_nocleg():
         # lista_przyporz_nocl[przyporz_nocleg] = dana_osoba
         # # print(lista_przyporz_nocl)
         # print(1, lista_przyporz_nocl)
-        print(request.form)
-        przyporz_nocleg = request.form
-        write_file(przyporz_nocleg, "przyporzadkowany_nocleg.json")
-        return redirect('/przyporzadkuj-nocleg/')
-        # print(request.form.items)
+
+        # print(request.form)
+        # przyporz_nocleg = request.form
+        # write_file(przyporz_nocleg, "przyporzadkowany_nocleg.json")
+        # return redirect('/przyporzadkuj-nocleg/')
+
+        print(request.form.items)
         # print(list(request.form.items))
         # for a, b in request.form.items():
         #     print(a)
         #     print(b)
 
-        df = pd.DataFrame(list(request.form.items()), columns=['id', 'nocleg'])
+        df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])
         # resp = make_response(df.to_excel(index=False))
         # resp.headers["Content-Disposition"] = "attachment; filename=export.excel"
         # resp.headers["Content-Type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
