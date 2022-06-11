@@ -64,11 +64,11 @@ class Pielgrzymi:
         self.podzial_grupki = {}
         self.lista_pozost_pielg = []
         for id_p, dane_p in self.dane_pielgrzymi.items():
-            if dane_p[2] != "funkcyjni":
+            if dane_p[3] != "funkcyjni":  # * dane_p[2]
                 id_pielgrzyma = id_p
-                grupka_pielgrzyma = dane_p[2]
-                plec = dane_p[5]
-                data_nocl = dane_p[4]
+                grupka_pielgrzyma = dane_p[3]  # * dane_p[2]
+                plec = dane_p[2]  # * dane_p[5]
+                data_nocl = dane_p[5]   # * dane_p[4]
                 nazwisko = dane_p[0]
                 imie = dane_p[1]
                 dane_zwyk_pielgrzyma = [id_pielgrzyma, grupka_pielgrzyma, plec, data_nocl, nazwisko, imie]

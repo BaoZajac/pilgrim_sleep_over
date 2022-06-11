@@ -127,7 +127,7 @@ def pielgrzym():
             pielgrzym_id = 1
         data_pielgrzymi[pielgrzym_id] = last_name, given_name, sex, small_group, function, accommodations
         # print(888, data_pielgrzymi)
-        print(request.form)
+        # print(request.form)
         write_file(data_pielgrzymi, "pielgrzymi.json")
     data_pielgrzymi_lista = list(data_pielgrzymi.items())
     # print(9, data_pielgrzymi_lista)
@@ -138,18 +138,27 @@ def pielgrzym():
 @app.route('/edytuj-pielgrzyma/', methods=['GET', 'POST'])
 def edycja_pielgrzyma():
     if request.method == "POST":
-        # data_pielgrzym = pielg.dane_pielgrzymi
-        # # print(data_pielgrzym)
-        # _id = request.form["id"]
-        # # print(_id)
-        # dane = dict(request.form)
-        # # print(dane)
-        # del dane["id"]
-        # dane = list(dane.values())
-        # # print(dane)
-        # data_pielgrzym[_id] = dane
-        # print(77, data_pielgrzym)
-        # write_file(data_pielgrzym, "pielgrzymi.json")
+        data_pielgrzym = pielg.dane_pielgrzymi
+        print(34, data_pielgrzym)
+        _id = request.form["id"]
+        dane_pielgrz = dict(request.form)
+        print(6, dane_pielgrz)
+        del dane_pielgrz["id"]
+
+        # last_name = request.form["last_name"]
+        # given_name = request.form["given_name"]
+        # small_group = request.form["small_group"]
+        # function = request.form["function"]
+        # accommodations = request.form["accommodation"]
+        # sex = request.form["sex"]
+        # data_pielgrzym[_id] = last_name, given_name, sex, small_group, function, accommodations
+
+        dane_pielgrz = list(dane_pielgrz.values())
+        # # print(dane_pielgrz)
+        data_pielgrzym[_id] = dane_pielgrz
+
+        print(77, data_pielgrzym)
+        write_file(data_pielgrzym, "pielgrzymi.json")
         # # write_file(data_pielgrzymi, "pielgrzymi.json")    # TODO: zrobić zapisywanie edytowanych danych
         return redirect('/pielgrzymi/')
     lista_funkcji = ["-", "bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
@@ -157,11 +166,11 @@ def edycja_pielgrzyma():
     lista_grupek = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
     pielgrzym_id = request.args["pielgrzym-id"]
     data_pielgrzym = read_file("pielgrzymi.json")[pielgrzym_id]
-    grupka = data_pielgrzym[2]
+    grupka = data_pielgrzym[3]   # * data_pielgrzym[2]
     if grupka != "funkcyjni":
         grupka = int(grupka)
     lista_grupek.remove(grupka)
-    funkcja = data_pielgrzym[3]
+    funkcja = data_pielgrzym[4]  # * data_pielgrzym[3]
     lista_funkcji.remove(funkcja)
     return render_template("edycja-pielgrzyma.html", pielgrzym=data_pielgrzym, pielgrzym_id=pielgrzym_id,
                            lista_funkcji=lista_funkcji, lista_grupek=lista_grupek)
@@ -182,6 +191,10 @@ def usun_pielgrzyma():
 
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
 def kto_tu_spi():
+    podsum_nocl = read_file("przyporzadkowany_nocleg.json")
+    # print(podsum_nocl)
+    # for k, v in podsum_nocl:
+    #     if
     # nocleg_id = request.args["nocleg-id"]   #.get("nocleg-id")
     # print(nocleg_id)
     return render_template("kto-tu-spi.html", dzien=dzien[-1])  #, nocleg_id=nocleg_id)
@@ -191,11 +204,12 @@ def kto_tu_spi():
 def daj_nocleg():
     # lista_przyporz_nocl = {}
     lista_funkcyjn = pielg.lista_funkcyjnych
-    lista_funkcyjn.sort(key=lambda lista_funkcyjn: lista_funkcyjn[4])
+    lista_funkcyjn.sort(key=lambda lista_funkcyjn: lista_funkcyjn[6])
     # print("FUNKCYJNI: ", lista_funkcyjn)
     # lista_zwyk_pielg = pielg.podzial_grupki.values()
     # print("GRUPKI: ", lista_zwyk_pielg)
     lista_zwyk_pielg = pielg.lista_pozost_pielg
+    lista_zwyk_pielg.sort(key=lambda lista_zwyk_pielg: lista_zwyk_pielg[6])
     # print("POZOSTALI: ", lista_zwyk_pielg)
     lista_noclegow = noclegi.lista_nocleg_data(dzien)
     if request.method == "POST":
@@ -207,25 +221,41 @@ def daj_nocleg():
         # # print(lista_przyporz_nocl)
         # print(1, lista_przyporz_nocl)
         print(request.form)
+        przyporz_nocleg = request.form
+        write_file(przyporz_nocleg, "przyporzadkowany_nocleg.json")
+        return redirect('/przyporzadkuj-nocleg/')
         # print(request.form.items)
         # print(list(request.form.items))
         # for a, b in request.form.items():
         #     print(a)
         #     print(b)
-        print(request.form.getlist(id))
+
         df = pd.DataFrame(list(request.form.items()), columns=['id', 'nocleg'])
         # resp = make_response(df.to_excel(index=False))
         # resp.headers["Content-Disposition"] = "attachment; filename=export.excel"
         # resp.headers["Content-Type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         # return resp
         # print(request.form)
+
+        # out = io.BytesIO()
+        # writer = pd.ExcelWriter(out, engine='xlsxwriter')
+        # df.to_excel(excel_writer=writer, index=False, sheet_name='Sheet1')
+        # writer.save()
+        # # writer.close()
+        # r = make_response(out.getvalue())
+        # r.headers["Content-Disposition"] = "attachment; filename=export.xlsx"
+        # r.headers["Content-type"] = "application/x-xls"
+        # return r
+
+
         buffer = io.BytesIO()
         df.to_excel(buffer, index=False)
         headers = {
             'Content-Disposition': 'attachment; filename=output.xlsx',
             'Content-type': 'application/vnd.ms-excel'
         }
-        return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)  #, redirect('/przyporzadkuj-nocleg/')
+        return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)  #,
+        return redirect('/przyporzadkuj-nocleg/')
 
     return render_template("przyporzadkuj-nocleg.html", dzien=dzien[-1], funkcyjni=lista_funkcyjn,
                            pozostali_pielgrzymi=lista_zwyk_pielg, lista_noclegow=lista_noclegow)   #, lista_przyporz_nocl=lista_przyporz_nocl)   #, grupki=grupki)
