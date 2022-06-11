@@ -19,41 +19,50 @@
         </form>
     <br />
     <br />
-    <h5>FUNKCYJNI</h5>
-    <br />
-    <form action="" method="post">
-        {% for funkcyjny in funkcyjni %}
-            <label class="form-label" for="person_{{ funkcyjny[0] }}">
-                {{ funkcyjny[1].upper() }} {{ funkcyjny[2] }} (id_{{ funkcyjny[0] }}: {{ funkcyjny[4] }}
-                {{ funkcyjny[5] }}):
-            </label>
-            <select class="form-select" id="person_{{ funkcyjny[0] }}" name="{{ funkcyjny[0] }}_{{ funkcyjny[4] }}_{{ funkcyjny[5] }}">
-                <option></option>
-                {% for nocleg in lista_noclegow %}
-                <option>DOM {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
-                {% endfor %}
-            </select>
-        {% endfor %}
-
-        <br />
-        <br />
-        <h5>ZWYKLI PIELGRZYMI</h5>
-        <br />
-        {% for pielgrzym in pozostali_pielgrzymi %}
-            <label class="form-label" for="person_{{ pielgrzym[0] }}">PIELGRZYM  {{ pielgrzym[2] }},
-            gr. {{ pielgrzym[1] }} (id_{{ pielgrzym[0] }} {{ pielgrzym[4] }} {{ pielgrzym[5] }}):</label>
-            <select class="form-select" id="person_{{ pielgrzym[0] }}"
-                    name="{{ pielgrzym[0] }}_{{ pielgrzym[4] }}_{{ pielgrzym[5] }}">
-                <option></option>
-                {% for nocleg in lista_noclegow %}
-                <option>Dom {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
-                {% endfor %}
-            </select>
-        {% endfor %}
-        <br />
-        <br />
-        <button class="btn btn-primary">ZATWIERDŹ</button>
-    </form>
+        <div class="container">
+        <div class="columns">
+            <div class="col-1"></div>
+            <div class="col-3">
+                <div class="form-group">
+                    <form action="" method="post">
+                        <h5>FUNKCYJNI</h5>
+                        <br />
+                        {% for funkcyjny in funkcyjni %}
+                            <label class="form-label" for="person_{{ funkcyjny[0] }}">
+                                {{ funkcyjny[1].upper() }} {{ funkcyjny[2] }} (id_{{ funkcyjny[0] }}: {{ funkcyjny[4] }}
+                                {{ funkcyjny[5] }}):
+                            </label>
+                            <select class="form-select" id="person_{{ funkcyjny[0] }}" name="{{ funkcyjny[0] }}_{{ funkcyjny[4] }}_{{ funkcyjny[5] }}">
+                                <option></option>
+                                {% for nocleg in lista_noclegow %}
+                                <option>DOM {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
+                                {% endfor %}
+                            </select>
+                        {% endfor %}
+                        <br />
+                        <br />
+                        <br />
+                        <h5>ZWYKLI PIELGRZYMI</h5>
+                        <br />
+                        {% for pielgrzym in pozostali_pielgrzymi %}
+                            <label class="form-label" for="person_{{ pielgrzym[0] }}">PIELGRZYM  {{ pielgrzym[2] }},
+                            gr. {{ pielgrzym[1] }} (id_{{ pielgrzym[0] }} {{ pielgrzym[4] }} {{ pielgrzym[5] }}):</label>
+                            <select class="form-select" id="person_{{ pielgrzym[0] }}"
+                                    name="{{ pielgrzym[0] }}_{{ pielgrzym[4] }}_{{ pielgrzym[5] }}">
+                                <option></option>
+                                {% for nocleg in lista_noclegow %}
+                                <option>Dom {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
+                                {% endfor %}
+                            </select>
+                        {% endfor %}
+                        <br />
+                        <br />
+                        <button class="btn btn-primary">ZATWIERDŹ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <br />
     <br />
 </body>

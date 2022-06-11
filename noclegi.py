@@ -1,11 +1,9 @@
 from main import read_file
-# from uczestnicy import Pielgrzymi
 import datetime
 
 
-class Noclegi:   # (Pielgrzymi):
+class Noclegi:
     def __init__(self, file_path_noclegi):
-        # super().__init__("pielgrzymi.json")         # TODO: zrobić możliwość wyboru pliku z klasy Pielgrzymi
         self.dane_noclegi = read_file(file_path_noclegi)
         self.noclegi_wszystkie = {}
         self.wczytaj_dane()
@@ -30,7 +28,6 @@ class Noclegi:   # (Pielgrzymi):
                 self.noclegi_wszystkie[(id_n, miejscowosc, data)] = []
             self.noclegi_wszystkie[(id_n, miejscowosc, data)] += [[miejscowosc, ulica, dom, mieszkanie, nazwisko, imie,
                                                                    tel, il_noclegow, il_pryszn, komentarz, id_n]]
-        # print(self.noclegi_wszystkie)
 
     # odkodowanie daty noclegu z nazwy miejscowości
     def miejscowosc_na_data(self, miejscowosc):
@@ -46,11 +43,8 @@ class Noclegi:   # (Pielgrzymi):
             self.data_noclegu = datetime.datetime(2022, 8, 7).date()
         elif miejscowosc == "Nierada":
             self.data_noclegu = datetime.datetime(2022, 8, 8).date()
-        # self.data_noclegu = datetime.strptime(self.data_noclegu, "%d-%m-%Y").date()
         else:
             self.data_noclegu = "x"
-        # print(self.data_noclegu)
-        # print(type(self.data_noclegu))
         return self.data_noclegu
 
     # tworzy listę danych dla noclegów i pryszniców dla danej daty
@@ -59,7 +53,6 @@ class Noclegi:   # (Pielgrzymi):
         for k, v in self.noclegi_wszystkie.items():
             if data == str(k[2]):
                 lista_data += v
-        # print(44, lista_data)
         return lista_data
 
     # zwraca listę noclegów na dany dzień
@@ -69,7 +62,6 @@ class Noclegi:   # (Pielgrzymi):
             il_noclegow = el[7]
             if il_noclegow > 0:
                 self.lista_nocl_data.append(el)
-        # print(222, self.lista_nocl_data)
         return self.lista_nocl_data
 
     # podaje il. domów z noclegiem i il. noclegów dla danej daty
@@ -88,7 +80,6 @@ class Noclegi:   # (Pielgrzymi):
 
     # zwraca listę wszystkich wszystkich noclegów
     def lista_wszystk_nocl(self):
-        # print(self.dane_noclegi)
         return self.dane_noclegi
 
     # podaje il. domów z myciem się i il. myć jednostkowych dla danej daty
@@ -125,18 +116,8 @@ class Noclegi:   # (Pielgrzymi):
             if 0 < il_noclegow <= 4 and il_noclegow + il_pryszn <= 4:
                 male_domy[(tuple(el))] = []
                 il_nocl_mal_dom += il_noclegow
-        # print(1, male_domy)
-        # print(7, il_nocl_mal_dom)
         return male_domy, il_nocl_mal_dom
 
 
 noclegi = Noclegi("noclegi.json")
-# noclegi.miejscowosc_na_data()
-# noclegi.lista_wszystk_nocl()
-# noclegi.lista_n_p_data("2022-08-03")
-# noclegi.lista_n_p_data("2022-08-04")
 # noclegi.suma_nocl_data("2022-08-03")
-# noclegi.suma_nocl_data("2022-08-04")
-# noclegi.suma_pryszn_data("2022-08-03")
-# noclegi.zestawienie_malych_domow("2022-08-03")
-# noclegi.lista_prysznic_data("2022-08-03")

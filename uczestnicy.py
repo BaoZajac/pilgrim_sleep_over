@@ -6,8 +6,6 @@ from datetime import datetime
 class Pielgrzymi:
     def __init__(self, file_path_pielgrzymi):
         self.dane_pielgrzymi = read_file(file_path_pielgrzymi)
-        # self.id_pielgrzyma = None             # TODO: czy to jest potrzebne?
-        # self.funkcja_pielgrzyma = None
         self.funkcyjni_0 = []
         self.funkcyjni_1 = []
         self.funkcyjni_2 = []
@@ -25,17 +23,16 @@ class Pielgrzymi:
                                   + self.pielgrzymi_bez_noclegu + self.pielgrzymi_pozostali
         self.wszyscy_pielg_zwykli = self.pielgrzymi_bez_noclegu + self.pielgrzymi_pozostali
 
-        # print(self.wszyscy_pielgrzymi)
 
     def funkcyjny(self):
         # dane funkcyjnego: id, funkcja, płeć, ostatni nocleg, priorytet
         self.lista_funkcyjnych = []
         for id_p, dane_p in self.dane_pielgrzymi.items():
-            if dane_p[3] == "funkcyjni":    # * dane_p[2]  # TODO: wykasować self?
+            if dane_p[3] == "funkcyjni":
                 id_pielgrzyma = id_p
-                funkcja_pielgrzyma = dane_p[4]   # * dane_p[3]
-                plec = dane_p[2]  # * dane_p[5]
-                data_nocl = dane_p[5]  # * dane_p[4]
+                funkcja_pielgrzyma = dane_p[4]
+                plec = dane_p[2]
+                data_nocl = dane_p[5]
                 nazwisko = dane_p[0]
                 imie = dane_p[1]
                 dane_funkcyjnego = [id_pielgrzyma, funkcja_pielgrzyma, plec, data_nocl, nazwisko, imie]
@@ -49,8 +46,6 @@ class Pielgrzymi:
                     self.funkcyjni_szkola.append(dane_funkcyjnego)
                 else:
                     self.funkcyjni_2.append(dane_funkcyjnego)
-        # print("FUNKCYJNI: ", self.lista_funkcyjnych)
-        # return self.lista_funkcyjnych
 
     def podaj_funkc(self):
         print("DANE FUNKCYJNEGO: id, funkcja, płeć, ostatni nocleg, priorytet\n")
@@ -64,11 +59,11 @@ class Pielgrzymi:
         self.podzial_grupki = {}
         self.lista_pozost_pielg = []
         for id_p, dane_p in self.dane_pielgrzymi.items():
-            if dane_p[3] != "funkcyjni":  # * dane_p[2]
+            if dane_p[3] != "funkcyjni":
                 id_pielgrzyma = id_p
-                grupka_pielgrzyma = dane_p[3]  # * dane_p[2]
-                plec = dane_p[2]  # * dane_p[5]
-                data_nocl = dane_p[5]   # * dane_p[4]
+                grupka_pielgrzyma = dane_p[3]
+                plec = dane_p[2]
+                data_nocl = dane_p[5]
                 nazwisko = dane_p[0]
                 imie = dane_p[1]
                 dane_zwyk_pielgrzyma = [id_pielgrzyma, grupka_pielgrzyma, plec, data_nocl, nazwisko, imie]
@@ -82,8 +77,6 @@ class Pielgrzymi:
                     self.pielgrzymi_bez_noclegu.append(dane_zwyk_pielgrzyma)
                 else:
                     self.pielgrzymi_pozostali.append(dane_zwyk_pielgrzyma)
-        # print("LISTAPIELG: ", self.lista_pozost_pielg)
-        # print("PODZIAŁ GRUPKI: ", self.podzial_grupki)
 
     def podaj_zwyk_pielg(self):
         print("DANE PIELGRZYMA: id, nr grupki, płeć, ostatni nocleg, priorytet\n")
@@ -133,9 +126,6 @@ class Pielgrzymi:
         print(self.podzial_grupki.items())
         for k, v in self.podzial_grupki.items():
             a = self.suma_osob_w_grupie(v, k)
-            # print(a)
-        #     print(1, a)
-        # print(2, a)
         return a
 
     def podsum_il_wg_plci(self):
@@ -148,10 +138,7 @@ class Pielgrzymi:
             if not self.suma_priorytetow.get(el[4]):
                 self.suma_priorytetow[el[4]] = 0
             self.suma_priorytetow[el[4]] += 1
-        # print(self.suma_priorytetow)
-        # print(sorted(self.suma_priorytetow.items()))
         return self.suma_priorytetow
-
 
     # obliczanie ilości dni od ostatniego noclegu
     def delta_ostatni_nocleg(self, data):
@@ -160,27 +147,7 @@ class Pielgrzymi:
         delta_nocleg_obl = dzis - ostatni_nocleg
         self.delta_nocleg = delta_nocleg_obl.days
 
-    # def borderer(func):             # TODO: jak zrobić dekorator wewnątrz klasy?
-    #     print("------------------")
-    #     func()
-
 
 pielg = Pielgrzymi("pielgrzymi.json")
-# print("----------------------------------------")
-# pielg.podaj_funkc()
-# print("----------------------------------------")
-# pielg.podaj_zwyk_pielg()
-# print("----------------------------------------")
-# # print()
-# print("PODSUMOWANIE LICZEBNOŚCI GRUP")
-# pielg.podsum_il_wg_plci()
-# print()
-# pielg.podsum_il_w_grupach()
-# print()
-# print("zestawienie priorytetów [priorytet: ilość]")
-# pielg.podsum_il_wg_prioryt()
-
-# pielg.delta_ostatni_nocleg()
-# pielg.podsum_il_w_grupkach()
 
 
