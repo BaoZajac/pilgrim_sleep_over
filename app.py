@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for, Response, 
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_alembic import Alembic
 from main import read_file, write_file
-from noclegi import noclegi
+from noclegi import noclegi as accommod
 from uczestnicy import pielg
 import pandas as pd
 import io
@@ -13,14 +13,14 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database_accountant.db"
 
 # db = SQLAlchemy(app)
-dzien = "2022-08-04"        # TODO: zrobić uniwersalne dla każdej daty
+day = "2022-08-04"        # TODO: make universal for any date
 
 
-# # stworzenie tabeli z adresami
+# # creating a table with addresses
 # class Address(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
 #     last_name = db.Column(db.String(120), nullable=False)
-#     given_name = db.Column(db.String(120), nullable=True)       #TODO: wypełnione musi być ALBO nazwisko ALBO imię
+#     given_name = db.Column(db.String(120), nullable=True)       #TODO: OR first name OR surname must be completed
 #     town = db.Column(db.String(120), nullable=False)
 #     street = db.Column(db.String(120), nullable=True)
 #     house = db.Column(db.String(120), nullable=False)
@@ -30,18 +30,18 @@ dzien = "2022-08-04"        # TODO: zrobić uniwersalne dla każdej daty
 
 @app.route('/')
 def main():
-    noclegi_podsum = noclegi.suma_nocl_data(dzien)
-    mycie_podsum = noclegi.suma_pryszn_data(dzien)
-    lista_nocl = noclegi.lista_nocleg_data(dzien)
-    lista_mycie = noclegi.lista_prysznic_data(dzien)
-    return render_template('main.html', noclegi_podsum=noclegi_podsum, dzien=dzien[-1], mycie_podsum=mycie_podsum,
+    accommod_summary = accommod.suma_nocl_data(day)
+    mycie_podsum = accommod.suma_pryszn_data(day)
+    lista_nocl = accommod.lista_nocleg_data(day)
+    lista_mycie = accommod.lista_prysznic_data(day)
+    return render_template('main.html', accommod_summary=accommod_summary, day=day[-1], mycie_podsum=mycie_podsum,
                            lista_nocl=lista_nocl, lista_mycie=lista_mycie)
 
 
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
 @app.route('/noclegi/', methods=['POST', 'GET'])
 def nocleg():
-    data_noclegi = noclegi.dane_noclegi
+    data_noclegi = accommod.dane_noclegi
     if request.method == "POST":
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
@@ -56,14 +56,14 @@ def nocleg():
         nocleg_lista = list(data_noclegi.keys())
         nocleg_lista = [int(el) for el in nocleg_lista]
         nocleg_id = max(nocleg_lista) + 1
-        # date = noclegi.miejscowosc_na_data(town)
+        # date = accommod.miejscowosc_na_data(town)
         # print(date)
         # print(type(date))
         data_noclegi[nocleg_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower, comment  #, date
         write_file(data_noclegi, "noclegi.json")
     data_address = list(data_noclegi.items())
     if request.path == '/noclegi/':
-        return render_template("noclegi.html", data_address=data_address, dzien=dzien[-1])
+        return render_template("noclegi.html", data_address=data_address, day=day[-1])
     elif request.path == '/dodaj-nocleg/':
         return render_template("dodaj-nocleg.html")
 
@@ -71,7 +71,7 @@ def nocleg():
 @app.route('/edytuj-nocleg/', methods=['GET', 'POST'])
 def edycja_noclegu():
     if request.method == "POST":
-        data_noclegi = noclegi.dane_noclegi
+        data_noclegi = accommod.dane_noclegi
         _id = request.form["id"]
         dane_noc = dict(request.form)
         miejscowosc_przed = data_noclegi[_id][2]
@@ -79,7 +79,7 @@ def edycja_noclegu():
         dane_noc = list(dane_noc.values())
         miejscowosc_po = dane_noc[2]
         if miejscowosc_przed != miejscowosc_po:
-            data = noclegi.miejscowosc_na_data(miejscowosc_po)
+            data = accommod.miejscowosc_na_data(miejscowosc_po)
             # dane_noc.append(data)
         data_noclegi[_id] = dane_noc
         write_file(data_noclegi, "noclegi.json")
@@ -92,7 +92,7 @@ def edycja_noclegu():
 @app.route('/usun-nocleg/', methods=['GET', 'POST'])
 def usun_nocleg():
     if request.method == "POST":
-        data_noclegi = noclegi.dane_noclegi
+        data_noclegi = accommod.dane_noclegi
         _id = request.form["id"]
         del data_noclegi[_id]
         write_file(data_noclegi, "noclegi.json")
@@ -128,7 +128,7 @@ def pielgrzym():
         return redirect('/pielgrzymi/')
     data_pielgrzymi_lista = list(data_pielgrzymi.items())
     return render_template("pielgrzymi.html", pielgrzymi=data_pielgrzymi_lista, lista_funkcji=lista_funkcji,
-                           lista_grupek=lista_grupek, dzien=dzien[-1])
+                           lista_grupek=lista_grupek, day=day[-1])
 
 
 @app.route('/edytuj-pielgrzyma/', methods=['GET', 'POST'])
@@ -172,7 +172,7 @@ def usun_pielgrzyma():
 
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
 def kto_tu_spi():
-    return render_template("kto-tu-spi.html", dzien=dzien[-1])
+    return render_template("kto-tu-spi.html", day=day[-1])
 
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
@@ -181,7 +181,7 @@ def daj_nocleg():
     lista_funkcyjn.sort(key=lambda lista_funkcyjn: lista_funkcyjn[6])
     lista_zwyk_pielg = pielg.lista_pozost_pielg
     lista_zwyk_pielg.sort(key=lambda lista_zwyk_pielg: lista_zwyk_pielg[6])
-    lista_noclegow = noclegi.lista_nocleg_data(dzien)
+    lista_noclegow = accommod.lista_nocleg_data(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])
         buffer = io.BytesIO()
@@ -190,5 +190,5 @@ def daj_nocleg():
             'Content-Disposition': 'attachment; filename=output.xlsx',
             'Content-type': 'application/vnd.ms-excel'}
         return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)
-    return render_template("przyporzadkuj-nocleg.html", dzien=dzien[-1], funkcyjni=lista_funkcyjn,
+    return render_template("przyporzadkuj-nocleg.html", day=day[-1], funkcyjni=lista_funkcyjn,
                            pozostali_pielgrzymi=lista_zwyk_pielg, lista_noclegow=lista_noclegow)
