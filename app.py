@@ -31,17 +31,17 @@ day = "2022-08-04"        # TODO: make universal for any date
 @app.route('/')
 def main():
     accommod_summary = accommod.suma_nocl_data(day)
-    mycie_podsum = accommod.suma_pryszn_data(day)
-    lista_nocl = accommod.lista_nocleg_data(day)
-    lista_mycie = accommod.lista_prysznic_data(day)
-    return render_template('main.html', accommod_summary=accommod_summary, day=day[-1], mycie_podsum=mycie_podsum,
-                           lista_nocl=lista_nocl, lista_mycie=lista_mycie)
+    shower_summary = accommod.suma_pryszn_data(day)
+    list_accommod = accommod.lista_nocleg_data(day)
+    list_shower = accommod.lista_prysznic_data(day)
+    return render_template('main.html', accommod_summary=accommod_summary, day=day[-1], shower_summary=shower_summary,
+                           list_accommod=list_accommod, list_shower=list_shower)
 
 
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
 @app.route('/noclegi/', methods=['POST', 'GET'])
 def nocleg():
-    data_noclegi = accommod.dane_noclegi
+    data_accommod = accommod.dane_noclegi
     if request.method == "POST":
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
@@ -53,15 +53,15 @@ def nocleg():
         sleep = request.form["sleep"]
         shower = request.form["shower"]
         comment = request.form["comment"]
-        nocleg_lista = list(data_noclegi.keys())
+        nocleg_lista = list(data_accommod.keys())
         nocleg_lista = [int(el) for el in nocleg_lista]
         nocleg_id = max(nocleg_lista) + 1
         # date = accommod.miejscowosc_na_data(town)
         # print(date)
         # print(type(date))
-        data_noclegi[nocleg_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower, comment  #, date
-        write_file(data_noclegi, "noclegi.json")
-    data_address = list(data_noclegi.items())
+        data_accommod[nocleg_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower, comment  #, date
+        write_file(data_accommod, "noclegi.json")
+    data_address = list(data_accommod.items())
     if request.path == '/noclegi/':
         return render_template("noclegi.html", data_address=data_address, day=day[-1])
     elif request.path == '/dodaj-nocleg/':
@@ -71,18 +71,18 @@ def nocleg():
 @app.route('/edytuj-nocleg/', methods=['GET', 'POST'])
 def edycja_noclegu():
     if request.method == "POST":
-        data_noclegi = accommod.dane_noclegi
+        data_accommod = accommod.dane_noclegi
         _id = request.form["id"]
         dane_noc = dict(request.form)
-        miejscowosc_przed = data_noclegi[_id][2]
+        miejscowosc_przed = data_accommod[_id][2]
         del dane_noc["id"]
         dane_noc = list(dane_noc.values())
         miejscowosc_po = dane_noc[2]
         if miejscowosc_przed != miejscowosc_po:
             data = accommod.miejscowosc_na_data(miejscowosc_po)
             # dane_noc.append(data)
-        data_noclegi[_id] = dane_noc
-        write_file(data_noclegi, "noclegi.json")
+        data_accommod[_id] = dane_noc
+        write_file(data_accommod, "noclegi.json")
         return redirect('/noclegi/')
     nocleg_id = request.args["nocleg-id"]
     data_nocleg = read_file("noclegi.json")[nocleg_id]
@@ -92,10 +92,10 @@ def edycja_noclegu():
 @app.route('/usun-nocleg/', methods=['GET', 'POST'])
 def usun_nocleg():
     if request.method == "POST":
-        data_noclegi = accommod.dane_noclegi
+        data_accommod = accommod.dane_noclegi
         _id = request.form["id"]
-        del data_noclegi[_id]
-        write_file(data_noclegi, "noclegi.json")
+        del data_accommod[_id]
+        write_file(data_accommod, "noclegi.json")
         return redirect('/noclegi/')
     nocleg_id = request.args["nocleg-id"]
     data_nocleg = read_file("noclegi.json")[nocleg_id]

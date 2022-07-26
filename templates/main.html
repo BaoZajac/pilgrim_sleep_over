@@ -54,7 +54,7 @@
         <tbody>
             <tr>
                 <td>dostępne:</td>
-                <td>{{ mycie_podsum[0] }}</td>
+                <td>{{ shower_summary[0] }}</td>
             </tr>
                 <td>wykorzystane:</td>
                 <td>...</td>
@@ -66,7 +66,7 @@
         <tbody>
             <tr>
                 <td>dostępne:</td>
-                <td>{{ mycie_podsum[1] }}</td>
+                <td>{{ shower_summary[1] }}</td>
             </tr>
                 <td>wykorzystane:</td>
                 <td>...</td>
@@ -95,7 +95,7 @@
                 </tr>
             </thead>
              <tbody>
-            {% for el in lista_nocl %}
+            {% for el in list_accommod %}
             <tr>
               <td>{{ el[10] }}</td>
               <td>{{ el[7] }}</td>
@@ -139,7 +139,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for el in lista_mycie %}
+            {% for el in list_shower %}
             <tr>
               <td>{{ el[10] }}</td>
               <td>{{ el[8] }}</td>
