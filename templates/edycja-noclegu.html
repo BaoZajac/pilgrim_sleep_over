@@ -26,25 +26,25 @@
                     <form action="{{ url_for('edycja_noclegu') }}" method="post">
                         <input type="hidden" value="{{ accommod_id }}" name="id">
                         <label class="form-label" for="last_name">NAZWISKO</label>
-                        <input class="form-input" id="last_name" type="text" name="last_name" value="{{ nocleg[0] }}"/>
+                        <input class="form-input" id="last_name" type="text" name="last_name" value="{{ accommod[0] }}"/>
                         <label class="form-label" for="given_name">IMIĘ</label>
-                        <input class="form-input" id="given_name" type="text" name="given_name" value="{{ nocleg[1] }}"/>
+                        <input class="form-input" id="given_name" type="text" name="given_name" value="{{ accommod[1] }}"/>
                         <label class="form-label" for="town">MIEJSCOWOŚĆ:</label>
-                        <input class="form-input" id="town" type="text" name="town" value="{{ nocleg[2] }}"/>
+                        <input class="form-input" id="town" type="text" name="town" value="{{ accommod[2] }}"/>
                         <label class="form-label" for="street">ULICA:</label>
-                        <input class="form-input" id="street" type="text" name="street" value="{{ nocleg[3] }}"/>
+                        <input class="form-input" id="street" type="text" name="street" value="{{ accommod[3] }}"/>
                         <label class="form-label" for="house">NR DOMU</label>
-                        <input class="form-input" id="house" type="text" name="house" value="{{ nocleg[4] }}"/>
+                        <input class="form-input" id="house" type="text" name="house" value="{{ accommod[4] }}"/>
                         <label class="form-label" for="apartment">NR MIESZKANIA</label>
-                        <input class="form-input" id="apartment" type="text" name="apartment" value="{{ nocleg[5] }}"/>
+                        <input class="form-input" id="apartment" type="text" name="apartment" value="{{ accommod[5] }}"/>
                         <label class="form-label" for="phone">NR TELEFONU</label>
-                        <input class="form-input" id="phone" type="number" name="phone" value="{{ nocleg[6] }}"/>
+                        <input class="form-input" id="phone" type="number" name="phone" value="{{ accommod[6] }}"/>
                         <label class="form-label" for="sleep">ILE PIELGRZYMÓW MOGĘ PRZYJĄĆ NA NOCLEG</label>
-                        <input class="form-input" id="sleep" type="number" name="sleep" min="0" value="{{ nocleg[7] }}"/>
+                        <input class="form-input" id="sleep" type="number" name="sleep" min="0" value="{{ accommod[7] }}"/>
                         <label class="form-label" for="shower">ILE PIELGRZYMÓW MOGĘ PRZYJĄĆ DODATKOWO NA SAMO UMYCIE SIĘ</label>
-                        <input class="form-input" id="shower" type="number" name="shower" min="0" value="{{ nocleg[8] }}"/>
+                        <input class="form-input" id="shower" type="number" name="shower" min="0" value="{{ accommod[8] }}"/>
                         <label class="form-label" for="comment">Miejsce na dodatkowy komentarz</label>
-                        <textarea class="form-input" id="comment" name="comment" rows="3">{{ nocleg[9] }}</textarea>
+                        <textarea class="form-input" id="comment" name="comment" rows="3">{{ accommod[9] }}</textarea>
                         <br />
                         <button class="btn btn-primary">ZAPISZ</button>
                     </form>
