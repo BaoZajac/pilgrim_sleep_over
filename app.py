@@ -53,13 +53,13 @@ def nocleg():
         sleep = request.form["sleep"]
         shower = request.form["shower"]
         comment = request.form["comment"]
-        nocleg_lista = list(data_accommod.keys())
-        nocleg_lista = [int(el) for el in nocleg_lista]
-        nocleg_id = max(nocleg_lista) + 1
+        accom_list = list(data_accommod.keys())
+        accom_list = [int(el) for el in accom_list]
+        accommod_id = max(accom_list) + 1
         # date = accommod.miejscowosc_na_data(town)
         # print(date)
         # print(type(date))
-        data_accommod[nocleg_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower, comment  #, date
+        data_accommod[accommod_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower, comment  #, date
         write_file(data_accommod, "noclegi.json")
     data_address = list(data_accommod.items())
     if request.path == '/noclegi/':
@@ -84,9 +84,9 @@ def edycja_noclegu():
         data_accommod[_id] = dane_noc
         write_file(data_accommod, "noclegi.json")
         return redirect('/noclegi/')
-    nocleg_id = request.args["nocleg-id"]
-    data_nocleg = read_file("noclegi.json")[nocleg_id]
-    return render_template("edycja-noclegu.html", nocleg=data_nocleg, nocleg_id=nocleg_id)
+    accommod_id = request.args["nocleg-id"]
+    data_nocleg = read_file("noclegi.json")[accommod_id]
+    return render_template("edycja-noclegu.html", nocleg=data_nocleg, accommod_id=accommod_id)
 
 
 @app.route('/usun-nocleg/', methods=['GET', 'POST'])
@@ -97,9 +97,9 @@ def usun_nocleg():
         del data_accommod[_id]
         write_file(data_accommod, "noclegi.json")
         return redirect('/noclegi/')
-    nocleg_id = request.args["nocleg-id"]
-    data_nocleg = read_file("noclegi.json")[nocleg_id]
-    return render_template("usun-nocleg.html", nocleg=data_nocleg, nocleg_id=nocleg_id)
+    accommod_id = request.args["nocleg-id"]
+    data_nocleg = read_file("noclegi.json")[accommod_id]
+    return render_template("usun-nocleg.html", nocleg=data_nocleg, accommod_id=accommod_id)
 
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
