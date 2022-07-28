@@ -64,9 +64,9 @@ def nocleg():
         write_file(data_accommod, "noclegi.json")
     data_address = list(data_accommod.items())
     if request.path == '/noclegi/':
-        return render_template("noclegi.html", data_address=data_address, day=day[-1])
+        return render_template("accommodation.html", data_address=data_address, day=day[-1])
     elif request.path == '/dodaj-nocleg/':
-        return render_template("dodaj-nocleg.html")
+        return render_template("add_accommodation.html")
 
 
 @app.route('/edytuj-nocleg/', methods=['GET', 'POST'])
@@ -85,9 +85,9 @@ def edycja_noclegu():
         data_accommod[_id] = accommod_info
         write_file(data_accommod, "noclegi.json")
         return redirect('/noclegi/')
-    accommod_id = request.args["nocleg-id"]
+    accommod_id = request.args["accom-id"]
     accom_info = read_file("noclegi.json")[accommod_id]
-    return render_template("edycja-noclegu.html", accommod=accom_info, accommod_id=accommod_id)
+    return render_template("edit_accommodation.html", accommod=accom_info, accommod_id=accommod_id)
 
 
 @app.route('/usun-nocleg/', methods=['GET', 'POST'])
@@ -98,9 +98,9 @@ def usun_nocleg():
         del data_accommod[_id]
         write_file(data_accommod, "noclegi.json")
         return redirect('/noclegi/')
-    accommod_id = request.args["nocleg-id"]
+    accommod_id = request.args["accom-id"]
     accom_info = read_file("noclegi.json")[accommod_id]
-    return render_template("usun-nocleg.html", accommod=accom_info, accommod_id=accommod_id)
+    return render_template("delete_accommodation.html", accommod=accom_info, accommod_id=accommod_id)
 
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
