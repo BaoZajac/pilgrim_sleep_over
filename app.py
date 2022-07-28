@@ -138,23 +138,23 @@ def edycja_pielgrzyma():
                      "przewodnik", "schola", "szef", "techniczny"]
     list_groups = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
     if request.method == "POST":
-        data_pielgrzym = read_file("pielgrzymi.json")
+        data_pilgrims = read_file("pielgrzymi.json")
         _id = request.form["id"]
-        dane_pielgrz = dict(request.form)
-        del dane_pielgrz["id"]
-        dane_pielgrz = list(dane_pielgrz.values())
-        data_pielgrzym[_id] = dane_pielgrz
-        write_file(data_pielgrzym, "pielgrzymi.json")
+        data_pilgr = dict(request.form)
+        del data_pilgr["id"]
+        data_pilgr = list(data_pilgr.values())
+        data_pilgrims[_id] = data_pilgr
+        write_file(data_pilgrims, "pielgrzymi.json")
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pielgrzym-id"]
-    data_pielgrzym = read_file("pielgrzymi.json")[pilgrim_id]
-    grupka = data_pielgrzym[3]
-    if grupka != "funkcyjni":
-        grupka = int(grupka)
-    list_groups.remove(grupka)
-    funkcja = data_pielgrzym[4]
-    list_roles.remove(funkcja)
-    return render_template("edycja-pielgrzyma.html", pielgrzym=data_pielgrzym, pilgrim_id=pilgrim_id,
+    data_pilgrim = read_file("pielgrzymi.json")[pilgrim_id]
+    group = data_pilgrim[3]
+    if group != "funkcyjni":
+        group = int(group)
+    list_groups.remove(group)
+    role = data_pilgrim[4]
+    list_roles.remove(role)
+    return render_template("edycja-pielgrzyma.html", pilgrim=data_pilgrim, pilgrim_id=pilgrim_id,
                            list_roles=list_roles, list_groups=list_groups)
 
 
@@ -167,8 +167,8 @@ def usun_pielgrzyma():
         write_file(data_pilgrims, "pielgrzymi.json")
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pielgrzym-id"]
-    data_pielg = read_file("pielgrzymi.json")[pilgrim_id]
-    return render_template("usun-pielgrzyma.html", pielgrzym=data_pielg, pilgrim_id=pilgrim_id)
+    data_pilgrim = read_file("pielgrzymi.json")[pilgrim_id]
+    return render_template("usun-pielgrzyma.html", pilgrim=data_pilgrim, pilgrim_id=pilgrim_id)
 
 
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
