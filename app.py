@@ -178,11 +178,11 @@ def kto_tu_spi():
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def daj_nocleg():
-    lista_funkcyjn = pielg.lista_funkcyjnych
-    lista_funkcyjn.sort(key=lambda lista_funkcyjn: lista_funkcyjn[6])
-    lista_zwyk_pielg = pielg.lista_pozost_pielg
-    lista_zwyk_pielg.sort(key=lambda lista_zwyk_pielg: lista_zwyk_pielg[6])
-    lista_noclegow = accommod.lista_nocleg_data(day)
+    list_role = pielg.lista_funkcyjnych
+    list_role.sort(key=lambda list_role: list_role[6])
+    list_common_pilg = pielg.lista_pozost_pielg
+    list_common_pilg.sort(key=lambda list_common_pilg: list_common_pilg[6])
+    list_accommod = accommod.lista_nocleg_data(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])
         buffer = io.BytesIO()
@@ -191,5 +191,5 @@ def daj_nocleg():
             'Content-Disposition': 'attachment; filename=output.xlsx',
             'Content-type': 'application/vnd.ms-excel'}
         return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)
-    return render_template("przyporzadkuj-nocleg.html", day=day[-1], funkcyjni=lista_funkcyjn,
-                           pozostali_pielgrzymi=lista_zwyk_pielg, lista_noclegow=lista_noclegow)
+    return render_template("przyporzadkuj-nocleg.html", day=day[-1], list_role=list_role,
+                           common_pilgrims=list_common_pilg, list_accommod=list_accommod)
