@@ -27,15 +27,15 @@
                     <form action="" method="post">
                         <h5>FUNKCYJNI</h5>
                         <br />
-                        {% for funkcyjny in list_role %}
-                            <label class="form-label" for="person_{{ funkcyjny[0] }}">
-                                {{ funkcyjny[1].upper() }} {{ funkcyjny[2] }} (id_{{ funkcyjny[0] }}: {{ funkcyjny[4] }}
-                                {{ funkcyjny[5] }}):
+                        {% for role in list_role %}
+                            <label class="form-label" for="person_{{ role[0] }}">
+                                {{ role[1].upper() }} {{ role[2] }} (id_{{ role[0] }}: {{ role[4] }}
+                                {{ role[5] }}):
                             </label>
-                            <select class="form-select" id="person_{{ funkcyjny[0] }}" name="{{ funkcyjny[0] }}_{{ funkcyjny[4] }}_{{ funkcyjny[5] }}">
+                            <select class="form-select" id="person_{{ role[0] }}" name="{{ role[0] }}_{{ role[4] }}_{{ role[5] }}">
                                 <option></option>
-                                {% for nocleg in list_accommod %}
-                                <option>DOM {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
+                                {% for accommod in list_accommod %}
+                                <option>DOM {{ accommod[10] }} (n: {{accommod[7]}}, p: {{accommod[8]}})</option>
                                 {% endfor %}
                             </select>
                         {% endfor %}
@@ -44,14 +44,14 @@
                         <br />
                         <h5>ZWYKLI PIELGRZYMI</h5>
                         <br />
-                        {% for pielgrzym in  common_pilgrims %}
-                            <label class="form-label" for="person_{{ pielgrzym[0] }}">PIELGRZYM  {{ pielgrzym[2] }},
-                            gr. {{ pielgrzym[1] }} (id_{{ pielgrzym[0] }} {{ pielgrzym[4] }} {{ pielgrzym[5] }}):</label>
-                            <select class="form-select" id="person_{{ pielgrzym[0] }}"
-                                    name="{{ pielgrzym[0] }}_{{ pielgrzym[4] }}_{{ pielgrzym[5] }}">
+                        {% for pilgrim in common_pilgrims %}
+                            <label class="form-label" for="person_{{ pilgrim[0] }}">PIELGRZYM  {{ pilgrim[2] }},
+                            gr. {{ pilgrim[1] }} (id_{{ pilgrim[0] }} {{ pilgrim[4] }} {{ pilgrim[5] }}):</label>
+                            <select class="form-select" id="person_{{ pilgrim[0] }}"
+                                    name="{{ pilgrim[0] }}_{{ pilgrim[4] }}_{{ pilgrim[5] }}">
                                 <option></option>
-                                {% for nocleg in list_accommod %}
-                                <option>Dom {{ nocleg[10] }} (n: {{nocleg[7]}}, p: {{nocleg[8]}})</option>
+                                {% for accommod in list_accommod %}
+                                <option>Dom {{ accommod[10] }} (n: {{accommod[7]}}, p: {{accommod[8]}})</option>
                                 {% endfor %}
                             </select>
                         {% endfor %}

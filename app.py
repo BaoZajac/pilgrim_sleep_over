@@ -191,5 +191,5 @@ def daj_nocleg():
             'Content-Disposition': 'attachment; filename=output.xlsx',
             'Content-type': 'application/vnd.ms-excel'}
         return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)
-    return render_template("przyporzadkuj-nocleg.html", day=day[-1], list_role=list_role,
+    return render_template("give_accommodation.html", day=day[-1], list_role=list_role,
                            common_pilgrims=list_common_pilg, list_accommod=list_accommod)
