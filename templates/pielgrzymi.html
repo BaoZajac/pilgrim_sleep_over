@@ -40,14 +40,14 @@
                         <label class="form-label" for="small_group">GRUPKA</label>
                         <select class="form-select" id="small_group" name="small_group">
                             <option></option>
-                            {% for grupka in lista_grupek %}
+                            {% for grupka in list_groups %}
                             <option>{{ grupka }}</option>
                             {% endfor %}
                         </select>
                         <label class="form-label" for="function">FUNKCJA</label>
                         <select class="form-select" id="function" name="function">
                             <option></option>
-                            {% for funkcja in lista_funkcji %}
+                            {% for funkcja in list_roles %}
                             <option>{{ funkcja }}</option>
                             {% endfor %}
                         </select>
@@ -79,7 +79,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for pielgrzym in pielgrzymi %}
+            {% for pielgrzym in pilgrims %}
             <tr>
               <td>{{ pielgrzym[0] }}</td>
               <td>{{ pielgrzym[1][2] }}</td>

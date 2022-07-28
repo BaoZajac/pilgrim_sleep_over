@@ -24,7 +24,7 @@
             <div class="col-3">
                 <div class="form-group">
                     <form action="{{ url_for('edycja_pielgrzyma') }}" method="post">
-                        <input type="hidden" value="{{ pielgrzym_id }}" name="id">
+                        <input type="hidden" value="{{ pilgrim_id }}" name="id">
                         <label class="form-label" for="last_name">NAZWISKO</label>
                         <input class="form-input" id="last_name" type="text" name="last_name" value="{{ pielgrzym[0] }}"/>
                         <label class="form-label" for="given_name">IMIĘ</label>
@@ -41,14 +41,14 @@
                         <label class="form-label" for="small_group">GRUPKA</label>
                         <select class="form-select" id="small_group" name="small_group">
                             <option>{{ pielgrzym[3] }}</option>
-                            {% for grupka in lista_grupek %}
+                            {% for grupka in list_groups %}
                             <option>{{ grupka }}</option>
                             {% endfor %}
                         </select>
                         <label class="form-label" for="function">FUNKCJA</label>
                         <select class="form-select" id="function" name="function">
                             <option>{{ pielgrzym[4] }}</option>
-                            {% for funkcja in lista_funkcji %}
+                            {% for funkcja in list_roles %}
                             <option>{{ funkcja }}</option>
                             {% endfor %}
                         </select>

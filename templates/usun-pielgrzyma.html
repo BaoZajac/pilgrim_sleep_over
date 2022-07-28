@@ -18,12 +18,12 @@
     <p>Czy na pewno usunąć tego pielgrzyma?</p>
     <br />
     <form action="/usun-pielgrzyma/" method="POST">
-        <input type="hidden" value="{{ pielgrzym_id }}" name="id"/>
+        <input type="hidden" value="{{ pilgrim_id }}" name="id"/>
         <button class="btn btn-primary">TAK, USUŃ TEGO PIELGRZYMA</button>
     </form>
     <br />
     <form action="/pielgrzymi/" method="GET">
-        <input type="hidden" value="{{ pielgrzym_id }}" name="id"/>
+        <input type="hidden" value="{{ pilgrim_id }}" name="id"/>
         <button class="btn">NIE, POZOSTAW BEZ ZMIAN</button>
     </form>
     <br />
