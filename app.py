@@ -168,12 +168,12 @@ def usun_pielgrzyma():
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pilgrim-id"]
     data_pilgrim = read_file("pielgrzymi.json")[pilgrim_id]
-    return render_template("usun-pielgrzyma.html", pilgrim=data_pilgrim, pilgrim_id=pilgrim_id)
+    return render_template("delete-pilgrim.html", pilgrim=data_pilgrim, pilgrim_id=pilgrim_id)
 
 
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
 def kto_tu_spi():
-    return render_template("kto-tu-spi.html", day=day[-1])
+    return render_template("who-sleeps-here.html", day=day[-1])
 
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
