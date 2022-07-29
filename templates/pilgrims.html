@@ -40,15 +40,15 @@
                         <label class="form-label" for="small_group">GRUPKA</label>
                         <select class="form-select" id="small_group" name="small_group">
                             <option></option>
-                            {% for grupka in list_groups %}
-                            <option>{{ grupka }}</option>
+                            {% for group in list_groups %}
+                            <option>{{ group }}</option>
                             {% endfor %}
                         </select>
                         <label class="form-label" for="function">FUNKCJA</label>
                         <select class="form-select" id="function" name="function">
                             <option></option>
-                            {% for funkcja in list_roles %}
-                            <option>{{ funkcja }}</option>
+                            {% for role in list_roles %}
+                            <option>{{ role }}</option>
                             {% endfor %}
                         </select>
                         <label class="form-label" for="accommodation">OSTATNI NOCLEG</label>
@@ -79,24 +79,24 @@
             </tr>
         </thead>
         <tbody>
-            {% for pielgrzym in pilgrims %}
+            {% for pilgrim in pilgrims %}
             <tr>
-              <td>{{ pielgrzym[0] }}</td>
-              <td>{{ pielgrzym[1][2] }}</td>
-              <td>{{ pielgrzym[1][3] }}</td>
-              <td>{{ pielgrzym[1][4] }}</td>
-              <td>{{ pielgrzym[1][5] }}</td>
-              <td>{{ pielgrzym[1][0] }}</td>
-              <td>{{ pielgrzym[1][1] }}</td>
+              <td>{{ pilgrim[0] }}</td>
+              <td>{{ pilgrim[1][2] }}</td>
+              <td>{{ pilgrim[1][3] }}</td>
+              <td>{{ pilgrim[1][4] }}</td>
+              <td>{{ pilgrim[1][5] }}</td>
+              <td>{{ pilgrim[1][0] }}</td>
+              <td>{{ pilgrim[1][1] }}</td>
               <td>
                   <form action="/edytuj-pielgrzyma/" type="GET">
-                      <input type="hidden" value="{{ pielgrzym[0] }}" name="pielgrzym-id">
+                      <input type="hidden" value="{{ pilgrim[0] }}" name="pilgrim-id">
                     <button type="submit">edytuj</button>
                   </form>
               </td>
               <td>
                   <form action="/usun-pielgrzyma/" type="GET">
-                      <input type="hidden" value="{{ pielgrzym[0] }}" name="pielgrzym-id">
+                      <input type="hidden" value="{{ pilgrim[0] }}" name="pilgrim-id">
                       <button type="submit">usuń</button>
                   </form>
               </td>

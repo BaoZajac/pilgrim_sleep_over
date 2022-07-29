@@ -128,7 +128,7 @@ def pielgrzym():
         write_file(data_pilgrims, "pielgrzymi.json")
         return redirect('/pielgrzymi/')
     data_pilgrims_list = list(data_pilgrims.items())
-    return render_template("pielgrzymi.html", pilgrims=data_pilgrims_list, list_roles=list_roles,
+    return render_template("pilgrims.html", pilgrims=data_pilgrims_list, list_roles=list_roles,
                            list_groups=list_groups, day=day[-1])
 
 
@@ -146,7 +146,7 @@ def edycja_pielgrzyma():
         data_pilgrims[_id] = data_pilgr
         write_file(data_pilgrims, "pielgrzymi.json")
         return redirect('/pielgrzymi/')
-    pilgrim_id = request.args["pielgrzym-id"]
+    pilgrim_id = request.args["pilgrim-id"]
     data_pilgrim = read_file("pielgrzymi.json")[pilgrim_id]
     group = data_pilgrim[3]
     if group != "funkcyjni":
@@ -166,7 +166,7 @@ def usun_pielgrzyma():
         del data_pilgrims[_id]
         write_file(data_pilgrims, "pielgrzymi.json")
         return redirect('/pielgrzymi/')
-    pilgrim_id = request.args["pielgrzym-id"]
+    pilgrim_id = request.args["pilgrim-id"]
     data_pilgrim = read_file("pielgrzymi.json")[pilgrim_id]
     return render_template("usun-pielgrzyma.html", pilgrim=data_pilgrim, pilgrim_id=pilgrim_id)
 
