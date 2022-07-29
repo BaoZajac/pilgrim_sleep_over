@@ -41,15 +41,15 @@
                         <label class="form-label" for="small_group">GRUPKA</label>
                         <select class="form-select" id="small_group" name="small_group">
                             <option>{{ pilgrim[3] }}</option>
-                            {% for grupka in list_groups %}
-                            <option>{{ grupka }}</option>
+                            {% for group in list_groups %}
+                            <option>{{ group }}</option>
                             {% endfor %}
                         </select>
                         <label class="form-label" for="function">FUNKCJA</label>
                         <select class="form-select" id="function" name="function">
                             <option>{{ pilgrim[4] }}</option>
-                            {% for funkcja in list_roles %}
-                            <option>{{ funkcja }}</option>
+                            {% for role in list_roles %}
+                            <option>{{ role }}</option>
                             {% endfor %}
                         </select>
                         <label class="form-label" for="accommodation">OSTATNI NOCLEG</label>

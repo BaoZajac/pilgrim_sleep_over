@@ -66,7 +66,7 @@ def nocleg():
     if request.path == '/noclegi/':
         return render_template("accommodation.html", data_address=data_address, day=day[-1])
     elif request.path == '/dodaj-nocleg/':
-        return render_template("add_accommodation.html")
+        return render_template("add-accommodation.html")
 
 
 @app.route('/edytuj-nocleg/', methods=['GET', 'POST'])
@@ -87,7 +87,7 @@ def edycja_noclegu():
         return redirect('/noclegi/')
     accommod_id = request.args["accom-id"]
     accom_info = read_file("noclegi.json")[accommod_id]
-    return render_template("edit_accommodation.html", accommod=accom_info, accommod_id=accommod_id)
+    return render_template("edit-accommodation.html", accommod=accom_info, accommod_id=accommod_id)
 
 
 @app.route('/usun-nocleg/', methods=['GET', 'POST'])
@@ -100,7 +100,7 @@ def usun_nocleg():
         return redirect('/noclegi/')
     accommod_id = request.args["accom-id"]
     accom_info = read_file("noclegi.json")[accommod_id]
-    return render_template("delete_accommodation.html", accommod=accom_info, accommod_id=accommod_id)
+    return render_template("delete-accommodation.html", accommod=accom_info, accommod_id=accommod_id)
 
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
@@ -154,7 +154,7 @@ def edycja_pielgrzyma():
     list_groups.remove(group)
     role = data_pilgrim[4]
     list_roles.remove(role)
-    return render_template("edycja-pielgrzyma.html", pilgrim=data_pilgrim, pilgrim_id=pilgrim_id,
+    return render_template("edit-pilgrim.html", pilgrim=data_pilgrim, pilgrim_id=pilgrim_id,
                            list_roles=list_roles, list_groups=list_groups)
 
 
@@ -191,5 +191,5 @@ def daj_nocleg():
             'Content-Disposition': 'attachment; filename=output.xlsx',
             'Content-type': 'application/vnd.ms-excel'}
         return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)
-    return render_template("give_accommodation.html", day=day[-1], list_role=list_role,
+    return render_template("give-accommodation.html", day=day[-1], list_role=list_role,
                            common_pilgrims=list_common_pilg, list_accommod=list_accommod)
