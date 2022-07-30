@@ -3,9 +3,9 @@ import datetime
 
 
 class Noclegi:
-    def __init__(self, file_path_noclegi):
-        self.dane_noclegi = read_file(file_path_noclegi)
-        self.noclegi_wszystkie = {}
+    def __init__(self, file_path_accommodation):
+        self.dane_noclegi = read_file(file_path_accommodation)
+        self.all_accommodation = {}
         self.wczytaj_dane()
 
     # wczytaj dane z pliku do słownika
@@ -24,9 +24,9 @@ class Noclegi:
             il_pryszn = 0 if not il_pryszn else int(il_pryszn)
             komentarz = dane_n[9]
             data = self.miejscowosc_na_data(miejscowosc)
-            if not self.noclegi_wszystkie.get(miejscowosc):
-                self.noclegi_wszystkie[(id_n, miejscowosc, data)] = []
-            self.noclegi_wszystkie[(id_n, miejscowosc, data)] += [[miejscowosc, ulica, dom, mieszkanie, nazwisko, imie,
+            if not self.all_accommodation.get(miejscowosc):
+                self.all_accommodation[(id_n, miejscowosc, data)] = []
+            self.all_accommodation[(id_n, miejscowosc, data)] += [[miejscowosc, ulica, dom, mieszkanie, nazwisko, imie,
                                                                    tel, il_noclegow, il_pryszn, komentarz, id_n]]
 
     # odkodowanie daty noclegu z nazwy miejscowości
@@ -50,7 +50,7 @@ class Noclegi:
     # tworzy listę danych dla noclegów i pryszniców dla danej daty
     def lista_n_p_data(self, data):
         lista_data = []
-        for k, v in self.noclegi_wszystkie.items():
+        for k, v in self.all_accommodation.items():
             if data == str(k[2]):
                 lista_data += v
         return lista_data
@@ -119,5 +119,5 @@ class Noclegi:
         return male_domy, il_nocl_mal_dom
 
 
-noclegi = Noclegi("noclegi.json")
+noclegi = Noclegi("accommodation.json")
 # noclegi.suma_nocl_data("2022-08-03")

@@ -148,6 +148,6 @@ class Pielgrzymi:
         self.delta_nocleg = delta_nocleg_obl.days
 
 
-pielg = Pielgrzymi("pielgrzymi.json")
+pielg = Pielgrzymi("pilgrims.json")
 
 

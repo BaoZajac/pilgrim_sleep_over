@@ -40,7 +40,7 @@ def main():
 
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
 @app.route('/noclegi/', methods=['POST', 'GET'])
-def nocleg():
+def accommodation():
     data_accommod = accommod.dane_noclegi
     if request.method == "POST":
         last_name = request.form["last_name"]
@@ -61,7 +61,7 @@ def nocleg():
         # print(type(date))
         data_accommod[accommod_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower,\
                                      comment  #, date
-        write_file(data_accommod, "noclegi.json")
+        write_file(data_accommod, "accommodation.json")
     data_address = list(data_accommod.items())
     if request.path == '/noclegi/':
         return render_template("accommodation.html", data_address=data_address, day=day[-1])
@@ -70,7 +70,7 @@ def nocleg():
 
 
 @app.route('/edytuj-nocleg/', methods=['GET', 'POST'])
-def edycja_noclegu():
+def edit_accommodation():
     if request.method == "POST":
         data_accommod = accommod.dane_noclegi
         _id = request.form["id"]
@@ -83,29 +83,29 @@ def edycja_noclegu():
             data = accommod.miejscowosc_na_data(town_after)
             # accommod_info.append(data)
         data_accommod[_id] = accommod_info
-        write_file(data_accommod, "noclegi.json")
+        write_file(data_accommod, "accommodation.json")
         return redirect('/noclegi/')
     accommod_id = request.args["accom-id"]
-    accom_info = read_file("noclegi.json")[accommod_id]
+    accom_info = read_file("accommodation.json")[accommod_id]
     return render_template("edit-accommodation.html", accommod=accom_info, accommod_id=accommod_id)
 
 
 @app.route('/usun-nocleg/', methods=['GET', 'POST'])
-def usun_nocleg():
+def delete_accommodation():
     if request.method == "POST":
         data_accommod = accommod.dane_noclegi
         _id = request.form["id"]
         del data_accommod[_id]
-        write_file(data_accommod, "noclegi.json")
+        write_file(data_accommod, "accommodation.json")
         return redirect('/noclegi/')
     accommod_id = request.args["accom-id"]
-    accom_info = read_file("noclegi.json")[accommod_id]
+    accom_info = read_file("accommodation.json")[accommod_id]
     return render_template("delete-accommodation.html", accommod=accom_info, accommod_id=accommod_id)
 
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
-def pielgrzym():
-    data_pilgrims = read_file("pielgrzymi.json")
+def pilgrim():
+    data_pilgrims = read_file("pilgrims.json")
     list_roles = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
                      "przewodnik", "schola", "szef", "techniczny"]
     list_groups = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
@@ -125,7 +125,7 @@ def pielgrzym():
         else:
             pilgrim_id = 1
         data_pilgrims[pilgrim_id] = last_name, given_name, sex, small_group, function, accommodations
-        write_file(data_pilgrims, "pielgrzymi.json")
+        write_file(data_pilgrims, "pilgrims.json")
         return redirect('/pielgrzymi/')
     data_pilgrims_list = list(data_pilgrims.items())
     return render_template("pilgrims.html", pilgrims=data_pilgrims_list, list_roles=list_roles,
@@ -138,23 +138,23 @@ def edycja_pielgrzyma():
                      "przewodnik", "schola", "szef", "techniczny"]
     list_groups = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
     if request.method == "POST":
-        data_pilgrims = read_file("pielgrzymi.json")
+        data_pilgrims = read_file("pilgrims.json")
         _id = request.form["id"]
         data_pilgr = dict(request.form)
         del data_pilgr["id"]
         data_pilgr = list(data_pilgr.values())
         data_pilgrims[_id] = data_pilgr
-        write_file(data_pilgrims, "pielgrzymi.json")
+        write_file(data_pilgrims, "pilgrims.json")
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pilgrim-id"]
-    data_pilgrim = read_file("pielgrzymi.json")[pilgrim_id]
+    data_pilgrim = read_file("pilgrims.json")[pilgrim_id]
     group = data_pilgrim[3]
     if group != "funkcyjni":
         group = int(group)
     list_groups.remove(group)
     role = data_pilgrim[4]
     list_roles.remove(role)
-    return render_template("edit-pilgrim.html", pilgrim=data_pilgrim, pilgrim_id=pilgrim_id,
+    return render_template("edit-pilgrim.html", data_pilgrim=data_pilgrim, pilgrim_id=pilgrim_id,
                            list_roles=list_roles, list_groups=list_groups)
 
 
@@ -164,11 +164,11 @@ def usun_pielgrzyma():
         data_pilgrims = pielg.dane_pielgrzymi
         _id = request.form["id"]
         del data_pilgrims[_id]
-        write_file(data_pilgrims, "pielgrzymi.json")
+        write_file(data_pilgrims, "pilgrims.json")
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pilgrim-id"]
-    data_pilgrim = read_file("pielgrzymi.json")[pilgrim_id]
-    return render_template("delete-pilgrim.html", pilgrim=data_pilgrim, pilgrim_id=pilgrim_id)
+    data_pilgrim = read_file("pilgrims.json")[pilgrim_id]
+    return render_template("delete-pilgrim.html", data_pilgrim=data_pilgrim, pilgrim_id=pilgrim_id)
 
 
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
