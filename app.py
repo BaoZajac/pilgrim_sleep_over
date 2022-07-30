@@ -133,7 +133,7 @@ def pilgrim():
 
 
 @app.route('/edytuj-pielgrzyma/', methods=['GET', 'POST'])
-def edycja_pielgrzyma():
+def edit_pilgrim():
     list_roles = ["-", "bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
                      "przewodnik", "schola", "szef", "techniczny"]
     list_groups = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
@@ -159,7 +159,7 @@ def edycja_pielgrzyma():
 
 
 @app.route('/usun-pielgrzyma/', methods=['GET', 'POST'])
-def usun_pielgrzyma():
+def delete_pilgrim():
     if request.method == "POST":
         data_pilgrims = pielg.dane_pielgrzymi
         _id = request.form["id"]
@@ -172,12 +172,12 @@ def usun_pielgrzyma():
 
 
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
-def kto_tu_spi():
+def who_sleeps_here():
     return render_template("who-sleeps-here.html", day=day[-1])
 
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
-def daj_nocleg():
+def give_accommodation():
     list_role = pielg.lista_funkcyjnych
     list_role.sort(key=lambda list_role: list_role[6])
     list_common_pilg = pielg.lista_pozost_pielg
