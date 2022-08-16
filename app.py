@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for, Response, 
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_alembic import Alembic
 from main import read_file, write_file
-from noclegi import noclegi as accommod
+from accommodation import accommodations as accommod
 from uczestnicy import pielg
 import pandas as pd
 import io
@@ -30,10 +30,10 @@ day = "2022-08-04"        # TODO: make universal for any date
 
 @app.route('/')
 def main():
-    accommod_summary = accommod.suma_nocl_data(day)
-    shower_summary = accommod.suma_pryszn_data(day)
-    list_accommod = accommod.lista_nocleg_data(day)
-    list_shower = accommod.lista_prysznic_data(day)
+    accommod_summary = accommod.sum_accommod_date(day)
+    shower_summary = accommod.sum_shower_date(day)
+    list_accommod = accommod.list_accom_date(day)
+    list_shower = accommod.list_showers_date(day)
     return render_template('main.html', accommod_summary=accommod_summary, day=day[-1], shower_summary=shower_summary,
                            list_accommod=list_accommod, list_shower=list_shower)
 
@@ -56,7 +56,7 @@ def accommodation():
         accom_list = list(data_accommod.keys())
         accom_list = [int(el) for el in accom_list]
         accommod_id = max(accom_list) + 1
-        # date = accommod.miejscowosc_na_data(town)
+        # date = accommod.town_to_date(town)
         # print(date)
         # print(type(date))
         data_accommod[accommod_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower,\
@@ -80,7 +80,7 @@ def edit_accommodation():
         accommod_info = list(accommod_info.values())
         town_after = accommod_info[2]
         if town_before != town_after:
-            data = accommod.miejscowosc_na_data(town_after)
+            data = accommod.town_to_date(town_after)
             # accommod_info.append(data)
         data_accommod[_id] = accommod_info
         write_file(data_accommod, "accommodation.json")
@@ -182,7 +182,7 @@ def give_accommodation():
     list_role.sort(key=lambda list_role: list_role[6])
     list_common_pilg = pielg.lista_pozost_pielg
     list_common_pilg.sort(key=lambda list_common_pilg: list_common_pilg[6])
-    list_accommod = accommod.lista_nocleg_data(day)
+    list_accommod = accommod.list_accom_date(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])
         buffer = io.BytesIO()
