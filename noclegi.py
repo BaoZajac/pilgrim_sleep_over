@@ -32,51 +32,51 @@ class Noclegi:
     # decode an accommodation date from a town name
     def miejscowosc_na_data(self, town):
         if town == "Rudawa" or town == "Radwanowice":
-            self.data_noclegu = datetime.datetime(2022, 8, 3).date()
+            self.date_accommod = datetime.datetime(2022, 8, 3).date()
         elif town == "Olkusz":
-            self.data_noclegu = datetime.datetime(2022, 8, 4).date()
+            self.date_accommod = datetime.datetime(2022, 8, 4).date()
         elif town == "Niegowonice":
-            self.data_noclegu = datetime.datetime(2022, 8, 5).date()
+            self.date_accommod = datetime.datetime(2022, 8, 5).date()
         elif town == "Myszków":
-            self.data_noclegu = datetime.datetime(2022, 8, 6).date()
+            self.date_accommod = datetime.datetime(2022, 8, 6).date()
         elif town == "Poraj":
-            self.data_noclegu = datetime.datetime(2022, 8, 7).date()
+            self.date_accommod = datetime.datetime(2022, 8, 7).date()
         elif town == "Nierada":
-            self.data_noclegu = datetime.datetime(2022, 8, 8).date()
+            self.date_accommod = datetime.datetime(2022, 8, 8).date()
         else:
-            self.data_noclegu = "x"
-        return self.data_noclegu
+            self.date_accommod = "x"
+        return self.date_accommod
 
     # create a list of data for accommodation and showers for a specific date
     def lista_n_p_data(self, date):
-        lista_data = []
+        list_date = []
         for k, v in self.all_accommodation.items():
             if date == str(k[2]):
-                lista_data += v
-        return lista_data
+                list_date += v
+        return list_date
 
     # return a list of accommodation for a specific date
     def lista_nocleg_data(self, date):
-        self.lista_nocl_data = []
+        self.list_accommod_date = []
         for el in self.lista_n_p_data(date):
             number_accommod = el[7]
             if number_accommod > 0:
-                self.lista_nocl_data.append(el)
-        return self.lista_nocl_data
+                self.list_accommod_date.append(el)
+        return self.list_accommod_date
 
     # return no. of houses with accommodation and no. of accommodation for a specific date
     def suma_nocl_data(self, date):
-        self.suma_dom_nocleg = 0
-        self.suma_nocleg = 0
+        self.sum_house_accommod = 0
+        self.sum_accommod = 0
         for el in self.lista_n_p_data(date):
             number_accommod = el[7]
             if number_accommod > 0:
-                self.suma_dom_nocleg += 1
-                self.suma_nocleg += number_accommod
+                self.sum_house_accommod += 1
+                self.sum_accommod += number_accommod
         # print(f"Lista na {date}: {self.lista_n_p_data(date)}")
-        # print(f"{self.suma_dom_nocleg} - suma domów z noclegiem ({date})")
-        # print(f"{self.suma_nocleg} - suma noclegów jednostkowych ({date})")
-        return self.suma_dom_nocleg, self.suma_nocleg
+        # print(f"{self.sum_house_accommod} - suma domów z noclegiem ({date})")
+        # print(f"{self.sum_accommod} - suma noclegów jednostkowych ({date})")
+        return self.sum_house_accommod, self.sum_accommod
 
     # return a list of all all accommodation
     def lista_wszystk_nocl(self):
