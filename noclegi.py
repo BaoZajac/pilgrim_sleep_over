@@ -4,44 +4,44 @@ import datetime
 
 class Noclegi:
     def __init__(self, file_path_accommodation):
-        self.dane_noclegi = read_file(file_path_accommodation)
+        self.data_accommodation = read_file(file_path_accommodation)
         self.all_accommodation = {}
         self.wczytaj_dane()
 
     # wczytaj dane z pliku do słownika
     def wczytaj_dane(self):
-        for id_n, dane_n in self.dane_noclegi.items():
-            miejscowosc = dane_n[2]
-            ulica = dane_n[3]
+        for id_n, dane_n in self.data_accommodation.items():
+            town = dane_n[2]
+            street = dane_n[3]
             dom = dane_n[4]
-            mieszkanie = dane_n[5]
-            nazwisko = dane_n[0]
-            imie = dane_n[1]
-            tel = dane_n[6]
+            apartment = dane_n[5]
+            surname = dane_n[0]
+            given_name = dane_n[1]
+            phone = dane_n[6]
             il_noclegow = dane_n[7]
             il_noclegow = 0 if not il_noclegow else int(il_noclegow)
             il_pryszn = dane_n[8]
             il_pryszn = 0 if not il_pryszn else int(il_pryszn)
             komentarz = dane_n[9]
-            data = self.miejscowosc_na_data(miejscowosc)
-            if not self.all_accommodation.get(miejscowosc):
-                self.all_accommodation[(id_n, miejscowosc, data)] = []
-            self.all_accommodation[(id_n, miejscowosc, data)] += [[miejscowosc, ulica, dom, mieszkanie, nazwisko, imie,
-                                                                   tel, il_noclegow, il_pryszn, komentarz, id_n]]
+            data = self.miejscowosc_na_data(town)
+            if not self.all_accommodation.get(town):
+                self.all_accommodation[(id_n, town, data)] = []
+            self.all_accommodation[(id_n, town, data)] += [[town, street, dom, apartment, surname, given_name,
+                                                                   phone, il_noclegow, il_pryszn, komentarz, id_n]]
 
     # odkodowanie daty noclegu z nazwy miejscowości
-    def miejscowosc_na_data(self, miejscowosc):
-        if miejscowosc == "Rudawa" or miejscowosc == "Radwanowice":
+    def miejscowosc_na_data(self, town):
+        if town == "Rudawa" or town == "Radwanowice":
             self.data_noclegu = datetime.datetime(2022, 8, 3).date()
-        elif miejscowosc == "Olkusz":
+        elif town == "Olkusz":
             self.data_noclegu = datetime.datetime(2022, 8, 4).date()
-        elif miejscowosc == "Niegowonice":
+        elif town == "Niegowonice":
             self.data_noclegu = datetime.datetime(2022, 8, 5).date()
-        elif miejscowosc == "Myszków":
+        elif town == "Myszków":
             self.data_noclegu = datetime.datetime(2022, 8, 6).date()
-        elif miejscowosc == "Poraj":
+        elif town == "Poraj":
             self.data_noclegu = datetime.datetime(2022, 8, 7).date()
-        elif miejscowosc == "Nierada":
+        elif town == "Nierada":
             self.data_noclegu = datetime.datetime(2022, 8, 8).date()
         else:
             self.data_noclegu = "x"
@@ -80,7 +80,7 @@ class Noclegi:
 
     # zwraca listę wszystkich wszystkich noclegów
     def lista_wszystk_nocl(self):
-        return self.dane_noclegi
+        return self.data_accommodation
 
     # podaje il. domów z myciem się i il. myć jednostkowych dla danej daty
     def suma_pryszn_data(self, data):
