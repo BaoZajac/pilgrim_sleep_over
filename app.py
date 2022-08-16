@@ -41,7 +41,7 @@ def main():
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
 @app.route('/noclegi/', methods=['POST', 'GET'])
 def accommodation():
-    data_accommod = accommod.dane_noclegi
+    data_accommod = accommod.data_accommodation
     if request.method == "POST":
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
@@ -72,7 +72,7 @@ def accommodation():
 @app.route('/edytuj-nocleg/', methods=['GET', 'POST'])
 def edit_accommodation():
     if request.method == "POST":
-        data_accommod = accommod.dane_noclegi
+        data_accommod = accommod.data_accommodation
         _id = request.form["id"]
         accommod_info = dict(request.form)
         town_before = data_accommod[_id][2]
@@ -93,7 +93,7 @@ def edit_accommodation():
 @app.route('/usun-nocleg/', methods=['GET', 'POST'])
 def delete_accommodation():
     if request.method == "POST":
-        data_accommod = accommod.dane_noclegi
+        data_accommod = accommod.data_accommodation
         _id = request.form["id"]
         del data_accommod[_id]
         write_file(data_accommod, "accommodation.json")
