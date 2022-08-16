@@ -84,39 +84,39 @@ class Noclegi:
 
     # return no. of houses with additional shower and no. of additional showers for a specific date
     def suma_pryszn_data(self, date):
-        self.suma_dom_prysznic = 0
-        self.suma_prysznic = 0
+        self.sum_house_shower = 0
+        self.sum_shower = 0
         for el in self.lista_n_p_data(date):
             number_shower = el[8]
             if number_shower > 0:
-                self.suma_dom_prysznic += 1
-                self.suma_prysznic += number_shower
+                self.sum_house_shower += 1
+                self.sum_shower += number_shower
         # print(f"Lista na {date}: {self.lista_n_p_data(date)}")
-        # print(f"{self.suma_dom_prysznic} - suma domów z myciem się ({date})")
-        # print(f"{self.suma_prysznic} - suma myć jednostkowych ({date})")
-        return self.suma_dom_prysznic, self.suma_prysznic
+        # print(f"{self.sum_house_shower} - suma domów z myciem się ({date})")
+        # print(f"{self.sum_shower} - suma myć jednostkowych ({date})")
+        return self.sum_house_shower, self.sum_shower
 
     # return a list of showers for a specific date
     def lista_prysznic_data(self, date):
-        self.lista_pryszn_data = []
+        self.list_shower_date = []
         for el in self.lista_n_p_data(date):
             number_shower = el[8]
             if number_shower > 0:
-                self.lista_pryszn_data.append(el)
-        return self.lista_pryszn_data
+                self.list_shower_date.append(el)
+        return self.list_shower_date
 
     """ return a list of 'small houses' (houses where there are max 4 places to sleep and shower in total) 
     and no. of accommodation in 'small houses' """
     def zestawienie_malych_domow(self, date):
-        male_domy = {}
-        il_nocl_mal_dom = 0
+        small_houses = {}
+        number_accom_small_house = 0
         for el in self.lista_n_p_data(date):
             number_accommod = el[7]
             number_shower = el[8]
             if 0 < number_accommod <= 4 and number_accommod + number_shower <= 4:
-                male_domy[(tuple(el))] = []
-                il_nocl_mal_dom += number_accommod
-        return male_domy, il_nocl_mal_dom
+                small_houses[(tuple(el))] = []
+                number_accom_small_house += number_accommod
+        return small_houses, number_accom_small_house
 
 
 noclegi = Noclegi("accommodation.json")
