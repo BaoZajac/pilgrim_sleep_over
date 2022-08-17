@@ -161,7 +161,7 @@ def edit_pilgrim():
 @app.route('/usun-pielgrzyma/', methods=['GET', 'POST'])
 def delete_pilgrim():
     if request.method == "POST":
-        data_pilgrims = pielg.dane_pielgrzymi
+        data_pilgrims = pielg.data_pilgrims
         _id = request.form["id"]
         del data_pilgrims[_id]
         write_file(data_pilgrims, "pilgrims.json")
