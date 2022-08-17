@@ -3,7 +3,7 @@ import datetime
 from datetime import datetime
 
 
-class Pielgrzymi:
+class Pilgrims:
     def __init__(self, file_path_pilgrims):
         self.data_pilgrims = read_file(file_path_pilgrims)
         self.role_0 = []
@@ -23,9 +23,8 @@ class Pielgrzymi:
                             + self.pilgrims_other
         self.all_pilgrims_normal = self.pilgrims_no_accommod + self.pilgrims_other
 
-
     def role(self):
-        # dane funkcyjnego: id, funkcja, płeć, ostatni nocleg, priorytet
+        # role_person data: id, role, sex, last accommodation, priority
         self.lista_funkcyjnych = []
         for id_p, dane_p in self.data_pilgrims.items():
             if dane_p[3] == "funkcyjni":
@@ -55,7 +54,7 @@ class Pielgrzymi:
         print(f"funkcyjni z grupy do szkoły: {self.role_school}")
 
     def normal_pilgrim(self):
-        # dane pielgrzyma: id, nr grupki, płeć, ostatni nocleg, priorytet
+        # pilgrim data: id, no. of a small group, sex, last accommodation, priority
         self.podzial_grupki = {}
         self.lista_pozost_pielg = []
         for id_p, dane_p in self.data_pilgrims.items():
@@ -133,14 +132,14 @@ class Pielgrzymi:
         return self.sum_ppl_in_group(self.all_pilgrims, "wszyscy_razem")
 
     def summary_number_priority(self):
-        # zestawienie priorytetów /priorytet: ilość/
+        # catalog of priorities /priority: amount/
         for el in self.all_pilgrims:
             if not self.sum_priority.get(el[4]):
                 self.sum_priority[el[4]] = 0
             self.sum_priority[el[4]] += 1
         return self.sum_priority
 
-    # obliczanie ilości dni od ostatniego noclegu
+    # count no. of days from the last accommodation
     def from_last_accommod(self, data):
         dzis = datetime.now().date()
         ostatni_nocleg = datetime.strptime(data, "%d-%m-%Y").date()
@@ -148,6 +147,6 @@ class Pielgrzymi:
         self.delta_nocleg = delta_nocleg_obl.days
 
 
-pielg = Pielgrzymi("pilgrims.json")
+pilg = Pilgrims("pilgrims.json")
 
 

@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, redirect, url_for, Response, 
 # from flask_alembic import Alembic
 from main import read_file, write_file
 from accommodation import accommodations as accommod
-from uczestnicy import pielg
+from uczestnicy import pilg
 import pandas as pd
 import io
 
@@ -161,7 +161,7 @@ def edit_pilgrim():
 @app.route('/usun-pielgrzyma/', methods=['GET', 'POST'])
 def delete_pilgrim():
     if request.method == "POST":
-        data_pilgrims = pielg.data_pilgrims
+        data_pilgrims = pilg.data_pilgrims
         _id = request.form["id"]
         del data_pilgrims[_id]
         write_file(data_pilgrims, "pilgrims.json")
@@ -178,9 +178,9 @@ def who_sleeps_here():
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def give_accommodation():
-    list_role = pielg.lista_funkcyjnych
+    list_role = pilg.lista_funkcyjnych
     list_role.sort(key=lambda list_role: list_role[6])
-    list_common_pilg = pielg.lista_pozost_pielg
+    list_common_pilg = pilg.lista_pozost_pielg
     list_common_pilg.sort(key=lambda list_common_pilg: list_common_pilg[6])
     list_accommod = accommod.list_accom_date(day)
     if request.method == "POST":
