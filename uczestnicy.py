@@ -25,26 +25,28 @@ class Pilgrims:
 
     def role(self):
         # role_person data: id, role, sex, last accommodation, priority
-        self.lista_funkcyjnych = []
-        for id_p, dane_p in self.data_pilgrims.items():
-            if dane_p[3] == "funkcyjni":
-                id_pielgrzyma = id_p
-                funkcja_pielgrzyma = dane_p[4]
-                plec = dane_p[2]
-                data_nocl = dane_p[5]
-                nazwisko = dane_p[0]
-                imie = dane_p[1]
-                dane_funkcyjnego = [id_pielgrzyma, funkcja_pielgrzyma, plec, data_nocl, nazwisko, imie]
-                self.lista_funkcyjnych.append(dane_funkcyjnego)
-                if funkcja_pielgrzyma == "porządkowy" or funkcja_pielgrzyma == "chorąży":
-                    self.role_0.append(dane_funkcyjnego)
-                elif funkcja_pielgrzyma == "szef" or funkcja_pielgrzyma == "pilot" \
-                        or funkcja_pielgrzyma == "przewodnik" or funkcja_pielgrzyma == "lider_kwaterm_jutro":
-                    self.role_1.append(dane_funkcyjnego)
-                elif funkcja_pielgrzyma == "kwatermistrz_dzis":
-                    self.role_school.append(dane_funkcyjnego)
+        self.list_role_ppl = []
+        for id_p, data_p in self.data_pilgrims.items():
+            if data_p[3] == "funkcyjni":
+                id_pilgrim = id_p
+                pilgrim_role = data_p[4]
+                sex = data_p[2]
+                date_accommod = data_p[5]
+                surname = data_p[0]
+                name = data_p[1]
+                data_role = [id_pilgrim, pilgrim_role, sex, date_accommod, surname, name]
+                self.list_role_ppl.append(data_role)
+                if pilgrim_role == "porządkowy" or pilgrim_role == "chorąży":
+                    self.role_0.append(data_role)
+                elif pilgrim_role == "szef" or pilgrim_role == "pilot" or pilgrim_role == "przewodnik" \
+                        or pilgrim_role == "lider_kwaterm_jutro":
+                    self.role_1.append(data_role)
+                elif pilgrim_role == "kwatermistrz_dzis":
+                    self.role_school.append(data_role)
                 else:
-                    self.role_2.append(dane_funkcyjnego)
+                    self.role_2.append(data_role)
+
+# translated up to here
 
     def give_role(self):
         print("DANE FUNKCYJNEGO: id, funkcja, płeć, ostatni nocleg, priorytet\n")
@@ -57,21 +59,21 @@ class Pilgrims:
         # pilgrim data: id, no. of a small group, sex, last accommodation, priority
         self.podzial_grupki = {}
         self.lista_pozost_pielg = []
-        for id_p, dane_p in self.data_pilgrims.items():
-            if dane_p[3] != "funkcyjni":
-                id_pielgrzyma = id_p
-                grupka_pielgrzyma = dane_p[3]
-                plec = dane_p[2]
-                data_nocl = dane_p[5]
-                nazwisko = dane_p[0]
-                imie = dane_p[1]
-                dane_zwyk_pielgrzyma = [id_pielgrzyma, grupka_pielgrzyma, plec, data_nocl, nazwisko, imie]
+        for id_p, data_p in self.data_pilgrims.items():
+            if data_p[3] != "funkcyjni":
+                id_pilgrim = id_p
+                grupka_pielgrzyma = data_p[3]
+                sex = data_p[2]
+                date_accommod = data_p[5]
+                surname = data_p[0]
+                name = data_p[1]
+                dane_zwyk_pielgrzyma = [id_pilgrim, grupka_pielgrzyma, sex, date_accommod, surname, name]
                 self.lista_pozost_pielg.append(dane_zwyk_pielgrzyma)
                 if not grupka_pielgrzyma in self.podzial_grupki.keys():
                     self.podzial_grupki[grupka_pielgrzyma] = [dane_zwyk_pielgrzyma]
                 else:
                     self.podzial_grupki[grupka_pielgrzyma].append(dane_zwyk_pielgrzyma)
-                self.from_last_accommod(data_nocl)
+                self.from_last_accommod(date_accommod)
                 if self.delta_nocleg >= 3:
                     self.pilgrims_no_accommod.append(dane_zwyk_pielgrzyma)
                 else:

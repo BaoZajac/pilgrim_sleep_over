@@ -178,7 +178,7 @@ def who_sleeps_here():
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def give_accommodation():
-    list_role = pilg.lista_funkcyjnych
+    list_role = pilg.list_role_ppl
     list_role.sort(key=lambda list_role: list_role[6])
     list_common_pilg = pilg.lista_pozost_pielg
     list_common_pilg.sort(key=lambda list_common_pilg: list_common_pilg[6])
