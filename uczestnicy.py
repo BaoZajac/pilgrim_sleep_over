@@ -14,17 +14,17 @@ class Pielgrzymi:
         self.pilgrims_other = []
         self.sum_priority = {}
 
-        self.funkcyjny()
-        self.zwykly_pielgrzym()
-        self.funkcja_priorytet()
-        self.zwykly_pielg_priorytet()
+        self.role()
+        self.normal_pilgrim()
+        self.role_priority()
+        self.normal_pilgr_priority()
 
         self.all_pilgrims = self.role_0 + self.role_1 + self.role_2 + self.role_school + self.pilgrims_no_accommod \
                             + self.pilgrims_other
         self.all_pilgrims_normal = self.pilgrims_no_accommod + self.pilgrims_other
 
 
-    def funkcyjny(self):
+    def role(self):
         # dane funkcyjnego: id, funkcja, płeć, ostatni nocleg, priorytet
         self.lista_funkcyjnych = []
         for id_p, dane_p in self.data_pilgrims.items():
@@ -47,14 +47,14 @@ class Pielgrzymi:
                 else:
                     self.role_2.append(dane_funkcyjnego)
 
-    def podaj_funkc(self):
+    def give_role(self):
         print("DANE FUNKCYJNEGO: id, funkcja, płeć, ostatni nocleg, priorytet\n")
         print(f"funkcyjni z grupy 0: {self.role_0}")
         print(f"funkcyjni z grupy 1: {self.role_1}")
         print(f"funkcyjni z grupy 2: {self.role_2}")
         print(f"funkcyjni z grupy do szkoły: {self.role_school}")
 
-    def zwykly_pielgrzym(self):
+    def normal_pilgrim(self):
         # dane pielgrzyma: id, nr grupki, płeć, ostatni nocleg, priorytet
         self.podzial_grupki = {}
         self.lista_pozost_pielg = []
@@ -72,18 +72,18 @@ class Pielgrzymi:
                     self.podzial_grupki[grupka_pielgrzyma] = [dane_zwyk_pielgrzyma]
                 else:
                     self.podzial_grupki[grupka_pielgrzyma].append(dane_zwyk_pielgrzyma)
-                self.delta_ostatni_nocleg(data_nocl)
+                self.from_last_accommod(data_nocl)
                 if self.delta_nocleg >= 3:
                     self.pilgrims_no_accommod.append(dane_zwyk_pielgrzyma)
                 else:
                     self.pilgrims_other.append(dane_zwyk_pielgrzyma)
 
-    def podaj_zwyk_pielg(self):
+    def give_normal_pilgr(self):
         print("DANE PIELGRZYMA: id, nr grupki, płeć, ostatni nocleg, priorytet\n")
         print(f"Pielgrzymi, bez noclegu od 3 dni: {self.pilgrims_no_accommod}")
         print(f"Pozostali pielgrzymi: {self.pilgrims_other}")
 
-    def priorytet_plec(self, grupa, priorytet):
+    def priority_sex(self, grupa, priorytet):
         for el in grupa:
             self.priorytet = priorytet
             if el[2] == "mężczyzna":
@@ -92,17 +92,17 @@ class Pielgrzymi:
             el.append(self.priorytet)
         return grupa
 
-    def funkcja_priorytet(self):
-        self.priorytet_plec(self.role_0, 0)
-        self.priorytet_plec(self.role_1, 2)
-        self.priorytet_plec(self.role_2, 6)
-        self.priorytet_plec(self.role_school, 20)
+    def role_priority(self):
+        self.priority_sex(self.role_0, 0)
+        self.priority_sex(self.role_1, 2)
+        self.priority_sex(self.role_2, 6)
+        self.priority_sex(self.role_school, 20)
 
-    def zwykly_pielg_priorytet(self):
-        self.priorytet_plec(self.pilgrims_no_accommod, 4)
-        self.priorytet_plec(self.pilgrims_other, 8)
+    def normal_pilgr_priority(self):
+        self.priority_sex(self.pilgrims_no_accommod, 4)
+        self.priority_sex(self.pilgrims_other, 8)
 
-    def suma_osob_w_grupie(self, grupa, nazwa):
+    def sum_ppl_in_group(self, grupa, nazwa):
         il_kobiet = 0
         il_mezczyzn = 0
         for el in grupa:
@@ -114,25 +114,25 @@ class Pielgrzymi:
         # print(f" Grupa '{nazwa}' >>  razem: {wszyscy}, k: {il_kobiet}, m: {il_mezczyzn}")
         return nazwa, wszyscy, il_kobiet, il_mezczyzn
 
-    def podsum_il_w_grupach(self):
-        self.suma_osob_w_grupie(self.role_0, "funkcyjni_0")
-        self.suma_osob_w_grupie(self.role_1, "funkcyjni_1")
-        self.suma_osob_w_grupie(self.role_2, "funkcyjni_2")
-        self.suma_osob_w_grupie(self.role_school, "funkcyjni_szkola")
-        self.suma_osob_w_grupie(self.pilgrims_no_accommod, "pielgrzymi_bez_noclegu")
-        self.suma_osob_w_grupie(self.pilgrims_other, "pielgrzymi_pozostali")
+    def summary_number_in_groups(self):
+        self.sum_ppl_in_group(self.role_0, "funkcyjni_0")
+        self.sum_ppl_in_group(self.role_1, "funkcyjni_1")
+        self.sum_ppl_in_group(self.role_2, "funkcyjni_2")
+        self.sum_ppl_in_group(self.role_school, "funkcyjni_szkola")
+        self.sum_ppl_in_group(self.pilgrims_no_accommod, "pielgrzymi_bez_noclegu")
+        self.sum_ppl_in_group(self.pilgrims_other, "pielgrzymi_pozostali")
 
-    def podsum_il_w_grupkach(self):
+    def summary_number_in_small_groups(self):
         print(self.podzial_grupki.items())
         for k, v in self.podzial_grupki.items():
-            a = self.suma_osob_w_grupie(v, k)
+            a = self.sum_ppl_in_group(v, k)
         return a
 
-    def podsum_il_wg_plci(self):
-        # self.suma_osob_w_grupie(self.all_pilgrims, "wszyscy_razem")
-        return self.suma_osob_w_grupie(self.all_pilgrims, "wszyscy_razem")
+    def summary_number_sex(self):
+        # self.sum_ppl_in_group(self.all_pilgrims, "wszyscy_razem")
+        return self.sum_ppl_in_group(self.all_pilgrims, "wszyscy_razem")
 
-    def podsum_il_wg_prioryt(self):
+    def summary_number_priority(self):
         # zestawienie priorytetów /priorytet: ilość/
         for el in self.all_pilgrims:
             if not self.sum_priority.get(el[4]):
@@ -141,7 +141,7 @@ class Pielgrzymi:
         return self.sum_priority
 
     # obliczanie ilości dni od ostatniego noclegu
-    def delta_ostatni_nocleg(self, data):
+    def from_last_accommod(self, data):
         dzis = datetime.now().date()
         ostatni_nocleg = datetime.strptime(data, "%d-%m-%Y").date()
         delta_nocleg_obl = dzis - ostatni_nocleg

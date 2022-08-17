@@ -152,8 +152,8 @@ def edit_pilgrim():
     if group != "funkcyjni":
         group = int(group)
     list_groups.remove(group)
-    role = data_pilgrim[4]
-    list_roles.remove(role)
+    role1 = data_pilgrim[4]
+    list_roles.remove(role1)
     return render_template("edit-pilgrim.html", data_pilgrim=data_pilgrim, pilgrim_id=pilgrim_id,
                            list_roles=list_roles, list_groups=list_groups)
 
