@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, redirect, url_for, Response, 
 # from flask_alembic import Alembic
 from main import read_file, write_file
 from accommodation import accommodations as accommod
-from uczestnicy import pilg
+from pilgrims import pilg
 import pandas as pd
 import io
 
@@ -152,8 +152,8 @@ def edit_pilgrim():
     if group != "funkcyjni":
         group = int(group)
     list_groups.remove(group)
-    role1 = data_pilgrim[4]
-    list_roles.remove(role1)
+    role_pilg = data_pilgrim[4]
+    list_roles.remove(role_pilg)
     return render_template("edit-pilgrim.html", data_pilgrim=data_pilgrim, pilgrim_id=pilgrim_id,
                            list_roles=list_roles, list_groups=list_groups)
 
