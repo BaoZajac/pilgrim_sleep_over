@@ -101,19 +101,17 @@ class Pilgrims:
         self.priority_sex(self.pilgrims_no_accommod, 4)
         self.priority_sex(self.pilgrims_other, 8)
 
-# translated up to here
-
-    def sum_ppl_in_group(self, grp, nazwa):
-        il_kobiet = 0
-        il_mezczyzn = 0
+    def sum_ppl_in_group(self, grp, grp_name):
+        women_number = 0
+        men_number = 0
         for el in grp:
             if el[2] == "kobieta":
-                il_kobiet += 1
+                women_number += 1
             else:
-                il_mezczyzn += 1
-        wszyscy = il_kobiet + il_mezczyzn
-        # print(f" Grupa '{nazwa}' >>  razem: {wszyscy}, k: {il_kobiet}, m: {il_mezczyzn}")
-        return nazwa, wszyscy, il_kobiet, il_mezczyzn
+                men_number += 1
+        all = women_number + men_number
+        # print(f" Grupa '{grp_name}' >>  razem: {all}, k: {women_number}, m: {men_number}")
+        return grp_name, all, women_number, men_number
 
     def summary_number_in_groups(self):
         self.sum_ppl_in_group(self.role_0, "funkcyjni_0")
@@ -142,13 +140,12 @@ class Pilgrims:
         return self.sum_priority
 
     # count no. of days from the last accommodation
-    def from_last_accommod(self, data):
-        dzis = datetime.now().date()
-        ostatni_nocleg = datetime.strptime(data, "%d-%m-%Y").date()
-        delta_nocleg_obl = dzis - ostatni_nocleg
-        self.accommod_days = delta_nocleg_obl.days
+    def from_last_accommod(self, date_day):
+        today = datetime.now().date()
+        last_accommod = datetime.strptime(date_day, "%d-%m-%Y").date()
+        accommod_days_count = today - last_accommod
+        self.accommod_days = accommod_days_count.days
 
 
 pilg = Pilgrims("pilgrims.json")
-
 
