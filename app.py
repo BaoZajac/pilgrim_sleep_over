@@ -1,6 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, Response, make_response
-# from flask_sqlalchemy import SQLAlchemy
-# from flask_alembic import Alembic
+from flask import Flask, request, render_template, redirect, Response
 from main import read_file, write_file
 from accommodation import accommodations as accommod
 from pilgrims import pilg
@@ -12,20 +10,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database_accountant.db"
 
-# db = SQLAlchemy(app)
 day = "2022-08-04"        # TODO: make universal for any date
-
-
-# # creating a table with addresses
-# class Address(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     last_name = db.Column(db.String(120), nullable=False)
-#     given_name = db.Column(db.String(120), nullable=True)       #TODO: OR first name OR surname must be completed
-#     town = db.Column(db.String(120), nullable=False)
-#     street = db.Column(db.String(120), nullable=True)
-#     house = db.Column(db.String(120), nullable=False)
-#     apartment = db.Column(db.String(120), nullable=True)
-#     phone = db.Column(db.Integer, nullable=False)
 
 
 @app.route('/')
