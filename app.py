@@ -164,9 +164,9 @@ def who_sleeps_here():
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def give_accommodation():
     list_role = pilg.list_role_ppl
-    list_role.sort(key=lambda list_role: list_role[6])
+    # list_role.sort(key=lambda list_role: list_role[6])
     list_common_pilg = pilg.list_other_pilgr
-    list_common_pilg.sort(key=lambda list_common_pilg: list_common_pilg[6])
+    # list_common_pilg.sort(key=lambda list_common_pilg: list_common_pilg[6])
     list_accommod = accommod.list_accom_date(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])

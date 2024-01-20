@@ -1,8 +1,11 @@
 from main import read_file
 import datetime
 from datetime import datetime
-
 from pilgrim.pilgrim_with_function import PilgrimWithFunction
+
+
+PILGRIM_CLASS_PATH = "pilgrim/pilgrims.json"
+PILGRIM_WITH_FUNCTION_TEXT = "funkcyjni"
 
 
 class Pilgrims:
@@ -18,8 +21,6 @@ class Pilgrims:
 
         self.role()
         self.normal_pilgrim()
-        self.role_priority()
-        self.normal_pilgr_priority()
 
         self.all_pilgrims = self.role_0 + self.role_1 + self.role_2 + self.role_school + self.pilgrims_no_accommod \
                             + self.pilgrims_other
@@ -29,7 +30,7 @@ class Pilgrims:
         # role_person data: id, role, sex, last accommodation, priority
         self.list_role_ppl = []
         for id_p, data_p in self.data_pilgrims.items():
-            if data_p[3] == "funkcyjni":
+            if data_p[3] == PILGRIM_WITH_FUNCTION_TEXT:
                 id_pilgrim = id_p
                 pilgrim_role = data_p[4]
                 sex = data_p[2]
@@ -54,7 +55,7 @@ class Pilgrims:
         self.small_groups_division = {}
         self.list_other_pilgr = []
         for id_p, data_p in self.data_pilgrims.items():
-            if data_p[3] != "funkcyjni":
+            if data_p[3] != PILGRIM_WITH_FUNCTION_TEXT:
                 id_pilgrim = id_p
                 pilgrim_small_group = data_p[3]
                 sex = data_p[2]
@@ -73,25 +74,6 @@ class Pilgrims:
                 else:
                     self.pilgrims_other.append(data_normal_pilgrim)
 
-    def priority_sex(self, grp, priority):
-        for el in grp:
-            self.priority = priority
-            if el[2] == "mężczyzna":
-                # self.priority *= 1.5
-                self.priority += 1
-            el.append(self.priority)
-        return grp
-
-    def role_priority(self):
-        self.priority_sex(self.role_0, 0)
-        self.priority_sex(self.role_1, 2)
-        self.priority_sex(self.role_2, 6)
-        self.priority_sex(self.role_school, 20)
-
-    def normal_pilgr_priority(self):
-        self.priority_sex(self.pilgrims_no_accommod, 4)
-        self.priority_sex(self.pilgrims_other, 8)
-
     # count no. of days from the last accommodation
     def from_last_accommod(self, date_day):
         today = datetime.now().date()
@@ -100,5 +82,5 @@ class Pilgrims:
         self.accommod_days = accommod_days_count.days
 
 
-pilg = Pilgrims("pilgrim/pilgrims.json")
+pilg = Pilgrims(PILGRIM_CLASS_PATH)
 
