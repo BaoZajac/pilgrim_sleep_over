@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, Response
 from main import read_file, write_file
 from accommodation import accommodations as accommod
-from pilgrims import pilg
+from pilgrim.pilgrims import pilg
 import pandas as pd
 import io
 
@@ -90,7 +90,7 @@ def delete_accommodation():
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
 def pilgrim():
-    data_pilgrims = read_file("pilgrims.json")
+    data_pilgrims = read_file("pilgrim/pilgrims.json")
     list_roles = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
                      "przewodnik", "schola", "szef", "techniczny"]
     list_groups = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
@@ -110,7 +110,7 @@ def pilgrim():
         else:
             pilgrim_id = 1
         data_pilgrims[pilgrim_id] = last_name, given_name, sex, small_group, function, accommodations
-        write_file(data_pilgrims, "pilgrims.json")
+        write_file(data_pilgrims, "pilgrim/pilgrims.json")
         return redirect('/pielgrzymi/')
     data_pilgrims_list = list(data_pilgrims.items())
     return render_template("pilgrims.html", pilgrims=data_pilgrims_list, list_roles=list_roles,
@@ -123,16 +123,16 @@ def edit_pilgrim():
                      "przewodnik", "schola", "szef", "techniczny"]
     list_groups = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
     if request.method == "POST":
-        data_pilgrims = read_file("pilgrims.json")
+        data_pilgrims = read_file("pilgrim/pilgrims.json")
         _id = request.form["id"]
         data_pilgr = dict(request.form)
         del data_pilgr["id"]
         data_pilgr = list(data_pilgr.values())
         data_pilgrims[_id] = data_pilgr
-        write_file(data_pilgrims, "pilgrims.json")
+        write_file(data_pilgrims, "pilgrim/pilgrims.json")
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pilgrim-id"]
-    data_pilgrim = read_file("pilgrims.json")[pilgrim_id]
+    data_pilgrim = read_file("pilgrim/pilgrims.json")[pilgrim_id]
     group = data_pilgrim[3]
     if group != "funkcyjni":
         group = int(group)
@@ -149,10 +149,10 @@ def delete_pilgrim():
         data_pilgrims = pilg.data_pilgrims
         _id = request.form["id"]
         del data_pilgrims[_id]
-        write_file(data_pilgrims, "pilgrims.json")
+        write_file(data_pilgrims, "pilgrim/pilgrims.json")
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pilgrim-id"]
-    data_pilgrim = read_file("pilgrims.json")[pilgrim_id]
+    data_pilgrim = read_file("pilgrim/pilgrims.json")[pilgrim_id]
     return render_template("delete-pilgrim.html", data_pilgrim=data_pilgrim, pilgrim_id=pilgrim_id)
 
 

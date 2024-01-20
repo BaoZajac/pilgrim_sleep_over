@@ -2,6 +2,8 @@ from main import read_file
 import datetime
 from datetime import datetime
 
+from pilgrim.pilgrim_with_function import PilgrimWithFunction
+
 
 class Pilgrims:
     def __init__(self, file_path_pilgrims):
@@ -36,12 +38,13 @@ class Pilgrims:
                 name = data_p[1]
                 data_role = [id_pilgrim, pilgrim_role, sex, date_accommod, surname, name]
                 self.list_role_ppl.append(data_role)
-                if pilgrim_role == "porządkowy" or pilgrim_role == "chorąży":
+                if pilgrim_role == PilgrimWithFunction.PORZADKOWY or pilgrim_role == PilgrimWithFunction.CHORAZY:
                     self.role_0.append(data_role)
-                elif pilgrim_role == "szef" or pilgrim_role == "pilot" or pilgrim_role == "przewodnik" \
-                        or pilgrim_role == "lider_kwaterm_jutro":
+                elif pilgrim_role == PilgrimWithFunction.SZEF or pilgrim_role == PilgrimWithFunction.PILOT \
+                        or pilgrim_role == PilgrimWithFunction.PRZEWODNIK \
+                        or pilgrim_role == PilgrimWithFunction.LIDER_KWATERM_JUTRO:
                     self.role_1.append(data_role)
-                elif pilgrim_role == "kwatermistrz_dzis":
+                elif pilgrim_role == PilgrimWithFunction.KWATERMISTRZ_DZIS:
                     self.role_school.append(data_role)
                 else:
                     self.role_2.append(data_role)
@@ -147,5 +150,5 @@ class Pilgrims:
         self.accommod_days = accommod_days_count.days
 
 
-pilg = Pilgrims("pilgrims.json")
+pilg = Pilgrims("pilgrim/pilgrims.json")
 
