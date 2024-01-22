@@ -2,6 +2,9 @@ from main import read_file
 import datetime
 
 
+ACCOMMODATION_CLASS_PATH = "accommodation/accommodation.json"
+
+
 class Accommodations:
     def __init__(self, file_path_accommodation):
         self.data_accommodation = read_file(file_path_accommodation)
@@ -73,14 +76,7 @@ class Accommodations:
             if number_accommod > 0:
                 self.sum_house_accommod += 1
                 self.sum_accommod += number_accommod
-        # print(f"Lista na {date}: {self.list_accom_shower_date(date)}")
-        # print(f"{self.sum_house_accommod} - suma domów z noclegiem ({date})")
-        # print(f"{self.sum_accommod} - suma noclegów jednostkowych ({date})")
         return self.sum_house_accommod, self.sum_accommod
-
-    # return a list of all all accommodation
-    def list_all_accommod(self):
-        return self.data_accommodation
 
     # return no. of houses with additional shower and no. of additional showers for a specific date
     def sum_shower_date(self, date):
@@ -91,9 +87,6 @@ class Accommodations:
             if number_shower > 0:
                 self.sum_house_shower += 1
                 self.sum_shower += number_shower
-        # print(f"Lista na {date}: {self.list_accom_shower_date(date)}")
-        # print(f"{self.sum_house_shower} - suma domów z myciem się ({date})")
-        # print(f"{self.sum_shower} - suma myć jednostkowych ({date})")
         return self.sum_house_shower, self.sum_shower
 
     # return a list of showers for a specific date
@@ -105,19 +98,5 @@ class Accommodations:
                 self.list_shower_date.append(el)
         return self.list_shower_date
 
-    """ return a list of 'small houses' (houses where there are max 4 places to sleep and shower in total) 
-    and no. of accommodation in 'small houses' """
-    def small_house_catalog(self, date):
-        small_houses = {}
-        number_accom_small_house = 0
-        for el in self.list_accom_shower_date(date):
-            number_accommod = el[7]
-            number_shower = el[8]
-            if 0 < number_accommod <= 4 and number_accommod + number_shower <= 4:
-                small_houses[(tuple(el))] = []
-                number_accom_small_house += number_accommod
-        return small_houses, number_accom_small_house
 
-
-accommodations = Accommodations("accommodation.json")
-# accommodations.sum_accommod_date("2022-08-03")
+accommodations = Accommodations(ACCOMMODATION_CLASS_PATH)

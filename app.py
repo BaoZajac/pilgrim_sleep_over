@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, Response
 from main import read_file, write_file
-from accommodation import accommodations as accommod
+from accommodation.accommodation import accommodations as accommod
 from pilgrim.pilgrims import pilg
 import pandas as pd
 import io
@@ -41,12 +41,9 @@ def accommodation():
         accom_list = list(data_accommod.keys())
         accom_list = [int(el) for el in accom_list]
         accommod_id = max(accom_list) + 1
-        # date = accommod.town_to_date(town)
-        # print(date)
-        # print(type(date))
         data_accommod[accommod_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower,\
-                                     comment  #, date
-        write_file(data_accommod, "accommodation.json")
+                                     comment
+        write_file(data_accommod, "accommodation/accommodation.json")
     data_address = list(data_accommod.items())
     if request.path == '/noclegi/':
         return render_template("accommodation.html", data_address=data_address, day=day[-1])
@@ -60,18 +57,13 @@ def edit_accommodation():
         data_accommod = accommod.data_accommodation
         _id = request.form["id"]
         accommod_info = dict(request.form)
-        town_before = data_accommod[_id][2]
         del accommod_info["id"]
         accommod_info = list(accommod_info.values())
-        town_after = accommod_info[2]
-        if town_before != town_after:
-            data = accommod.town_to_date(town_after)
-            # accommod_info.append(data)
         data_accommod[_id] = accommod_info
-        write_file(data_accommod, "accommodation.json")
+        write_file(data_accommod, "accommodation/accommodation.json")
         return redirect('/noclegi/')
     accommod_id = request.args["accom-id"]
-    accom_info = read_file("accommodation.json")[accommod_id]
+    accom_info = read_file("accommodation/accommodation.json")[accommod_id]
     return render_template("edit-accommodation.html", accommod=accom_info, accommod_id=accommod_id)
 
 
@@ -81,10 +73,10 @@ def delete_accommodation():
         data_accommod = accommod.data_accommodation
         _id = request.form["id"]
         del data_accommod[_id]
-        write_file(data_accommod, "accommodation.json")
+        write_file(data_accommod, "accommodation/accommodation.json")
         return redirect('/noclegi/')
     accommod_id = request.args["accom-id"]
-    accom_info = read_file("accommodation.json")[accommod_id]
+    accom_info = read_file("accommodation/accommodation.json")[accommod_id]
     return render_template("delete-accommodation.html", accommod=accom_info, accommod_id=accommod_id)
 
 
@@ -164,9 +156,7 @@ def who_sleeps_here():
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def give_accommodation():
     list_role = pilg.list_role_ppl
-    # list_role.sort(key=lambda list_role: list_role[6])
     list_common_pilg = pilg.list_other_pilgr
-    # list_common_pilg.sort(key=lambda list_common_pilg: list_common_pilg[6])
     list_accommod = accommod.list_accom_date(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])
