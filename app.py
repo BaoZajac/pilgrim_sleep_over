@@ -155,8 +155,10 @@ def who_sleeps_here():
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def give_accommodation():
-    list_role = pilg.service_pilgrim_list
-    list_common_pilg = pilg.normal_pilgrim_list
+    # list_role = pilg.service_pilgrim_list
+    list_role = pilg.create_service_pilgrim_list()
+    # list_common_pilg = pilg.normal_pilgrim_list
+    list_common_pilg = pilg.create_normal_pilgrim_list()
     list_accommod = accommod.list_accom_date(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])

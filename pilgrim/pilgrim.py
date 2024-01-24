@@ -24,6 +24,7 @@ class Pilgrim:
                 name = data_p[1]
                 data_service_pilgrim = [id_pilgrim, pilgrim_role, sex, date_accommod, surname, name]
                 service_pilgrim_list.append(data_service_pilgrim)
+        return service_pilgrim_list
 
     def create_normal_pilgrim_list(self):
         normal_pilgrim_list = []
@@ -37,6 +38,7 @@ class Pilgrim:
                 name = data_p[1]
                 data_normal_pilgrim = [id_pilgrim, pilgrim_small_group, sex, date_accommod, surname, name]
                 normal_pilgrim_list.append(data_normal_pilgrim)
+        return normal_pilgrim_list
 
 
 pilg = Pilgrim(PILGRIM_CLASS_PATH)
