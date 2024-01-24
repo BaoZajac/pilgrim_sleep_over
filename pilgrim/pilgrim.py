@@ -5,18 +5,15 @@ PILGRIM_CLASS_PATH = "pilgrim/pilgrims.json"
 PILGRIM_WITH_FUNCTION_TEXT = "funkcyjni"
 
 
-class Pilgrims:
+class Pilgrim:
     def __init__(self, file_path_pilgrims):
         self.data_pilgrims = read_file(file_path_pilgrims)
-        self.pilgrims_no_accommod = []
-        self.pilgrims_other = []
 
-        self.role()
-        self.normal_pilgrim()
+        self.create_service_pilgrim_list()
+        self.create_normal_pilgrim_list()
 
-    # create a list of ppl with functions / used in give-accommodation.html
-    def role(self):
-        self.list_role_ppl = []
+    def create_service_pilgrim_list(self):
+        service_pilgrim_list = []
         for id_p, data_p in self.data_pilgrims.items():
             if data_p[3] == PILGRIM_WITH_FUNCTION_TEXT:
                 id_pilgrim = id_p
@@ -25,12 +22,11 @@ class Pilgrims:
                 date_accommod = data_p[5]
                 surname = data_p[0]
                 name = data_p[1]
-                data_role = [id_pilgrim, pilgrim_role, sex, date_accommod, surname, name]
-                self.list_role_ppl.append(data_role)
+                data_service_pilgrim = [id_pilgrim, pilgrim_role, sex, date_accommod, surname, name]
+                service_pilgrim_list.append(data_service_pilgrim)
 
-    # create a list of normal ppl (ppl without a function) / used in give-accommodation.html
-    def normal_pilgrim(self):
-        self.list_other_pilgr = []
+    def create_normal_pilgrim_list(self):
+        normal_pilgrim_list = []
         for id_p, data_p in self.data_pilgrims.items():
             if data_p[3] != PILGRIM_WITH_FUNCTION_TEXT:
                 id_pilgrim = id_p
@@ -40,7 +36,7 @@ class Pilgrims:
                 surname = data_p[0]
                 name = data_p[1]
                 data_normal_pilgrim = [id_pilgrim, pilgrim_small_group, sex, date_accommod, surname, name]
-                self.list_other_pilgr.append(data_normal_pilgrim)
+                normal_pilgrim_list.append(data_normal_pilgrim)
 
 
-pilg = Pilgrims(PILGRIM_CLASS_PATH)
+pilg = Pilgrim(PILGRIM_CLASS_PATH)

@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, Response
 from main import read_file, write_file
 from accommodation.accommodation import accommodations as accommod
-from pilgrim.pilgrims import pilg
+from pilgrim.pilgrim import pilg
 import pandas as pd
 import io
 
@@ -155,8 +155,8 @@ def who_sleeps_here():
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def give_accommodation():
-    list_role = pilg.list_role_ppl
-    list_common_pilg = pilg.list_other_pilgr
+    list_role = pilg.service_pilgrim_list
+    list_common_pilg = pilg.normal_pilgrim_list
     list_accommod = accommod.list_accom_date(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])
