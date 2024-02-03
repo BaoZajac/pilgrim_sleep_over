@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class PilgrimWithFunction(Enum):
+class ServicePilgrim(Enum):
     PORZADKOWY = "porządkowy"
     CHORAZY = "chorąży"
     SZEF = "szef"
