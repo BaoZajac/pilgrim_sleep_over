@@ -5,14 +5,14 @@ import datetime
 ACCOMMODATION_CLASS_PATH = "accommodation/accommodation.json"
 
 
-class Accommodations:
+class Accommodation:
     def __init__(self, file_path_accommodation):
         self.data_accommodation = read_file(file_path_accommodation)
-        self.all_accommodation = {}
-        self.upload_data()
+        self.accommodation_base = {}
+        
+        self.upload_accommodation_base()
 
-    # upload data from a file to a dictionary
-    def upload_data(self):
+    def upload_accommodation_base(self):
         for id_a, data_a in self.data_accommodation.items():
             town = data_a[2]
             street = data_a[3]
@@ -26,14 +26,13 @@ class Accommodations:
             number_shower = data_a[8]
             number_shower = 0 if not number_shower else int(number_shower)
             comment = data_a[9]
-            date = self.town_to_date(town)
-            if not self.all_accommodation.get(town):
-                self.all_accommodation[(id_a, town, date)] = []
-            self.all_accommodation[(id_a, town, date)] += [[town, street, house, apartment, surname, given_name, phone,
+            date = self.decode_town_to_date(town)
+            if not self.accommodation_base.get(town):
+                self.accommodation_base[(id_a, town, date)] = []
+            self.accommodation_base[(id_a, town, date)] += [[town, street, house, apartment, surname, given_name, phone,
                                                             number_accommod, number_shower, comment, id_a]]
 
-    # decode an accommodation date from a town name
-    def town_to_date(self, town):
+    def decode_town_to_date(self, town):
         if town == "Rudawa" or town == "Radwanowice":
             self.date_accommod = datetime.datetime(2022, 8, 3).date()
         elif town == "Olkusz":
@@ -53,7 +52,7 @@ class Accommodations:
     # create a list of data for accommodation and showers for a specific date
     def list_accom_shower_date(self, date):
         list_date = []
-        for k, v in self.all_accommodation.items():
+        for k, v in self.accommodation_base.items():
             if date == str(k[2]):
                 list_date += v
         return list_date
@@ -99,4 +98,4 @@ class Accommodations:
         return self.list_shower_date
 
 
-accommodations = Accommodations(ACCOMMODATION_CLASS_PATH)
+accommodations = Accommodation(ACCOMMODATION_CLASS_PATH)
