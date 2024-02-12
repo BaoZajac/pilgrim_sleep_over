@@ -17,7 +17,7 @@ day = "2022-08-04"        # TODO: make universal for any date
 def main():
     accommod_summary = accommod.sum_accommod_date(day)
     shower_summary = accommod.sum_shower_date(day)
-    list_accommod = accommod.list_accom_date(day)
+    list_accommod = accommod.create_list_date_accommod(day)
     list_shower = accommod.list_showers_date(day)
     return render_template('main.html', accommod_summary=accommod_summary, day=day[-1], shower_summary=shower_summary,
                            list_accommod=list_accommod, list_shower=list_shower)
@@ -159,7 +159,7 @@ def give_accommodation():
     list_role = pilg.create_service_pilgrim_list()
     # list_common_pilg = pilg.normal_pilgrim_list
     list_common_pilg = pilg.create_normal_pilgrim_list()
-    list_accommod = accommod.list_accom_date(day)
+    list_accommod = accommod.create_list_date_accommod(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])
         buffer = io.BytesIO()

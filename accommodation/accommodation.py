@@ -21,8 +21,8 @@ class Accommodation:
             surname = data_a[0]
             given_name = data_a[1]
             phone = data_a[6]
-            number_accommod = data_a[7]
-            number_accommod = 0 if not number_accommod else int(number_accommod)
+            accommod_amount = data_a[7]
+            accommod_amount = 0 if not accommod_amount else int(accommod_amount)
             number_shower = data_a[8]
             number_shower = 0 if not number_shower else int(number_shower)
             comment = data_a[9]
@@ -30,7 +30,7 @@ class Accommodation:
             if not self.accommodation_base.get(town):
                 self.accommodation_base[(id_a, town, date)] = []
             self.accommodation_base[(id_a, town, date)] += [[town, street, house, apartment, surname, given_name, phone,
-                                                            number_accommod, number_shower, comment, id_a]]
+                                                            accommod_amount, number_shower, comment, id_a]]
 
     def decode_town_to_date(self, town):
         if town == "Rudawa" or town == "Radwanowice":
@@ -49,39 +49,37 @@ class Accommodation:
             self.date_accommod = "x"
         return self.date_accommod
 
-    # create a list of data for accommodation and showers for a specific date
-    def list_accom_shower_date(self, date):
-        list_date = []
+    def create_list_date_accommod_shower(self, date):
+        list_date_accommod_shower = []
         for k, v in self.accommodation_base.items():
             if date == str(k[2]):
-                list_date += v
-        return list_date
+                list_date_accommod_shower += v
+        return list_date_accommod_shower
 
-    # return a list of accommodation for a specific date
-    def list_accom_date(self, date):
-        self.list_accommod_date = []
-        for el in self.list_accom_shower_date(date):
-            number_accommod = el[7]
-            if number_accommod > 0:
-                self.list_accommod_date.append(el)
-        return self.list_accommod_date
+    def create_list_date_accommod(self, date):
+        self.list_date_accommod = []
+        for el in self.create_list_date_accommod_shower(date):
+            accommod_amount = el[7]
+            if accommod_amount > 0:
+                self.list_date_accommod.append(el)
+        return self.list_date_accommod
 
     # return no. of houses with accommodation and no. of accommodation for a specific date
     def sum_accommod_date(self, date):
         self.sum_house_accommod = 0
         self.sum_accommod = 0
-        for el in self.list_accom_shower_date(date):
-            number_accommod = el[7]
-            if number_accommod > 0:
+        for el in self.create_list_date_accommod_shower(date):
+            accommod_amount = el[7]
+            if accommod_amount > 0:
                 self.sum_house_accommod += 1
-                self.sum_accommod += number_accommod
+                self.sum_accommod += accommod_amount
         return self.sum_house_accommod, self.sum_accommod
 
     # return no. of houses with additional shower and no. of additional showers for a specific date
     def sum_shower_date(self, date):
         self.sum_house_shower = 0
         self.sum_shower = 0
-        for el in self.list_accom_shower_date(date):
+        for el in self.create_list_date_accommod_shower(date):
             number_shower = el[8]
             if number_shower > 0:
                 self.sum_house_shower += 1
@@ -91,7 +89,7 @@ class Accommodation:
     # return a list of showers for a specific date
     def list_showers_date(self, date):
         self.list_shower_date = []
-        for el in self.list_accom_shower_date(date):
+        for el in self.create_list_date_accommod_shower(date):
             number_shower = el[8]
             if number_shower > 0:
                 self.list_shower_date.append(el)
