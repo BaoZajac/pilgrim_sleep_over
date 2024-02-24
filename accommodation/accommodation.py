@@ -64,16 +64,15 @@ class Accommodation:
                 self.list_date_accommod.append(el)
         return self.list_date_accommod
 
-    # return no. of houses with accommodation and no. of accommodation for a specific date
-    def sum_accommod_date(self, date):
-        self.sum_house_accommod = 0
-        self.sum_accommod = 0
+    def give_no_of_accommodation(self, date):
+        self.sum_accommod_house = 0
+        self.sum_accommod_single_place = 0
         for el in self.create_list_date_accommod_shower(date):
             accommod_amount = el[7]
             if accommod_amount > 0:
-                self.sum_house_accommod += 1
-                self.sum_accommod += accommod_amount
-        return self.sum_house_accommod, self.sum_accommod
+                self.sum_accommod_house += 1
+                self.sum_accommod_single_place += accommod_amount
+        return self.sum_accommod_house, self.sum_accommod_single_place
 
     # return no. of houses with additional shower and no. of additional showers for a specific date
     def sum_shower_date(self, date):

@@ -15,7 +15,7 @@ day = "2022-08-04"        # TODO: make universal for any date
 
 @app.route('/')
 def main():
-    accommod_summary = accommod.sum_accommod_date(day)
+    accommod_summary = accommod.give_no_of_accommodation(day)
     shower_summary = accommod.sum_shower_date(day)
     list_accommod = accommod.create_list_date_accommod(day)
     list_shower = accommod.list_showers_date(day)
