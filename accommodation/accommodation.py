@@ -23,14 +23,14 @@ class Accommodation:
             phone = data_a[6]
             accommod_amount = data_a[7]
             accommod_amount = 0 if not accommod_amount else int(accommod_amount)
-            number_shower = data_a[8]
-            number_shower = 0 if not number_shower else int(number_shower)
+            shower_amount = data_a[8]
+            shower_amount = 0 if not shower_amount else int(shower_amount)
             comment = data_a[9]
             date = self.decode_town_to_date(town)
             if not self.accommodation_base.get(town):
                 self.accommodation_base[(id_a, town, date)] = []
             self.accommodation_base[(id_a, town, date)] += [[town, street, house, apartment, surname, given_name, phone,
-                                                            accommod_amount, number_shower, comment, id_a]]
+                                                            accommod_amount, shower_amount, comment, id_a]]
 
     def decode_town_to_date(self, town):
         if town == "Rudawa" or town == "Radwanowice":
