@@ -30,7 +30,7 @@
         <tbody>
             <tr>
                 <td>dostępne:</td>
-                <td>{{ accommod_summary[0] }}</td>
+                <td>{{ accommod_summary_date[0] }}</td>
             </tr>
                 <td>wykorzystane:</td>
                 <td>...</td>
@@ -42,7 +42,7 @@
         <tbody>
             <tr>
                 <td>dostępne:</td>
-                <td>{{ accommod_summary[1] }}</td>
+                <td>{{ accommod_summary_date[1] }}</td>
             </tr>
                 <td>wykorzystane:</td>
                 <td>...</td>
@@ -54,7 +54,7 @@
         <tbody>
             <tr>
                 <td>dostępne:</td>
-                <td>{{ shower_summary[0] }}</td>
+                <td>{{ shower_summary_date[0] }}</td>
             </tr>
                 <td>wykorzystane:</td>
                 <td>...</td>
@@ -66,7 +66,7 @@
         <tbody>
             <tr>
                 <td>dostępne:</td>
-                <td>{{ shower_summary[1] }}</td>
+                <td>{{ shower_summary_date[1] }}</td>
             </tr>
                 <td>wykorzystane:</td>
                 <td>...</td>
@@ -95,7 +95,7 @@
                 </tr>
             </thead>
              <tbody>
-            {% for el in list_accommod %}
+            {% for el in list_date_accommod %}
             <tr>
               <td>{{ el[10] }}</td>
               <td>{{ el[7] }}</td>
@@ -139,7 +139,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for el in list_shower %}
+            {% for el in list_date_showers %}
             <tr>
               <td>{{ el[10] }}</td>
               <td>{{ el[8] }}</td>

@@ -10,17 +10,18 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database_accountant.db"
 
-day = "2022-08-04"        # TODO: make universal for any date
+day = "2022-08-04"
 
 
 @app.route('/')
 def main():
-    accommod_summary = accommod.give_no_of_accommodation(day)
-    shower_summary = accommod.give_no_of_showers(day)
-    list_accommod = accommod.create_list_date_accommod(day)
-    list_shower = accommod.create_list_date_showers(day)
-    return render_template('main.html', accommod_summary=accommod_summary, day=day[-1], shower_summary=shower_summary,
-                           list_accommod=list_accommod, list_shower=list_shower)
+    accommod_summary_date = accommod.give_no_of_accommodation(day)
+    shower_summary_date = accommod.give_no_of_showers(day)
+    list_date_accommod = accommod.create_list_date_accommod(day)
+    list_date_showers = accommod.create_list_date_showers(day)
+    return render_template('main.html', accommod_summary_date=accommod_summary_date, day=day[-1],
+                           shower_summary_date=shower_summary_date, list_date_accommod=list_date_accommod,
+                           list_date_showers=list_date_showers)
 
 
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
@@ -159,7 +160,7 @@ def give_accommodation():
     list_role = pilg.create_service_pilgrim_list()
     # list_common_pilg = pilg.normal_pilgrim_list
     list_common_pilg = pilg.create_normal_pilgrim_list()
-    list_accommod = accommod.create_list_date_accommod(day)
+    list_date_accommod = accommod.create_list_date_accommod(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])
         buffer = io.BytesIO()
@@ -169,4 +170,4 @@ def give_accommodation():
             'Content-type': 'application/vnd.ms-excel'}
         return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)
     return render_template("give-accommodation.html", day=day[-1], list_role=list_role,
-                           common_pilgrims=list_common_pilg, list_accommod=list_accommod)
+                           common_pilgrims=list_common_pilg, list_date_accommod=list_date_accommod)

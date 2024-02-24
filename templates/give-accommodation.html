@@ -34,7 +34,7 @@
                             </label>
                             <select class="form-select" id="person_{{ role[0] }}" name="{{ role[0] }}_{{ role[4] }}_{{ role[5] }}">
                                 <option></option>
-                                {% for accommod in list_accommod %}
+                                {% for accommod in list_date_accommod %}
                                 <option>DOM {{ accommod[10] }} (n: {{accommod[7]}}, p: {{accommod[8]}})</option>
                                 {% endfor %}
                             </select>
@@ -50,7 +50,7 @@
                             <select class="form-select" id="person_{{ pilgrim[0] }}"
                                     name="{{ pilgrim[0] }}_{{ pilgrim[4] }}_{{ pilgrim[5] }}">
                                 <option></option>
-                                {% for accommod in list_accommod %}
+                                {% for accommod in list_date_accommod %}
                                 <option>Dom {{ accommod[10] }} (n: {{accommod[7]}}, p: {{accommod[8]}})</option>
                                 {% endfor %}
                             </select>
