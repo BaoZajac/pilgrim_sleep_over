@@ -74,16 +74,15 @@ class Accommodation:
                 self.sum_accommod_single_place += accommod_amount
         return self.sum_accommod_house, self.sum_accommod_single_place
 
-    # return no. of houses with additional shower and no. of additional showers for a specific date
-    def sum_shower_date(self, date):
-        self.sum_house_shower = 0
-        self.sum_shower = 0
+    def give_no_of_showers(self, date):
+        self.sum_showers_house = 0
+        self.sum_showers_single_place = 0
         for el in self.create_list_date_accommod_shower(date):
-            number_shower = el[8]
-            if number_shower > 0:
-                self.sum_house_shower += 1
-                self.sum_shower += number_shower
-        return self.sum_house_shower, self.sum_shower
+            shower_amount = el[8]
+            if shower_amount > 0:
+                self.sum_showers_house += 1
+                self.sum_showers_single_place += shower_amount
+        return self.sum_showers_house, self.sum_showers_single_place
 
     # return a list of showers for a specific date
     def list_showers_date(self, date):
