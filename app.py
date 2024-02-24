@@ -18,7 +18,7 @@ def main():
     accommod_summary = accommod.give_no_of_accommodation(day)
     shower_summary = accommod.give_no_of_showers(day)
     list_accommod = accommod.create_list_date_accommod(day)
-    list_shower = accommod.list_showers_date(day)
+    list_shower = accommod.create_list_date_showers(day)
     return render_template('main.html', accommod_summary=accommod_summary, day=day[-1], shower_summary=shower_summary,
                            list_accommod=list_accommod, list_shower=list_shower)
 
