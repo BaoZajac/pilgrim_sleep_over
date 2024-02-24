@@ -94,13 +94,13 @@
               <td>{{ single_address[1][9] }}</td>
               <td>
                   <form action="/edytuj-nocleg/" type="GET">
-                    <input type="hidden" value="{{ single_address[0] }}" name="accom-id">
+                    <input type="hidden" value="{{ single_address[0] }}" name="accommodation-id">
                     <button type="submit">edytuj</button>
                   </form>
               </td>
               <td>
                   <form action="/usun-nocleg/" type="GET">
-                      <input type="hidden" value="{{ single_address[0] }}" name="accom-id">
+                      <input type="hidden" value="{{ single_address[0] }}" name="accommodation-id">
                       <button type="submit">usuń</button>
                   </form>
               </td>

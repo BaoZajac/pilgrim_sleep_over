@@ -63,9 +63,10 @@ def edit_accommodation():
         data_accommodation[_id] = accommod_info
         write_file(data_accommodation, "accommodation/accommodation.json")
         return redirect('/noclegi/')
-    accommodation_id = request.args["accom-id"]
-    accom_info = read_file("accommodation/accommodation.json")[accommodation_id]
-    return render_template("edit-accommodation.html", accommod=accom_info, accommodation_id=accommodation_id)
+    accommodation_id = request.args["accommodation-id"]
+    accommodation_info = read_file("accommodation/accommodation.json")[accommodation_id]
+    return render_template("edit-accommodation.html", accommodation_info=accommodation_info,
+                           accommodation_id=accommodation_id)
 
 
 @app.route('/usun-nocleg/', methods=['GET', 'POST'])
@@ -76,9 +77,10 @@ def delete_accommodation():
         del data_accommodation[_id]
         write_file(data_accommodation, "accommodation/accommodation.json")
         return redirect('/noclegi/')
-    accommodation_id = request.args["accom-id"]
-    accom_info = read_file("accommodation/accommodation.json")[accommodation_id]
-    return render_template("delete-accommodation.html", accommod=accom_info, accommodation_id=accommodation_id)
+    accommodation_id = request.args["accommodation-id"]
+    accommodation_info = read_file("accommodation/accommodation.json")[accommodation_id]
+    return render_template("delete-accommodation.html", accommodation_info=accommodation_info,
+                           accommodation_id=accommodation_id)
 
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
