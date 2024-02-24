@@ -27,7 +27,7 @@ def main():
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
 @app.route('/noclegi/', methods=['POST', 'GET'])
 def accommodation():
-    data_accommod = accommod.data_accommodation
+    data_accommodation = accommod.data_accommodation
     if request.method == "POST":
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
@@ -39,15 +39,15 @@ def accommodation():
         sleep = request.form["sleep"]
         shower = request.form["shower"]
         comment = request.form["comment"]
-        accom_list = list(data_accommod.keys())
-        accom_list = [int(el) for el in accom_list]
-        accommod_id = max(accom_list) + 1
-        data_accommod[accommod_id] = last_name, given_name, town, street, house, apartment, phone, sleep, shower,\
-                                     comment
-        write_file(data_accommod, "accommodation/accommodation.json")
-    data_address = list(data_accommod.items())
+        accommodation_list = list(data_accommodation.keys())
+        accommodation_list = [int(el) for el in accommodation_list]
+        accommodation_id = max(accommodation_list) + 1
+        data_accommodation[accommodation_id] = last_name, given_name, town, street, house, apartment, phone, sleep,\
+                                               shower, comment
+        write_file(data_accommodation, "accommodation/accommodation.json")
+    addresses_data_list = list(data_accommodation.items())
     if request.path == '/noclegi/':
-        return render_template("accommodation.html", data_address=data_address, day=day[-1])
+        return render_template("accommodation.html", addresses_data_list=addresses_data_list, day=day[-1])
     elif request.path == '/dodaj-nocleg/':
         return render_template("add-accommodation.html")
 
@@ -55,30 +55,30 @@ def accommodation():
 @app.route('/edytuj-nocleg/', methods=['GET', 'POST'])
 def edit_accommodation():
     if request.method == "POST":
-        data_accommod = accommod.data_accommodation
+        data_accommodation = accommod.data_accommodation
         _id = request.form["id"]
         accommod_info = dict(request.form)
         del accommod_info["id"]
         accommod_info = list(accommod_info.values())
-        data_accommod[_id] = accommod_info
-        write_file(data_accommod, "accommodation/accommodation.json")
+        data_accommodation[_id] = accommod_info
+        write_file(data_accommodation, "accommodation/accommodation.json")
         return redirect('/noclegi/')
-    accommod_id = request.args["accom-id"]
-    accom_info = read_file("accommodation/accommodation.json")[accommod_id]
-    return render_template("edit-accommodation.html", accommod=accom_info, accommod_id=accommod_id)
+    accommodation_id = request.args["accom-id"]
+    accom_info = read_file("accommodation/accommodation.json")[accommodation_id]
+    return render_template("edit-accommodation.html", accommod=accom_info, accommodation_id=accommodation_id)
 
 
 @app.route('/usun-nocleg/', methods=['GET', 'POST'])
 def delete_accommodation():
     if request.method == "POST":
-        data_accommod = accommod.data_accommodation
+        data_accommodation = accommod.data_accommodation
         _id = request.form["id"]
-        del data_accommod[_id]
-        write_file(data_accommod, "accommodation/accommodation.json")
+        del data_accommodation[_id]
+        write_file(data_accommodation, "accommodation/accommodation.json")
         return redirect('/noclegi/')
-    accommod_id = request.args["accom-id"]
-    accom_info = read_file("accommodation/accommodation.json")[accommod_id]
-    return render_template("delete-accommodation.html", accommod=accom_info, accommod_id=accommod_id)
+    accommodation_id = request.args["accom-id"]
+    accom_info = read_file("accommodation/accommodation.json")[accommodation_id]
+    return render_template("delete-accommodation.html", accommod=accom_info, accommodation_id=accommodation_id)
 
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])

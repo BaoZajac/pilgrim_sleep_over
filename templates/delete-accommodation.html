@@ -18,12 +18,12 @@
     <p>Czy na pewno usunąć ten nocleg?</p>
     <br />
     <form action="/usun-nocleg/" method="POST">
-        <input type="hidden" value="{{ accommod_id }}" name="id"/>
+        <input type="hidden" value="{{ accommodation_id }}" name="id"/>
         <button class="btn btn-primary">TAK, USUŃ TEN NOCLEG</button>
     </form>
     <br />
     <form action="/noclegi/" method="GET">
-        <input type="hidden" value="{{ accommod_id }}" name="id"/>
+        <input type="hidden" value="{{ accommodation_id }}" name="id"/>
         <button class="btn">NIE, POZOSTAW BEZ ZMIAN</button>
     </form>
     <br />
