@@ -10,6 +10,8 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database_accountant.db"
 
+ACCOMMODATION_PATH = "accommodation/accommodation.json"
+PILGRIMS_PATH = "pilgrim/pilgrims.json"
 day = "2022-08-04"
 
 
@@ -44,7 +46,7 @@ def accommodation():
         accommodation_id = max(accommodation_list) + 1
         data_accommodation[accommodation_id] = last_name, given_name, town, street, house, apartment, phone, sleep,\
                                                shower, comment
-        write_file(data_accommodation, "accommodation/accommodation.json")
+        write_file(data_accommodation, ACCOMMODATION_PATH)
     addresses_data_list = list(data_accommodation.items())
     if request.path == '/noclegi/':
         return render_template("accommodation.html", addresses_data_list=addresses_data_list, day=day[-1])
@@ -61,10 +63,10 @@ def edit_accommodation():
         del accommod_info["id"]
         accommod_info = list(accommod_info.values())
         data_accommodation[_id] = accommod_info
-        write_file(data_accommodation, "accommodation/accommodation.json")
+        write_file(data_accommodation, ACCOMMODATION_PATH)
         return redirect('/noclegi/')
     accommodation_id = request.args["accommodation-id"]
-    accommodation_info = read_file("accommodation/accommodation.json")[accommodation_id]
+    accommodation_info = read_file(ACCOMMODATION_PATH)[accommodation_id]
     return render_template("edit-accommodation.html", accommodation_info=accommodation_info,
                            accommodation_id=accommodation_id)
 
@@ -75,17 +77,17 @@ def delete_accommodation():
         data_accommodation = accommod.data_accommodation
         _id = request.form["id"]
         del data_accommodation[_id]
-        write_file(data_accommodation, "accommodation/accommodation.json")
+        write_file(data_accommodation, ACCOMMODATION_PATH)
         return redirect('/noclegi/')
     accommodation_id = request.args["accommodation-id"]
-    accommodation_info = read_file("accommodation/accommodation.json")[accommodation_id]
+    accommodation_info = read_file(ACCOMMODATION_PATH)[accommodation_id]
     return render_template("delete-accommodation.html", accommodation_info=accommodation_info,
                            accommodation_id=accommodation_id)
 
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
 def pilgrim():
-    data_pilgrims = read_file("pilgrim/pilgrims.json")
+    data_pilgrims = read_file(PILGRIMS_PATH)
     list_roles = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
                      "przewodnik", "schola", "szef", "techniczny"]
     list_groups = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
@@ -105,7 +107,7 @@ def pilgrim():
         else:
             pilgrim_id = 1
         data_pilgrims[pilgrim_id] = last_name, given_name, sex, small_group, function, accommodations
-        write_file(data_pilgrims, "pilgrim/pilgrims.json")
+        write_file(data_pilgrims, PILGRIMS_PATH)
         return redirect('/pielgrzymi/')
     data_pilgrims_list = list(data_pilgrims.items())
     return render_template("pilgrims.html", pilgrims=data_pilgrims_list, list_roles=list_roles,
@@ -118,16 +120,16 @@ def edit_pilgrim():
                      "przewodnik", "schola", "szef", "techniczny"]
     list_groups = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
     if request.method == "POST":
-        data_pilgrims = read_file("pilgrim/pilgrims.json")
+        data_pilgrims = read_file(PILGRIMS_PATH)
         _id = request.form["id"]
         data_pilgr = dict(request.form)
         del data_pilgr["id"]
         data_pilgr = list(data_pilgr.values())
         data_pilgrims[_id] = data_pilgr
-        write_file(data_pilgrims, "pilgrim/pilgrims.json")
+        write_file(data_pilgrims, PILGRIMS_PATH)
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pilgrim-id"]
-    data_pilgrim = read_file("pilgrim/pilgrims.json")[pilgrim_id]
+    data_pilgrim = read_file(PILGRIMS_PATH)[pilgrim_id]
     group = data_pilgrim[3]
     if group != "funkcyjni":
         group = int(group)
@@ -144,10 +146,10 @@ def delete_pilgrim():
         data_pilgrims = pilg.data_pilgrims
         _id = request.form["id"]
         del data_pilgrims[_id]
-        write_file(data_pilgrims, "pilgrim/pilgrims.json")
+        write_file(data_pilgrims, PILGRIMS_PATH)
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pilgrim-id"]
-    data_pilgrim = read_file("pilgrim/pilgrims.json")[pilgrim_id]
+    data_pilgrim = read_file(PILGRIMS_PATH)[pilgrim_id]
     return render_template("delete-pilgrim.html", data_pilgrim=data_pilgrim, pilgrim_id=pilgrim_id)
 
 
