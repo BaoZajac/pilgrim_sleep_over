@@ -2,10 +2,17 @@ from enum import Enum
 
 
 class ServicePilgrim(Enum):
-    PORZADKOWY = "porządkowy"
+    BAGAZOWY = 'bagażowy'
     CHORAZY = "chorąży"
-    SZEF = "szef"
+    EKOLOGICZNY = 'ekologiczny'
+    KWATERMISTRZ = 'kwatermistrz'
+    MEDYCZNY = 'medyczny'
     PILOT = "pilot"
+    PORZADKOWY = "porządkowy"
     PRZEWODNIK = "przewodnik"
+    SCHOLA= 'schola'
+    SZEF = "szef"
+    TECHNICZNY = 'techniczny'
+
     LIDER_KWATERM_JUTRO = "lider_kwaterm_jutro"
     KWATERMISTRZ_DZIS = "kwatermistrz_dzis"

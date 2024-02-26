@@ -12,6 +12,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database_accountant.db"
 
 ACCOMMODATION_PATH = "accommodation/accommodation.json"
 PILGRIMS_PATH = "pilgrim/pilgrims.json"
+LIST_GROUPS = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
+LIST_ROLES = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy", "przewodnik",
+              "schola", "szef", "techniczny"]
 day = "2022-08-04"
 
 
@@ -88,9 +91,6 @@ def delete_accommodation():
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
 def pilgrim():
     data_pilgrims = read_file(PILGRIMS_PATH)
-    list_roles = ["bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
-                     "przewodnik", "schola", "szef", "techniczny"]
-    list_groups = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
     if request.method == "POST":
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
@@ -110,15 +110,14 @@ def pilgrim():
         write_file(data_pilgrims, PILGRIMS_PATH)
         return redirect('/pielgrzymi/')
     data_pilgrims_list = list(data_pilgrims.items())
-    return render_template("pilgrims.html", pilgrims=data_pilgrims_list, list_roles=list_roles,
-                           list_groups=list_groups, day=day[-1])
+    return render_template("pilgrims.html", pilgrims=data_pilgrims_list, list_roles=LIST_ROLES, list_groups=LIST_GROUPS,
+                           day=day[-1])
 
 
 @app.route('/edytuj-pielgrzyma/', methods=['GET', 'POST'])
 def edit_pilgrim():
-    list_roles = ["-", "bagażowy", "chorąży", "ekologiczny", "kwatermistrz", "medyczny", "pilot", "porządkowy",
-                     "przewodnik", "schola", "szef", "techniczny"]
-    list_groups = ["funkcyjni", 1, 2, 3, 4, 5, 6, 7, 8]
+    list_roles = ["-"] + LIST_ROLES
+    list_groups = LIST_GROUPS
     if request.method == "POST":
         data_pilgrims = read_file(PILGRIMS_PATH)
         _id = request.form["id"]
