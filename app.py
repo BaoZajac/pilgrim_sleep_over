@@ -110,8 +110,8 @@ def pilgrim():
         write_file(data_pilgrims, PILGRIMS_PATH)
         return redirect('/pielgrzymi/')
     data_pilgrims_list = list(data_pilgrims.items())
-    return render_template("pilgrims.html", pilgrims=data_pilgrims_list, list_roles=LIST_ROLES, list_groups=LIST_GROUPS,
-                           day=day[-1])
+    return render_template("pilgrims.html", data_pilgrims_list=data_pilgrims_list, list_roles=LIST_ROLES,
+                           list_groups=LIST_GROUPS, day=day[-1])
 
 
 @app.route('/edytuj-pielgrzyma/', methods=['GET', 'POST'])
