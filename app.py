@@ -95,9 +95,9 @@ def pilgrim():
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
         small_group = request.form["small_group"]
-        function = request.form["function"]
-        if function == "":
-            function = "-"
+        role = request.form["role"]
+        if role == "":
+            role = "-"
         accommodations = request.form["accommodation"]
         sex = request.form["sex"]
         if data_pilgrims.keys():
@@ -106,7 +106,7 @@ def pilgrim():
             pilgrim_id = max(pilgrims_list) + 1
         else:
             pilgrim_id = 1
-        data_pilgrims[pilgrim_id] = last_name, given_name, sex, small_group, function, accommodations
+        data_pilgrims[pilgrim_id] = last_name, given_name, sex, small_group, role, accommodations
         write_file(data_pilgrims, PILGRIMS_PATH)
         return redirect('/pielgrzymi/')
     data_pilgrims_list = list(data_pilgrims.items())

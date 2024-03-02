@@ -45,11 +45,11 @@
                             <option>{{ group }}</option>
                             {% endfor %}
                         </select>
-                        <label class="form-label" for="function">FUNKCJA</label>
-                        <select class="form-select" id="function" name="function">
+                        <label class="form-label" for="role">FUNKCJA</label>
+                        <select class="form-select" id="role" name="role">
                             <option>{{ data_pilgrim[4] }}</option>
-                            {% for role in list_roles %}
-                            <option>{{ role }}</option>
+                            {% for specific_role in list_roles %}
+                            <option>{{ specific_role }}</option>
                             {% endfor %}
                         </select>
                         <label class="form-label" for="accommodation">OSTATNI NOCLEG</label>
