@@ -121,21 +121,21 @@ def edit_pilgrim():
     if request.method == "POST":
         data_pilgrims = read_file(PILGRIMS_PATH)
         _id = request.form["id"]
-        data_pilgr = dict(request.form)
-        del data_pilgr["id"]
-        data_pilgr = list(data_pilgr.values())
-        data_pilgrims[_id] = data_pilgr
+        pilgrim_info = dict(request.form)
+        del pilgrim_info["id"]
+        pilgrim_info = list(pilgrim_info.values())
+        data_pilgrims[_id] = pilgrim_info
         write_file(data_pilgrims, PILGRIMS_PATH)
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pilgrim-id"]
-    data_pilgrim = read_file(PILGRIMS_PATH)[pilgrim_id]
-    group = data_pilgrim[3]
-    if group != "funkcyjni":
-        group = int(group)
-    list_groups.remove(group)
-    role_pilg = data_pilgrim[4]
+    data_single_pilgrim = read_file(PILGRIMS_PATH)[pilgrim_id]
+    small_group = data_single_pilgrim[3]
+    if small_group != "funkcyjni":
+        small_group = int(small_group)
+    list_groups.remove(small_group)
+    role_pilg = data_single_pilgrim[4]
     list_roles.remove(role_pilg)
-    return render_template("edit-pilgrim.html", data_pilgrim=data_pilgrim, pilgrim_id=pilgrim_id,
+    return render_template("edit-pilgrim.html", data_single_pilgrim=data_single_pilgrim, pilgrim_id=pilgrim_id,
                            list_roles=list_roles, list_groups=list_groups)
 
 
@@ -148,8 +148,8 @@ def delete_pilgrim():
         write_file(data_pilgrims, PILGRIMS_PATH)
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pilgrim-id"]
-    data_pilgrim = read_file(PILGRIMS_PATH)[pilgrim_id]
-    return render_template("delete-pilgrim.html", data_pilgrim=data_pilgrim, pilgrim_id=pilgrim_id)
+    data_single_pilgrim = read_file(PILGRIMS_PATH)[pilgrim_id]
+    return render_template("delete-pilgrim.html", data_single_pilgrim=data_single_pilgrim, pilgrim_id=pilgrim_id)
 
 
 @ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
