@@ -27,7 +27,7 @@
                     <form action="" method="post">
                         <h5>FUNKCYJNI</h5>
                         <br />
-                        {% for specific_role in list_role %}
+                        {% for specific_role in service_pilgrim_list %}
                             <label class="form-label" for="person_{{ specific_role[0] }}">
                                 {{ specific_role[1].upper() }} {{ specific_role[2] }} (id_{{ specific_role[0] }}: {{ specific_role[4] }}
                                 {{ specific_role[5] }}):
@@ -44,7 +44,7 @@
                         <br />
                         <h5>ZWYKLI PIELGRZYMI</h5>
                         <br />
-                        {% for pilgrim in common_pilgrims %}
+                        {% for pilgrim in normal_pilgrim_list %}
                             <label class="form-label" for="person_{{ pilgrim[0] }}">PIELGRZYM  {{ pilgrim[2] }},
                             gr. {{ pilgrim[1] }} (id_{{ pilgrim[0] }} {{ pilgrim[4] }} {{ pilgrim[5] }}):</label>
                             <select class="form-select" id="person_{{ pilgrim[0] }}"

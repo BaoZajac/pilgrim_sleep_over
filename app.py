@@ -154,18 +154,17 @@ def delete_pilgrim():
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def give_accommodation():
-    # list_role = pilg.service_pilgrim_list
-    list_role = pilg.create_service_pilgrim_list()
-    # list_common_pilg = pilg.normal_pilgrim_list
-    list_common_pilg = pilg.create_normal_pilgrim_list()
+    service_pilgrim_list = pilg.create_service_pilgrim_list()
+    normal_pilgrim_list = pilg.create_normal_pilgrim_list()
     list_date_accommod = accommod.create_list_date_accommod(day)
     if request.method == "POST":
-        df = pd.DataFrame(list(request.form.items()), columns=['osoba', 'nocleg'])
+        df = pd.DataFrame(list(request.form.items()), columns=['OSOBA', 'NOCLEG'])
         buffer = io.BytesIO()
         df.to_excel(buffer, index=False)
+        filename = f'lista_noclegow_{day}.xlsx'
         headers = {
-            'Content-Disposition': 'attachment; filename=output.xlsx',
+            'Content-Disposition': f'attachment; filename="{filename}"',
             'Content-type': 'application/vnd.ms-excel'}
         return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)
-    return render_template("give-accommodation.html", day=day[-1], list_role=list_role,
-                           common_pilgrims=list_common_pilg, list_date_accommod=list_date_accommod)
+    return render_template("give-accommodation.html", day=day[-1], service_pilgrim_list=service_pilgrim_list,
+                           normal_pilgrim_list=normal_pilgrim_list, list_date_accommod=list_date_accommod)
