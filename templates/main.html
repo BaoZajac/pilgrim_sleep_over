@@ -82,8 +82,6 @@
                 <tr>
                     <th>ID</th>
                     <th>DOSTĘPNE NOCLEGI</th>
-                    <th>WYKORZYST NOCLEGI</th>
-                    <th>KTO TU ŚPI</th>
                     <th>KOMENTARZ</th>
                     <th>MIEJSCOWOŚĆ</th>
                     <th>ULICA</th>
@@ -99,12 +97,6 @@
             <tr>
               <td>{{ el[10] }}</td>
               <td>{{ el[7] }}</td>
-              <td>...</td>
-              <td>
-                  <form action="/kto-tu-spi/" type="GET">
-                    <button type="submit">lista pielgrzymów</button>
-                  </form>
-              </td>
               <td>{{ el[9] }}</td>
               <td>{{ el[0] }}</td>
               <td>{{ el[1] }}</td>
@@ -126,8 +118,6 @@
             <tr>
                 <th>ID</th>
                 <th>DOSTĘPNE PRYSZNICE</th>
-                <th>WYKORZYST PRYSZNICE</th>
-                <th>KTO TU SIĘ MYJE</th>
                 <th>KOMENTARZ</th>
                 <th>MIEJSCOWOŚĆ</th>
                 <th>ULICA</th>
@@ -143,13 +133,6 @@
             <tr>
               <td>{{ el[10] }}</td>
               <td>{{ el[8] }}</td>
-              <td>...</td>
-              <td>
-                  <form action="/kto-tu-spi/" type="GET">
-                    <input type="hidden" value="{{ el[10] }}" name="nocleg-id">
-                    <button type="submit">lista pielgrzymów</button>
-                  </form>
-              </td>
               <td>{{ el[9] }}</td>
               <td>{{ el[0] }}</td>
               <td>{{ el[1] }}</td>

@@ -152,11 +152,6 @@ def delete_pilgrim():
     return render_template("delete-pilgrim.html", data_single_pilgrim=data_single_pilgrim, pilgrim_id=pilgrim_id)
 
 
-@ app.route('/kto-tu-spi/', methods=['GET', 'POST'])
-def who_sleeps_here():
-    return render_template("who-sleeps-here.html", day=day[-1])
-
-
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def give_accommodation():
     # list_role = pilg.service_pilgrim_list
