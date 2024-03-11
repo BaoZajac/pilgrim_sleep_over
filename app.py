@@ -24,7 +24,7 @@ def main():
     shower_summary_date = accommod.give_no_of_showers(day)
     list_date_accommod = accommod.create_list_date_accommod(day)
     list_date_showers = accommod.create_list_date_showers(day)
-    return render_template('main.html', accommod_summary_date=accommod_summary_date, day=day[-1],
+    return render_template('index.html', accommod_summary_date=accommod_summary_date, day=day[-1],
                            shower_summary_date=shower_summary_date, list_date_accommod=list_date_accommod,
                            list_date_showers=list_date_showers)
 
