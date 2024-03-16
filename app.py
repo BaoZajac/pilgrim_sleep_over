@@ -53,8 +53,6 @@ def accommodation():
     addresses_data_list = list(data_accommodation.items())
     if request.path == '/noclegi/':
         return render_template("accommodation.html", addresses_data_list=addresses_data_list, day=day[-1])
-    elif request.path == '/dodaj-nocleg/':
-        return render_template("add-accommodation.html")
 
 
 @app.route('/edytuj-nocleg/', methods=['GET', 'POST'])

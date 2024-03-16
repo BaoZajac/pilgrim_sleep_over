@@ -1,130 +1,96 @@
 <!DOCTYPE html>
 <html lang="pl">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-        <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-        <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
-        <title>obsługa - PODSUMOWANIE NOCLEGÓW</title>
-    </head>
-    <body>
-        <header>
-            <h3>----------    OBSŁUGA PIELGRZYMKI    ----------</h3>
-            <br>
-            <nav>
-                <form action="/noclegi/" type="GET">
-                    <button class="btn">NOCLEGI</button>
-                </form>
-                <form action="/pielgrzymi/" type="GET">
-                    <button class="btn">PIELGRZYMI</button>
-                </form>
-                <br>
-                <form action="/przyporzadkuj-nocleg/" type="GET">
-                    <button class="btn">PRZYPORZĄDKUJ NOCLEG</button>
-                </form>
-            </nav>
-            <br>
-        </header>
-        <section>
 
-            <hr>
-            <h1><b>PODSUMOWANIE NOCLEGÓW I PRYSZNICÓW NA DZIEŃ - {{ day }} sierpnia 2022</b></h1>
-            <hr>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>obsługa - PODSUMOWANIE NOCLEGÓW</title>
+</head>
+<body>
+    <header>
+        <h3>----------    OBSŁUGA PIELGRZYMKI    ----------</h3>
+        <br>
+        <nav>
+            <form action="/noclegi/" type="GET">
+                <button class="btn">NOCLEGI</button>
+            </form>
+            <form action="/pielgrzymi/" type="GET">
+                <button class="btn">PIELGRZYMI</button>
+            </form>
             <br>
-            <br>
-            <h6>PUNKTY NOCLEGOWE INDYWIDUALNE (DOMY)</h6>
-            <table class="table" style="width: 20%" border>
-                <tbody>
-                    <tr>
-                        <td>dostępne:</td>
-                        <td>{{ accommod_summary_date[0] }}</td>
-                    </tr>
-                        <td>wykorzystane:</td>
-                        <td>...</td>
-                </tbody>
-            </table>
-            <br>
-            <h6>MIEJSCA NOCLEGOWE W (DOMACH) PUNKTACH NOCLEGOWYCH INDYWIDUALNYCH</h6>
-            <table class="table" style="width: 20%" border>
-                <tbody>
-                    <tr>
-                        <td>dostępne:</td>
-                        <td>{{ accommod_summary_date[1] }}</td>
-                    </tr>
-                        <td>wykorzystane:</td>
-                        <td>...</td>
-                </tbody>
-            </table>
-            <br><br>
-            <h6>PUNKTY PRYSZNICOWE</h6>
-            <table class="table" style="width: 20%" border>
-                <tbody>
-                    <tr>
-                        <td>dostępne:</td>
-                        <td>{{ shower_summary_date[0] }}</td>
-                    </tr>
-                        <td>wykorzystane:</td>
-                        <td>...</td>
-                </tbody>
-            </table>
-            <br>
-            <h6>MIEJSCA W PUNKTACH PRYSZNICOWYCH</h6>
-            <table class="table" style="width: 20%" border>
-                <tbody>
-                    <tr>
-                        <td>dostępne:</td>
-                        <td>{{ shower_summary_date[1] }}</td>
-                    </tr>
-                        <td>wykorzystane:</td>
-                        <td>...</td>
-                </tbody>
-            </table>
-            <br>
-            <br>
-            <hr>
-            <h5>ZESTAWIENIE NOCLEGÓW NA DZIEŃ - {{ day }} sierpnia 2022</h5>
-            <hr>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>DOSTĘPNE NOCLEGI</th>
-                            <th>KOMENTARZ</th>
-                            <th>MIEJSCOWOŚĆ</th>
-                            <th>ULICA</th>
-                            <th>NR DOMU</th>
-                            <th>NR MIESZKANIA</th>
-                            <th>NAZWISKO</th>
-                            <th>IMIĘ</th>
-                            <th>NR TELEFONU</th>
-                        </tr>
-                    </thead>
-                     <tbody>
-                    {% for el in list_date_accommod %}
-                    <tr>
-                      <td>{{ el[10] }}</td>
-                      <td>{{ el[7] }}</td>
-                      <td>{{ el[9] }}</td>
-                      <td>{{ el[0] }}</td>
-                      <td>{{ el[1] }}</td>
-                      <td>{{ el[2] }}</td>
-                      <td>{{ el[3] }}</td>
-                      <td>{{ el[4] }}</td>
-                      <td>{{ el[5] }}</td>
-                      <td>{{ el[6] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <br>
-            <hr>
-            <h5>ZESTAWIENIE PRZYSZNICÓW NA DZIEŃ - {{ day }} sierpnia 2022</h5>
-            <hr>
+            <form action="/przyporzadkuj-nocleg/" type="GET">
+                <button class="btn">PRZYPORZĄDKUJ NOCLEG</button>
+            </form>
+        </nav>
+        <br>
+    </header>
+    <section>
+
+        <hr>
+        <h1><b>PODSUMOWANIE NOCLEGÓW I PRYSZNICÓW NA DZIEŃ - {{ day }} sierpnia 2022</b></h1>
+        <hr>
+        <br>
+        <br>
+        <h6>PUNKTY NOCLEGOWE INDYWIDUALNE (DOMY)</h6>
+        <table class="table" style="width: 20%" border>
+            <tbody>
+                <tr>
+                    <td>dostępne:</td>
+                    <td>{{ accommod_summary_date[0] }}</td>
+                </tr>
+                    <td>wykorzystane:</td>
+                    <td>...</td>
+            </tbody>
+        </table>
+        <br>
+        <h6>MIEJSCA NOCLEGOWE W (DOMACH) PUNKTACH NOCLEGOWYCH INDYWIDUALNYCH</h6>
+        <table class="table" style="width: 20%" border>
+            <tbody>
+                <tr>
+                    <td>dostępne:</td>
+                    <td>{{ accommod_summary_date[1] }}</td>
+                </tr>
+                    <td>wykorzystane:</td>
+                    <td>...</td>
+            </tbody>
+        </table>
+        <br><br>
+        <h6>PUNKTY PRYSZNICOWE</h6>
+        <table class="table" style="width: 20%" border>
+            <tbody>
+                <tr>
+                    <td>dostępne:</td>
+                    <td>{{ shower_summary_date[0] }}</td>
+                </tr>
+                    <td>wykorzystane:</td>
+                    <td>...</td>
+            </tbody>
+        </table>
+        <br>
+        <h6>MIEJSCA W PUNKTACH PRYSZNICOWYCH</h6>
+        <table class="table" style="width: 20%" border>
+            <tbody>
+                <tr>
+                    <td>dostępne:</td>
+                    <td>{{ shower_summary_date[1] }}</td>
+                </tr>
+                    <td>wykorzystane:</td>
+                    <td>...</td>
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <hr>
+        <h5>ZESTAWIENIE NOCLEGÓW NA DZIEŃ - {{ day }} sierpnia 2022</h5>
+        <hr>
             <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>DOSTĘPNE PRYSZNICE</th>
+                        <th>DOSTĘPNE NOCLEGI</th>
                         <th>KOMENTARZ</th>
                         <th>MIEJSCOWOŚĆ</th>
                         <th>ULICA</th>
@@ -135,26 +101,63 @@
                         <th>NR TELEFONU</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {% for el in list_date_showers %}
-                    <tr>
-                      <td>{{ el[10] }}</td>
-                      <td>{{ el[8] }}</td>
-                      <td>{{ el[9] }}</td>
-                      <td>{{ el[0] }}</td>
-                      <td>{{ el[1] }}</td>
-                      <td>{{ el[2] }}</td>
-                      <td>{{ el[3] }}</td>
-                      <td>{{ el[4] }}</td>
-                      <td>{{ el[5] }}</td>
-                      <td>{{ el[6] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <br>
-            <br>
-        </section>
-        <footer></footer>
-    </body>
+                 <tbody>
+                {% for el in list_date_accommod %}
+                <tr>
+                  <td>{{ el[10] }}</td>
+                  <td>{{ el[7] }}</td>
+                  <td>{{ el[9] }}</td>
+                  <td>{{ el[0] }}</td>
+                  <td>{{ el[1] }}</td>
+                  <td>{{ el[2] }}</td>
+                  <td>{{ el[3] }}</td>
+                  <td>{{ el[4] }}</td>
+                  <td>{{ el[5] }}</td>
+                  <td>{{ el[6] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <hr>
+        <h5>ZESTAWIENIE PRZYSZNICÓW NA DZIEŃ - {{ day }} sierpnia 2022</h5>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>DOSTĘPNE PRYSZNICE</th>
+                    <th>KOMENTARZ</th>
+                    <th>MIEJSCOWOŚĆ</th>
+                    <th>ULICA</th>
+                    <th>NR DOMU</th>
+                    <th>NR MIESZKANIA</th>
+                    <th>NAZWISKO</th>
+                    <th>IMIĘ</th>
+                    <th>NR TELEFONU</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for el in list_date_showers %}
+                <tr>
+                  <td>{{ el[10] }}</td>
+                  <td>{{ el[8] }}</td>
+                  <td>{{ el[9] }}</td>
+                  <td>{{ el[0] }}</td>
+                  <td>{{ el[1] }}</td>
+                  <td>{{ el[2] }}</td>
+                  <td>{{ el[3] }}</td>
+                  <td>{{ el[4] }}</td>
+                  <td>{{ el[5] }}</td>
+                  <td>{{ el[6] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <br>
+    </section>
+    <footer></footer>
+</body>
+
 </html>
