@@ -8,19 +8,19 @@
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
 </head>
 <body>
-    <br />
+    <br>
     <h6>----------    OBSŁUGA PIELGRZYMKI    ----------</h6>
-    <hr />
+    <hr>
     <h5>FORMULARZ DO DODAWANIA PIELGRZYMÓW</h5>
-    <hr />
-    <br />
+    <hr>
+    <br>
         <form action="/" type="GET">
             <button class="btn">PODSUMOWANIE DANIA - {{ day }} sierpnia 2022</button>
         </form>
         <form action="/noclegi/" type="GET">
             <button class="btn">NOCLEGI</button>
         </form>
-    <br />
+    <br>
     <div class="container">
         <div class="columns">
             <div class="col-1"></div>
@@ -28,9 +28,9 @@
                 <div class="form-group">
                     <form action="" method="post">
                         <label class="form-label" for="last_name">NAZWISKO</label>
-                        <input class="form-input" id="last_name" type="text" name="last_name" />
+                        <input class="form-input" id="last_name" type="text" name="last_name">
                         <label class="form-label" for="given_name">IMIĘ</label>
-                        <input class="form-input" id="given_name" type="text" name="given_name" />
+                        <input class="form-input" id="given_name" type="text" name="given_name">
                         <label class="form-label" for="sex">PŁEĆ</label>
                         <select class="form-select" id="sex" name="sex">
                             <option></option>
@@ -52,18 +52,18 @@
                             {% endfor %}
                         </select>
                         <label class="form-label" for="accommodation">OSTATNI NOCLEG</label>
-                        <input class="form-input" id="accommodation" type="text" name="accommodation" />
-                        <br />
+                        <input class="form-input" id="accommodation" type="text" name="accommodation">
+                        <br>
                         <button class="btn btn-primary">DODAJ</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <br />
-    <hr />
+    <br>
+    <hr>
     <h5>LISTA PIELGRZYMÓW</h5>
-    <hr />
+    <hr>
     <table class="table">
         <thead>
             <tr>
@@ -104,7 +104,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <br />
-    <br />
+    <br>
+    <br>
 </body>
 </html>

@@ -8,17 +8,17 @@
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
 </head>
 <body>
-    <br />
+    <br>
     <h6>----------    OBSŁUGA PIELGRZYMKI    ----------</h6>
-    <hr />
+    <hr>
     <h5>FORMULARZ DO PRZYPORZĄDKOWYWANIA NOCLEGÓW</h5>
-    <hr />
-    <br />
+    <hr>
+    <br>
         <form action="/" type="GET">
             <button class="btn">PODSUMOWANIE DNIA - {{ day }} sierpnia 2022</button>
         </form>
-    <br />
-    <br />
+    <br>
+    <br>
         <div class="container">
         <div class="columns">
             <div class="col-1"></div>
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <form action="" method="post">
                         <h5>FUNKCYJNI</h5>
-                        <br />
+                        <br>
                         {% for specific_role in service_pilgrim_list %}
                             <label class="form-label" for="person_{{ specific_role[0] }}">
                                 {{ specific_role[1].upper() }} {{ specific_role[2] }} (id_{{ specific_role[0] }}: {{ specific_role[4] }}
@@ -39,11 +39,11 @@
                                 {% endfor %}
                             </select>
                         {% endfor %}
-                        <br />
-                        <br />
-                        <br />
+                        <br>
+                        <br>
+                        <br>
                         <h5>ZWYKLI PIELGRZYMI</h5>
-                        <br />
+                        <br>
                         {% for pilgrim in normal_pilgrim_list %}
                             <label class="form-label" for="person_{{ pilgrim[0] }}">PIELGRZYM  {{ pilgrim[2] }},
                             gr. {{ pilgrim[1] }} (id_{{ pilgrim[0] }} {{ pilgrim[4] }} {{ pilgrim[5] }}):</label>
@@ -55,15 +55,15 @@
                                 {% endfor %}
                             </select>
                         {% endfor %}
-                        <br />
-                        <br />
+                        <br>
+                        <br>
                         <button class="btn btn-primary">ZATWIERDŹ</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <br />
-    <br />
+    <br>
+    <br>
 </body>
 </html>
