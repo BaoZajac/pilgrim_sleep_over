@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, Response
 from main import read_file, write_file
 from accommodation.accommodation import accommodations as accommod
-from pilgrim.pilgrim import pilg
+from pilgrim.pilgrim import pilgrim_object
 import pandas as pd
 import io
 
@@ -97,14 +97,14 @@ def pilgrim():
         if role == "":
             role = "-"
         accommodations = request.form["accommodation"]
-        sex = request.form["sex"]
+        gender = request.form["gender"]
         if data_pilgrims.keys():
             pilgrims_list = list(data_pilgrims.keys())
             pilgrims_list = [int(el) for el in pilgrims_list]
             pilgrim_id = max(pilgrims_list) + 1
         else:
             pilgrim_id = 1
-        data_pilgrims[pilgrim_id] = last_name, given_name, sex, small_group, role, accommodations
+        data_pilgrims[pilgrim_id] = last_name, given_name, gender, small_group, role, accommodations
         write_file(data_pilgrims, PILGRIMS_PATH)
         return redirect('/pielgrzymi/')
     data_pilgrims_list = list(data_pilgrims.items())
@@ -140,7 +140,7 @@ def edit_pilgrim():
 @app.route('/usun-pielgrzyma/', methods=['GET', 'POST'])
 def delete_pilgrim():
     if request.method == "POST":
-        data_pilgrims = pilg.data_pilgrims
+        data_pilgrims = pilgrim_object.data_pilgrims
         _id = request.form["id"]
         del data_pilgrims[_id]
         write_file(data_pilgrims, PILGRIMS_PATH)
@@ -152,8 +152,8 @@ def delete_pilgrim():
 
 @ app.route('/przyporzadkuj-nocleg/', methods=['GET', 'POST'])
 def give_accommodation():
-    service_pilgrim_list = pilg.create_service_pilgrim_list()
-    normal_pilgrim_list = pilg.create_normal_pilgrim_list()
+    service_pilgrim_list = pilgrim_object.create_service_pilgrim_list()
+    normal_pilgrim_list = pilgrim_object.create_normal_pilgrim_list()
     list_date_accommod = accommod.create_list_date_accommod(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['OSOBA', 'NOCLEG'])

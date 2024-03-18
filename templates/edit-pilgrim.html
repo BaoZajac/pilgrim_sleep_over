@@ -31,8 +31,8 @@
                         <input class="form-input" id="last_name" type="text" name="last_name" value="{{ data_single_pilgrim[0] }}"/>
                         <label class="form-label" for="given_name">IMIĘ</label>
                         <input class="form-input" id="given_name" type="text" name="given_name" value="{{ data_single_pilgrim[1] }}"/>
-                        <label class="form-label" for="sex">PŁEĆ</label>
-                        <select class="form-select" id="sex" name="sex">
+                        <label class="form-label" for="gender">PŁEĆ</label>
+                        <select class="form-select" id="gender" name="gender">
                             <option>{{ data_single_pilgrim[2] }}</option>
                             {% if data_single_pilgrim[2] == 'kobieta' %}
                                 <option>mężczyzna</option>
