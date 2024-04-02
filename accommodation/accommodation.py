@@ -40,22 +40,25 @@ class Accommodation:
         return shower_amount
 
     def decode_town_to_date(self, town):
-        date_accommod = "x"
         if town == "Rudawa" or town == "Radwanowice":
-            date_accommod = datetime.datetime(2022, 8, 3).date()
+            stay_date = self.assign_date(3)
         elif town == "Olkusz":
-            date_accommod = datetime.datetime(2022, 8, 4).date()
+            stay_date = self.assign_date(4)
         elif town == "Niegowonice":
-            date_accommod = datetime.datetime(2022, 8, 5).date()
+            stay_date = self.assign_date(5)
         elif town == "Myszków":
-            date_accommod = datetime.datetime(2022, 8, 6).date()
+            stay_date = self.assign_date(6)
         elif town == "Poraj":
-            date_accommod = datetime.datetime(2022, 8, 7).date()
+            stay_date = self.assign_date(7)
         elif town == "Nierada":
-            date_accommod = datetime.datetime(2022, 8, 8).date()
-        # else:
-        #     date_accommod = "x"
-        return date_accommod
+            stay_date = self.assign_date(8)
+        else:
+            stay_date = "x"
+        return stay_date
+
+    def assign_date(self, day):
+        stay_date = datetime.datetime(2022, 8, day).date()
+        return stay_date
 
     def create_list_date_accommod_shower(self, date):
         list_date_accommod_shower = []
