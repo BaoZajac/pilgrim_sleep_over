@@ -8,11 +8,9 @@ ACCOMMODATION_CLASS_PATH = "accommodation/accommodation.json"
 class Accommodation:
     def __init__(self, file_path_accommodation):
         self.data_accommodation = read_file(file_path_accommodation)
-        self.accommodation_base = {}
-        
-        self.upload_accommodation_base()
 
     def upload_accommodation_base(self):
+        accommodation_base = {}
         for id_a, data_a in self.data_accommodation.items():
             town = data_a[2]
             street = data_a[3]
@@ -21,37 +19,48 @@ class Accommodation:
             surname = data_a[0]
             given_name = data_a[1]
             phone = data_a[6]
-            accommod_amount = data_a[7]
-            accommod_amount = 0 if not accommod_amount else int(accommod_amount)
-            shower_amount = data_a[8]
-            shower_amount = 0 if not shower_amount else int(shower_amount)
+            accommod_amount = self.count_accommodation(id_a, 7)
+            shower_amount = self.count_shower(id_a, 8)
             comment = data_a[9]
             date = self.decode_town_to_date(town)
-            if not self.accommodation_base.get(town):
-                self.accommodation_base[(id_a, town, date)] = []
-            self.accommodation_base[(id_a, town, date)] += [[town, street, house, apartment, surname, given_name, phone,
-                                                            accommod_amount, shower_amount, comment, id_a]]
+            if not accommodation_base.get(town):
+                accommodation_base[(id_a, town, date)] = []
+            accommodation_base[(id_a, town, date)] += [[town, street, house, apartment, surname, given_name, phone,
+                                                        accommod_amount, shower_amount, comment, id_a]]
+        return accommodation_base
+
+    def count_accommodation(self, accommodation_id, accommodation_index):
+        accommodation_amount = self.data_accommodation[accommodation_id][accommodation_index]
+        accommodation_amount = 0 if not accommodation_amount else int(accommodation_amount)
+        return accommodation_amount
+
+    def count_shower(self, accommodation_id, shower_index):
+        shower_amount = self.data_accommodation[accommodation_id][shower_index]
+        shower_amount = 0 if not shower_amount else int(shower_amount)
+        return shower_amount
 
     def decode_town_to_date(self, town):
+        date_accommod = "x"
         if town == "Rudawa" or town == "Radwanowice":
-            self.date_accommod = datetime.datetime(2022, 8, 3).date()
+            date_accommod = datetime.datetime(2022, 8, 3).date()
         elif town == "Olkusz":
-            self.date_accommod = datetime.datetime(2022, 8, 4).date()
+            date_accommod = datetime.datetime(2022, 8, 4).date()
         elif town == "Niegowonice":
-            self.date_accommod = datetime.datetime(2022, 8, 5).date()
+            date_accommod = datetime.datetime(2022, 8, 5).date()
         elif town == "Myszków":
-            self.date_accommod = datetime.datetime(2022, 8, 6).date()
+            date_accommod = datetime.datetime(2022, 8, 6).date()
         elif town == "Poraj":
-            self.date_accommod = datetime.datetime(2022, 8, 7).date()
+            date_accommod = datetime.datetime(2022, 8, 7).date()
         elif town == "Nierada":
-            self.date_accommod = datetime.datetime(2022, 8, 8).date()
-        else:
-            self.date_accommod = "x"
-        return self.date_accommod
+            date_accommod = datetime.datetime(2022, 8, 8).date()
+        # else:
+        #     date_accommod = "x"
+        return date_accommod
 
     def create_list_date_accommod_shower(self, date):
         list_date_accommod_shower = []
-        for k, v in self.accommodation_base.items():
+        accommodation_base = self.upload_accommodation_base()
+        for k, v in accommodation_base.items():
             if date == str(k[2]):
                 list_date_accommod_shower += v
         return list_date_accommod_shower
