@@ -60,17 +60,17 @@ class Accommodation:
         stay_date = datetime.datetime(2022, 8, day).date()
         return stay_date
 
-    def create_list_date_accommod_shower(self, date):
-        list_date_accommod_shower = []
+    def create_list_accommodation_shower_for_date(self, date):
+        list_accommodation_shower_for_date = []
         accommodation_base = self.upload_accommodation_base()
         for k, v in accommodation_base.items():
             if date == str(k[2]):
-                list_date_accommod_shower += v
-        return list_date_accommod_shower
+                list_accommodation_shower_for_date += v
+        return list_accommodation_shower_for_date
 
     def create_list_date_accommod(self, date):
         self.list_date_accommod = []
-        for el in self.create_list_date_accommod_shower(date):
+        for el in self.create_list_accommodation_shower_for_date(date):
             accommodation_quantity = el[7]
             if accommodation_quantity > 0:
                 self.list_date_accommod.append(el)
@@ -79,7 +79,7 @@ class Accommodation:
     def give_no_of_accommodation(self, date):
         self.sum_accommod_house = 0
         self.sum_accommod_single_place = 0
-        for el in self.create_list_date_accommod_shower(date):
+        for el in self.create_list_accommodation_shower_for_date(date):
             accommodation_quantity = el[7]
             if accommodation_quantity > 0:
                 self.sum_accommod_house += 1
@@ -89,7 +89,7 @@ class Accommodation:
     def give_no_of_showers(self, date):
         self.sum_showers_house = 0
         self.sum_showers_single_place = 0
-        for el in self.create_list_date_accommod_shower(date):
+        for el in self.create_list_accommodation_shower_for_date(date):
             shower_quantity = el[8]
             if shower_quantity > 0:
                 self.sum_showers_house += 1
@@ -98,7 +98,7 @@ class Accommodation:
 
     def create_list_date_showers(self, date):
         self.list_date_showers = []
-        for el in self.create_list_date_accommod_shower(date):
+        for el in self.create_list_accommodation_shower_for_date(date):
             shower_quantity = el[8]
             if shower_quantity > 0:
                 self.list_date_showers.append(el)
