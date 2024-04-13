@@ -68,41 +68,41 @@ class Accommodation:
                 list_accommodation_shower_for_date += v
         return list_accommodation_shower_for_date
 
-    def create_list_date_accommod(self, date):
-        self.list_date_accommod = []
+    def create_list_accommodations_for_date(self, date):
+        list_accommodation_for_date = []
         for el in self.create_list_accommodation_shower_for_date(date):
             accommodation_quantity = el[7]
             if accommodation_quantity > 0:
-                self.list_date_accommod.append(el)
-        return self.list_date_accommod
+                list_accommodation_for_date.append(el)
+        return list_accommodation_for_date
 
-    def give_no_of_accommodation(self, date):
-        self.sum_accommod_house = 0
-        self.sum_accommod_single_place = 0
+    def give_number_of_accommodations(self, date):
+        sum_of_houses_with_accommodations = 0
+        sum_of_single_accommodation_places = 0
         for el in self.create_list_accommodation_shower_for_date(date):
             accommodation_quantity = el[7]
             if accommodation_quantity > 0:
-                self.sum_accommod_house += 1
-                self.sum_accommod_single_place += accommodation_quantity
-        return self.sum_accommod_house, self.sum_accommod_single_place
+                sum_of_houses_with_accommodations += 1
+                sum_of_single_accommodation_places += accommodation_quantity
+        return sum_of_houses_with_accommodations, sum_of_single_accommodation_places
 
-    def give_no_of_showers(self, date):
-        self.sum_showers_house = 0
-        self.sum_showers_single_place = 0
+    def give_number_of_showers(self, date):
+        sum_of_houses_with_showers = 0
+        sum_of_single_shower_places = 0
         for el in self.create_list_accommodation_shower_for_date(date):
             shower_quantity = el[8]
             if shower_quantity > 0:
-                self.sum_showers_house += 1
-                self.sum_showers_single_place += shower_quantity
-        return self.sum_showers_house, self.sum_showers_single_place
+                sum_of_houses_with_showers += 1
+                sum_of_single_shower_places += shower_quantity
+        return sum_of_houses_with_showers, sum_of_single_shower_places
 
-    def create_list_date_showers(self, date):
-        self.list_date_showers = []
+    def create_list_showers_for_date(self, date):
+        list_showers_for_date = []
         for el in self.create_list_accommodation_shower_for_date(date):
             shower_quantity = el[8]
             if shower_quantity > 0:
-                self.list_date_showers.append(el)
-        return self.list_date_showers
+                list_showers_for_date.append(el)
+        return list_showers_for_date
 
 
 accommodations = Accommodation(ACCOMMODATION_CLASS_PATH)

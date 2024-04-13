@@ -20,13 +20,13 @@ day = "2022-08-04"
 
 @app.route('/')
 def main():
-    accommod_summary_date = accommod.give_no_of_accommodation(day)
-    shower_summary_date = accommod.give_no_of_showers(day)
-    list_date_accommod = accommod.create_list_date_accommod(day)
-    list_date_showers = accommod.create_list_date_showers(day)
+    accommod_summary_date = accommod.give_number_of_accommodations(day)
+    shower_summary_date = accommod.give_number_of_showers(day)
+    list_accommodation_for_date = accommod.create_list_accommodations_for_date(day)
+    list_showers_for_date = accommod.create_list_showers_for_date(day)
     return render_template('index.html', accommod_summary_date=accommod_summary_date, day=day[-1],
-                           shower_summary_date=shower_summary_date, list_date_accommod=list_date_accommod,
-                           list_date_showers=list_date_showers)
+                           shower_summary_date=shower_summary_date, list_accommodation_for_date=list_accommodation_for_date,
+                           list_showers_for_date=list_showers_for_date)
 
 
 @app.route('/dodaj-nocleg/', methods=['POST', 'GET'])
@@ -154,7 +154,7 @@ def delete_pilgrim():
 def give_accommodation():
     service_pilgrim_list = pilgrim_object.create_service_pilgrim_list()
     normal_pilgrim_list = pilgrim_object.create_normal_pilgrim_list()
-    list_date_accommod = accommod.create_list_date_accommod(day)
+    list_accommodation_for_date = accommod.create_list_accommodations_for_date(day)
     if request.method == "POST":
         df = pd.DataFrame(list(request.form.items()), columns=['OSOBA', 'NOCLEG'])
         buffer = io.BytesIO()
@@ -165,4 +165,4 @@ def give_accommodation():
             'Content-type': 'application/vnd.ms-excel'}
         return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)
     return render_template("give-accommodation.html", day=day[-1], service_pilgrim_list=service_pilgrim_list,
-                           normal_pilgrim_list=normal_pilgrim_list, list_date_accommod=list_date_accommod)
+                           normal_pilgrim_list=normal_pilgrim_list, list_accommodation_for_date=list_accommodation_for_date)
