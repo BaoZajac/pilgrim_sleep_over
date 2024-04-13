@@ -1,8 +1,5 @@
-from main import read_file
+from main import read_file, ACCOMMODATION_JSON_OBJECT_PATH
 import datetime
-
-
-ACCOMMODATION_CLASS_PATH = "accommodation/accommodation.json"
 
 
 class Accommodation:
@@ -69,12 +66,12 @@ class Accommodation:
         return list_accommodation_shower_for_date
 
     def create_list_accommodations_for_date(self, date):
-        list_accommodation_for_date = []
+        list_accommodations_for_date = []
         for el in self.create_list_accommodation_shower_for_date(date):
             accommodation_quantity = el[7]
             if accommodation_quantity > 0:
-                list_accommodation_for_date.append(el)
-        return list_accommodation_for_date
+                list_accommodations_for_date.append(el)
+        return list_accommodations_for_date
 
     def give_number_of_accommodations(self, date):
         sum_of_houses_with_accommodations = 0
@@ -105,4 +102,5 @@ class Accommodation:
         return list_showers_for_date
 
 
-accommodations = Accommodation(ACCOMMODATION_CLASS_PATH)
+accommodation_object = Accommodation(ACCOMMODATION_JSON_OBJECT_PATH)
+

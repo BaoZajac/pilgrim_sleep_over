@@ -1,7 +1,7 @@
-from main import read_file
+from main import read_file, PILGRIM_JSON_OBJECT_PATH
 
 
-PILGRIM_JSON_OBJECT_PATH = "pilgrim/pilgrims.json"
+# PILGRIM_JSON_OBJECT_PATH = "pilgrim/pilgrims.json"
 PILGRIM_WITH_FUNCTION_TEXT = "funkcyjni"
 
 
