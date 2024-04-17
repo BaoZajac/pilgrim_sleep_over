@@ -58,10 +58,10 @@ def edit_accommodation():
     if request.method == "POST":
         data_accommodation = ao.accommodation_base_json
         _id = request.form["id"]
-        accommod_info = dict(request.form)
-        del accommod_info["id"]
-        accommod_info = list(accommod_info.values())
-        data_accommodation[_id] = accommod_info
+        stay_info = dict(request.form)
+        del stay_info["id"]
+        stay_info = list(stay_info.values())
+        data_accommodation[_id] = stay_info
         write_file(data_accommodation, ACCOMMODATION_JSON_OBJECT_PATH)
         return redirect('/noclegi/')
     accommodation_id = request.args["accommodation-id"]
@@ -86,7 +86,7 @@ def delete_accommodation():
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
 def pilgrim():
-    data_pilgrims = read_file(PILGRIM_JSON_OBJECT_PATH)
+    data_pilgrims = po.data_pilgrims
     if request.method == "POST":
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
@@ -94,7 +94,7 @@ def pilgrim():
         role = request.form["role"]
         if role == "":
             role = "-"
-        accommodations = request.form["accommodation"]
+        last_stay = request.form["accommodation"]
         gender = request.form["gender"]
         if data_pilgrims.keys():
             pilgrims_list = list(data_pilgrims.keys())
@@ -102,7 +102,7 @@ def pilgrim():
             pilgrim_id = max(pilgrims_list) + 1
         else:
             pilgrim_id = 1
-        data_pilgrims[pilgrim_id] = last_name, given_name, gender, small_group, role, accommodations
+        data_pilgrims[pilgrim_id] = last_name, given_name, gender, small_group, role, last_stay
         write_file(data_pilgrims, PILGRIM_JSON_OBJECT_PATH)
         return redirect('/pielgrzymi/')
     data_pilgrims_list = list(data_pilgrims.items())
