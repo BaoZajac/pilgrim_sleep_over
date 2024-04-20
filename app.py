@@ -86,7 +86,7 @@ def delete_accommodation():
 
 @app.route('/pielgrzymi/', methods=['GET', 'POST'])
 def pilgrim():
-    data_pilgrims = po.data_pilgrims
+    data_pilgrims = read_file(PILGRIM_JSON_OBJECT_PATH)
     if request.method == "POST":
         last_name = request.form["last_name"]
         given_name = request.form["given_name"]
@@ -125,10 +125,10 @@ def edit_pilgrim():
         return redirect('/pielgrzymi/')
     pilgrim_id = request.args["pilgrim-id"]
     data_single_pilgrim = read_file(PILGRIM_JSON_OBJECT_PATH)[pilgrim_id]
-    small_group = data_single_pilgrim[3]
-    if small_group != "funkcyjni":
-        small_group = int(small_group)
-    list_groups.remove(small_group)
+    # small_group = data_single_pilgrim[3]
+    # if small_group != "funkcyjni":
+    #     small_group = int(small_group)
+    # list_groups.remove(small_group)
     role_pilg = data_single_pilgrim[4]
     list_roles.remove(role_pilg)
     return render_template("edit-pilgrim.html", data_single_pilgrim=data_single_pilgrim, pilgrim_id=pilgrim_id,
